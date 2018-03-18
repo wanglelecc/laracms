@@ -1,0 +1,73 @@
+a:hover {
+  text-decoration: none;
+}
+
+.layui-nav-child dd {
+  line-height: 36px;
+}
+
+.administrator-login-body,
+.administrator-register-body {
+  background-color: #324157;
+}
+
+.administrator-login-body .login-title,
+.administrator-register-body .login-title {
+  font-size: 30px;
+  color: #FFF;
+  text-align: center;
+}
+
+.administrator-login-body .grid-login,
+.administrator-register-body .grid-login {
+  margin-top: 30px;
+  background-color: #FFF;
+  padding: 30px 30px 10px;
+}
+
+.administrator-login-body .thumbnail,
+.administrator-register-body .thumbnail {
+  margin-bottom: 0px;
+  padding: 0px;
+  border: none;
+}
+
+.administrator-login-body .layui-inline,
+.administrator-register-body .layui-inline {
+  margin-right: 0px;
+  margin-bottom: 0px;
+}
+
+.administrator-login-body .layui-unselect,
+.administrator-register-body .layui-unselect {
+  margin-top: 0px;
+  margin-left: 0px;
+}
+
+.administrator-permission-denied-body {
+  background-color: #24262F;
+  text-align: center;
+  color: #e2e2e2;
+}
+
+.administrator-permission-denied-body .alone-banner h1 {
+  font-size: 35px;
+}
+
+.administrator-permission-denied-body .alone-banner p {
+  padding-top: 20px;
+  color: #e2e2e2;
+}
+
+.administrator-permission-denied-body .alone-preview {
+  margin-top: 30px;
+}
+
+.administrator-permission-denied-body .alone-preview .layui-btn {
+  width: 206px;
+  height: 60px;
+  line-height: 60px;
+  font-size: 26px;
+  font-weight: 300;
+}
+

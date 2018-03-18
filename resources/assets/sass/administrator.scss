@@ -1,0 +1,75 @@
+
+// Fonts
+
+// Bootstrap
+//@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+a:hover{
+  text-decoration: none;
+}
+
+.layui-nav-child{
+  dd{
+    line-height: 36px;
+  }
+}
+
+.administrator-login-body, .administrator-register-body{
+  background-color: #324157;
+
+  .login-title{
+    font-size: 30px;
+    color: #FFF;
+    text-align: center;
+  }
+
+  .grid-login{
+    margin-top:30px;
+    background-color: #FFF;
+    padding:30px 30px 10px;
+  }
+
+  .thumbnail{
+    margin-bottom: 0px;
+    padding:0px;
+    border:none;
+  }
+
+  .layui-inline{
+    margin-right:0px;
+    margin-bottom:0px;
+  }
+
+  .layui-unselect{
+    margin-top: 0px;
+    margin-left: 0px;
+  }
+}
+
+.administrator-permission-denied-body{
+
+  background-color: #24262F;
+  text-align: center;
+  color:#e2e2e2;
+
+  .alone-banner h1{
+    font-size: 35px;
+  }
+
+  .alone-banner p{
+    padding-top:20px;
+    color:#e2e2e2;
+  }
+
+  .alone-preview{
+    margin-top: 30px;
+
+    .layui-btn{
+      width: 206px;
+      height: 60px;
+      line-height: 60px;
+      font-size: 26px;
+      font-weight: 300;
+    }
+  }
+}
