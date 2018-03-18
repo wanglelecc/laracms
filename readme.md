@@ -21,7 +21,7 @@ composer update
 php artisan migrate
 php artisan db:seed
 ```
-执行完就可以访问了。
+执行完就可以访问了（要先配置好虚拟主机）。
 http://<example.com>/administrator
 
 > 注：要先配置好数据库，默认用户: admin@56br.com / 123456
