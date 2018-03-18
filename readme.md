@@ -8,9 +8,9 @@ LaraCMS 是在学习 laravel 过程中产生的一个业余作品，试图通过
 
 ### 预览
 
-<p><img src="./public/images/laracms-login.jpg"></p>
-<p><img src="./public/images/laracms-main.jpg"></p>
-<p><img src="./public/images/laracms.jpg"></p>
+<p><img src="http://img.56br.com/images/laracms-login.jpg"></p>
+<p><img src="http://img.56br.com/images/laracms-main.jpg"></p>
+<p><img src="http://img.56br.com/images/laracms.jpg"></p>
 
 > UI 使用的 LayUI, 前端Logo还未来得及更改，请无视。
 
