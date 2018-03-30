@@ -90,7 +90,7 @@ class WechatMenuHandler
                 break;
             case 'content':
                 $tmp['type'] = 'click';
-                $tmp['url'] = 'm_'.$menu->id;
+                $tmp['key'] = 'm_'.$menu->id;
                 break;
             case 'media_id':
                 $tmp['type'] = 'media_id';

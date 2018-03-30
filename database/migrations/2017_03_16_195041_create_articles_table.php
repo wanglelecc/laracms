@@ -25,7 +25,7 @@ class CreateArticlesTable extends Migration
             $table->string("source",50)->nullable()->comment('文章来源');
 //            $table->integer("category_id")->comment('分类id');
             $table->text("content")->comment('文章内容');
-            $table->string("thumb",190)->nullable()->comment('封面');
+            $table->string("thumb",255)->nullable()->comment('封面');
             $table->enum("is_link",[0,1])->default(0)->comment('isLink');
             $table->string("link",255)->nullable()->comment('Link');
             $table->string("type",30)->comment('类型');

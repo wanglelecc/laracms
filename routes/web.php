@@ -135,4 +135,4 @@ Route::post('upload/image', 'UploadController@image')->name('upload.image');
 //Route::resource('projects', 'ProjectsController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 Route::resource('projects', 'ProjectsController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 // 微信路由
-Route::any('wechat/{wechat}.html', 'WeChatController@serve')->name('wechat.api');
+Route::any('wechat/{safeWechat}.html', 'WeChatController@serve')->name('wechat.api');

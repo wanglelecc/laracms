@@ -12,6 +12,8 @@ use Carbon\Carbon;
 use Cache;
 use DB;
 use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
+
 
 trait WithCommonHelper
 {
@@ -38,5 +40,9 @@ trait WithCommonHelper
 
     public function getThumb(){
         return $this->thumb ? Storage::url($this->thumb) : config('app.url') . '/images/pic-none.png';
+    }
+
+    public function scopeValid(){
+        return $this->where('status','1');
     }
 }

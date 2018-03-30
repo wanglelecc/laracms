@@ -15,9 +15,10 @@ mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
    .js('resources/assets/js/administrator.js', 'public/js')
    .sass('resources/assets/sass/administrator.scss', 'public/css')
+   .js('resources/assets/js/app.desktop.js', 'public/js')
+   .sass('resources/assets/sass/app.desktop.scss', 'public/css')
    .copyDirectory('resources/assets/layui', 'public/layui')
-   .copyDirectory('resources/assets/editor/js', 'public/js')
-   .copyDirectory('resources/assets/editor/css', 'public/css')
+   .copyDirectory('resources/assets/plugins', 'public/plugins')
    .copyDirectory('resources/assets/images', 'public/images')
    ;
 

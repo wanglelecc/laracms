@@ -13,7 +13,7 @@ class CreateLinksTable extends Migration
             $table->string('description',255)->nullable()->comment('友情链接描述');
             $table->string('url',255)->comment('友情链接地址');
             $table->integer('rating')->default(0)->comment('友情链接评级');
-            $table->string('icon',255)->nullable()->comment('友情链接图标');
+            $table->string('image',255)->nullable()->comment('友情链接图标');
             $table->string('target',32)->comment('友情链接打开方式');
             $table->string('rel')->nullable()->comment('链接与网站的关系');
             $table->integer('order')->default(999)->comment('排序');

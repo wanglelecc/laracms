@@ -43,6 +43,16 @@
 
             @if($link->id)
             <div class="layui-form-item">
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn" id="upload_image">图片</button>
+                    <input type="hidden" name="image" id="form_image" value="{{ old('image',$link->image) }}" />
+                    <div class="layui-upload-list">
+                        <img class="layui-upload-img" src="{{ $link->getImage() }}" id="image_image" style="max-width: 720px;" _height="280">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
                 <label class="layui-form-label">评级</label>
                 <div class="layui-input-block">
                     <input type="number" name="rating" lay-verify="required" autocomplete="off" placeholder="请输入评级" class="layui-input" value="{{ old('rating',$link->rating) }}" >
@@ -92,4 +102,30 @@
 @endsection
 
 @section('scripts')
+    <script type="text/javascript">
+        layui.use('upload', function(){
+            var upload = layui.upload;
+
+            //执行实例
+            var uploadInst = upload.render({
+                elem: '#upload_image' // 绑定元素
+                ,url: '{{ route('upload.image') }}?folder=link&object_id={{$link->id ?? 0}}' // 上传接口
+                ,field: 'upload_file'
+                ,done: function(res){
+                    if(res.success == true){
+                        $("#form_image").val(res.file_uri);
+                        $("#image_image").attr("src",res.file_path);
+                    }
+                    //上传完毕回调
+                    console.log(res);
+                }
+                ,error: function(){
+                    //请求异常回调
+                    layer.alert('上传失败，请重试!', 2);
+                }
+            });
+        });
+
+     </script>
+
 @endsection

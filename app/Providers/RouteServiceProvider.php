@@ -28,6 +28,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('safePage',function($value){ return \App\Models\Page::where('id', $value)->where('type','page')->where('status','1')->first(); });
         Route::bind('safeArticle',function($value){ return \App\Models\Article::where('id', $value)->where('type','article')->where('status','1')->first(); });
         Route::bind('articleCategory',function($value){ return \App\Models\Category::where('id', $value)->where('type','article')->first(); });
+        Route::bind('safeWechat',function($value){ return \App\Models\Wechat::where('object_id', $value)->first(); });
     }
 
     /**

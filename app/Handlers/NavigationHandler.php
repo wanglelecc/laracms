@@ -77,7 +77,7 @@ class NavigationHandler
      * @return mixed
      */
     public function getPageList(){
-        return app(Page::class)->filterWith()->ordered()->recent()->where('status','=', 1)->get()->pluck('title','id')->toArray();
+        return app(Page::class)->filterWith()->ordered()->recent()->where('status','=', '1')->get()->pluck('title','id')->toArray();
     }
 
     /**

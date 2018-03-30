@@ -54,12 +54,12 @@ class WechatMenusController extends Controller
 		return redirect()->route('wechat_menus.index',$wechat->id)->with('success', '更新成功.');
 	}
 
-	public function destroy(WechatMenu $wechat_menu)
+	public function destroy(WechatMenu $wechat_menu, Wechat $wechat)
 	{
 		$this->authorize('destroy', $wechat_menu);
 		$wechat_menu->delete();
 
-		return redirect()->route('wechat_menus.index')->with('success', '删除成功.');
+		return redirect()->route('wechat_menus.index', $wechat->id)->with('success', '删除成功.');
 	}
 
     public function order(WechatMenu $wechat_menu, $wechat){
@@ -81,7 +81,11 @@ class WechatMenusController extends Controller
     public function synchronizeWechatServer(Wechat $wechat, WechatMenuHandler $handler){
         $buttons = $handler->withRecursionWeixinServer(WechatMenu::where('group',$wechat->id)->ordered()->recent('asc')->get());
         $app = Factory::officialAccount(['app_id'=>$wechat->app_id,'secret'=>$wechat->app_secret]);
-        $app->menu->create($buttons);
-        return redirect()->route('wechat_menus.index',$wechat->id)->with('success', '成功同步到微信服务器.');
+        $result = $app->menu->create($buttons);
+        if($result['errcode'] == 0){
+            return redirect()->route('wechat_menus.index',$wechat->id)->with('success', '成功同步到微信服务器.');
+        }else{
+            return redirect()->route('wechat_menus.index',$wechat->id)->with('danger', '同步失败！原因('.$result['errcode'].')：'.$result['errmsg']);
+        }
     }
 }

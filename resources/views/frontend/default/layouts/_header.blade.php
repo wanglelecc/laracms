@@ -28,7 +28,7 @@ $currentChildNavigations = frontend_current_child_navigation('desktop');
         </ul>
 
         <ul class="layui-nav fly-nav-user">
-            <li class="layui-nav-item"><a href="{{route('login')}}">登录</a></li>
+            <li class="layui-nav-item"><a href="" _href="{{route('login')}}">登录</a></li>
             <li class="layui-nav-item"><a href="">退出</a></li>
         </ul>
     </div>

@@ -20,7 +20,7 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'password' => '123456', // secret
         'remember_token' => str_random(10),
         'status' => '0',
-        'introduction' => 'Codiing 改变世界！',
+        'introduction' => 'Coding 改变世界！',
         'created_at' => date('Y-m-d H:i:s'),
         'updated_at' => date('Y-m-d H:i:s'),
     ];

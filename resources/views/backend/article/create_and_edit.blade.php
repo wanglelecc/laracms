@@ -83,6 +83,17 @@
             </div>
 
             @if($article->id)
+
+            <div class="layui-form-item">
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn" id="upload_thumb">预览图</button>
+                    <input type="hidden" name="thumb" id="form_thumb" value="{{ old('image',$article->thumb) }}" />
+                    <div class="layui-upload-list">
+                        <img class="layui-upload-img" src="{{ $article->getThumb() }}" id="image_image" style="max-width: 520px;" _height="280">
+                    </div>
+                </div>
+            </div>
+
             <div class="layui-form-item">
                 <label class="layui-form-label">排序</label>
                 <div class="layui-input-block">
@@ -152,7 +163,7 @@
 @stop
 
 @section('scripts')
-    <script src="{{asset('js/vue.js')}}"></script>
+    <script src="{{asset('js/app.js')}}"></script>
     <script type="">
         var app = new Vue({
             el: '#app',
@@ -177,6 +188,29 @@
                     return new Array(n+1).join(str);
                 }
             }
+        });
+
+        layui.use('upload', function(){
+            var upload = layui.upload;
+
+            //执行实例
+            var uploadInst = upload.render({
+                elem: '#upload_thumb' // 绑定元素
+                ,url: '{{ route('upload.image') }}?folder=article&object_id={{$article->id ?? 0}}' // 上传接口
+                ,field: 'upload_file'
+                ,done: function(res){
+                    if(res.success == true){
+                        $("#form_thumb").val(res.file_uri);
+                        $("#image_image").attr("src",res.file_path);
+                    }
+                    //上传完毕回调
+                    console.log(res);
+                }
+                ,error: function(){
+                    //请求异常回调
+                    layer.alert('上传失败，请重试!', 2);
+                }
+            });
         });
 
     </script>
