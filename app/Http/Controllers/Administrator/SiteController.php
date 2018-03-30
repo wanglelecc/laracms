@@ -26,7 +26,7 @@ class SiteController extends Controller
      */
     public function basicStore(Request $request, Setting $setting){
         $this->authorize('basic', $setting);
-        $data = $request->only('name', 'copyright','keywords','index_keywords','slogan','icp','icp_link','meta','description','statistics');
+        $data = $request->only('name', 'create_year', 'copyright','keywords','index_keywords','slogan','icp','icp_link','meta','description','statistics');
         $setting->store($data,'basic','common','system');
 
         return redirect()->route('administrator.site.basic')->with('success', '保存成功.');

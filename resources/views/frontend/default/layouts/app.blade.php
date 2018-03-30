@@ -18,7 +18,8 @@
         <!-- Styles -->
         <link href="{{asset('layui/css/layui.css')}}" rel="stylesheet" type="text/css">
         <link href="{{asset('css/app.desktop.css')}}" rel="stylesheet" type="text/css">
-        <link rel="apple-touch-icon" href="/favicon.png">
+        <link rel="apple-touch-icon" href="/favicon.ico">
+        <link rel="shortcut icon" href=" /favicon.ico" />
         @yield('styles')
     </head>
     <body  class="{{ route_class() }}-body">
@@ -36,7 +37,6 @@
             </div>
 
             @include('frontend.default.layouts._footer')
-
         </div>
 
         <!-- Scripts -->
@@ -48,5 +48,7 @@
         @include('frontend.default.layouts._error')
 
         @yield('scripts')
+
+        @include('frontend.default.layouts._statistics')
     </body>
 </html>
