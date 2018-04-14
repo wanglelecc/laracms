@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Support\Facades\Storage;
+use App\Events\BehaviorLogEvent;
 
 class Link extends Model
 {
@@ -12,4 +13,11 @@ class Link extends Model
         return $this->image ? Storage::url($this->image) : config('app.url') . '/images/pic-none.png';
     }
 
+    public $dispatchesEvents  = [
+        'saved' => BehaviorLogEvent::class,
+    ];
+
+    public function titleName(){
+        return 'name';
+    }
 }

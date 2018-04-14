@@ -2,6 +2,8 @@
 
 namespace App\Models;
 use App\Models\Traits\WithCommonHelper;
+use App\Events\BehaviorLogEvent;
+
 
 class Page extends Model
 {
@@ -16,6 +18,14 @@ class Page extends Model
     protected $fillable = [
         'id', 'object_id', 'alias','title', 'subtitle', 'keywords', 'description', 'author', 'source', 'order', 'content', 'thumb', 'type', 'is_link','link', 'template', 'status', 'views', 'weight', 'css', 'js', 'top', 'created_op', 'updated_op',
     ];
+
+    public $dispatchesEvents  = [
+        'saved' => BehaviorLogEvent::class,
+    ];
+
+    public function titleName(){
+        return 'title';
+    }
 
 //    public function hasOneCategory(){
 //        return $this->hasOne('App\Models\Category', 'id', 'category_id');

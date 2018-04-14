@@ -125,6 +125,8 @@ return [
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
+    'log_max_files' => 30,
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -168,6 +170,8 @@ return [
          * Package Service Providers...
          */
         App\Providers\EasySmsServiceProvider::class,
+        SocialiteProviders\Manager\ServiceProvider::class,
+//        TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -177,6 +181,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\ScoutServiceProvider::class,
 
     ],
 

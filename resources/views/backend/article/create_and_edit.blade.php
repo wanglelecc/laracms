@@ -190,7 +190,8 @@
             }
         });
 
-        layui.use('upload', function(){
+        layui.use(['upload','form'], function(){
+            var form = layui.form;
             var upload = layui.upload;
 
             //执行实例
@@ -211,7 +212,11 @@
                     layer.alert('上传失败，请重试!', 2);
                 }
             });
+
+            form.render();
         });
+
+
 
     </script>
 

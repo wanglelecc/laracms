@@ -77,7 +77,7 @@ class ArticlesController extends Controller
         $this->authorize('update', $article);
         $article->update($request->all());
         $article->syncCategory($request->category_id ?? []);
-        return redirect()->route('articles.index')->with('danger','aaaaa')->with('success', '更新成功.');
+        return redirect()->route('articles.index')->with('success', '更新成功.');
     }
 
     public function destroy(Article $article)

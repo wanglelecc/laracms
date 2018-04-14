@@ -2,17 +2,47 @@
 
 namespace App\Models;
 
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\Traits\WithCommonHelper;
+//use App\Models\Traits\WithBehaviorLogTraits;
+use App\Events\BehaviorLogEvent;
+
 
 class Article extends Model
 {
     use WithCommonHelper;
+    use Searchable;
+//    use WithBehaviorLogTraits;
+    public $dispatchesEvents  = [
+        'saved' => BehaviorLogEvent::class,
+    ];
+
+    public function titleName(){
+        return 'title';
+    }
+
+    public $asYouType = true;
 
     protected $fillable = [
-         'id','object_id', 'alias','title', 'subtitle', 'keywords', 'description', 'author', 'source', 'order', 'content', 'thumb', 'type', 'is_link','link', 'template', 'status', 'views', 'weight', 'css', 'js', 'top', 'created_op', 'updated_op',
+         'id','object_id', 'alias','title', 'subtitle', 'keywords', 'description', 'author', 'source', 'order', 'content', 'thumb', 'type', 'is_link','link', 'template', 'status', 'views', 'reply_count', 'weight', 'css', 'js', 'top', 'created_op', 'updated_op',
     ];
+
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        // Customize array...
+//        unset($array['content']);
+
+        return $array;
+    }
+
+
+    public function user(){
+        return $this->created_user();
+    }
 
     public function created_user(){
         return $this->belongsTo('App\Models\User', 'created_op');
@@ -24,6 +54,11 @@ class Article extends Model
 
     public function filterWith($type = 'type'){
         return $this->where('type','article')->with(['created_user','updated_user']);
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
     }
 
     // 多对多多态关联

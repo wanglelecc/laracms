@@ -32,6 +32,10 @@ class UserPolicy extends Policy
     }
 
     public function destroy(User $currentUser, User $user){
+        // 系统创始人和当前登录用户禁止删除
+        if($currentUser->id === $user->id || $user->id === 1){
+            return false;
+        }
         return $currentUser->can('manage_users');
     }
 

@@ -5,11 +5,21 @@ namespace App\Models;
 use EasyWeChat\Kernel\Messages\Text;
 use EasyWeChat\Kernel\Messages\News;
 use EasyWeChat\Kernel\Messages\NewsItem;
+use App\Events\BehaviorLogEvent;
+
 
 class WechatResponse extends Model
 {
     public $table = 'wechat_response';
     protected $fillable = ['wechat_id', 'key', 'group', 'type', 'source', 'content'];
+
+    public $dispatchesEvents  = [
+        'saved' => BehaviorLogEvent::class,
+    ];
+
+    public function titleName(){
+        return 'key';
+    }
 
     public function handle(){
         switch (strtolower($this->type)){

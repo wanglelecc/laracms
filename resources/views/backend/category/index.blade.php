@@ -75,4 +75,30 @@
 @endsection
 
 @section('scripts')
+
+    <script>
+        layui.use(['laypage', 'layer'], function(){
+            var laypage = layui.laypage
+                ,layer = layui.layer;
+
+            $(".form-delete").click(function(){
+
+                var tUrl = $(this).attr('data-url');
+
+                layer.confirm('确认删除吗？', {
+                    btn: ['确认', '取消']
+                }, function(index){
+                    $("#delete-form").attr("action",tUrl).submit();
+                    console.log(tUrl);
+                    layer.close(index);
+                    return false;
+                }, function(index){
+                    layer.close(index);
+                    return true;
+                });
+
+                return false;
+            });
+        });
+    </script>
 @endsection

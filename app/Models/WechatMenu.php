@@ -5,11 +5,21 @@ namespace App\Models;
 use EasyWeChat\Kernel\Messages\Text;
 use EasyWeChat\Kernel\Messages\News;
 use EasyWeChat\Kernel\Messages\NewsItem;
+use App\Events\BehaviorLogEvent;
+
 
 class WechatMenu extends Model
 {
     public $table = 'wechat_menu';
     protected $fillable = ['group', 'parent', 'name', 'type', 'data', 'order'];
+
+    public $dispatchesEvents  = [
+        'saved' => BehaviorLogEvent::class,
+    ];
+
+    public function titleName(){
+        return 'name';
+    }
 
     public function handle(){
         switch (strtolower($this->type)){

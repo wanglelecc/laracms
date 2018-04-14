@@ -29,7 +29,8 @@ class CreateArticlesTable extends Migration
             $table->enum("is_link",[0,1])->default(0)->comment('isLink');
             $table->string("link",255)->nullable()->comment('Link');
             $table->string("type",30)->comment('类型');
-            $table->integer("views")->default(0)->comment("浏览数");
+            $table->unsignedInteger("reply_count")->default(0)->comment("回复量");
+            $table->unsignedInteger("views")->default(0)->comment("浏览数");
             $table->integer("order")->default(0)->comment("排序");
             $table->integer("weight")->default(0)->comment("权重");
             $table->string("template")->nullable()->comment('模板');

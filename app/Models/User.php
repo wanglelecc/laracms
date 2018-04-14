@@ -2,18 +2,18 @@
 
 namespace App\Models;
 
+use Auth;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\Traits\WithOrderHelper;
+use App\Events\BehaviorLogEvent;
+
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable;
-    use HasRoles;
-    use WithOrderHelper;
 
     /**
      * The attributes that are mass assignable.
@@ -21,8 +21,16 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'id','name', 'phone', 'email', 'password', 'avatar', 'introduction', 'status', 'weixin_openid', 'weixin_unionid'
+        'id','name', 'phone', 'email', 'password', 'avatar', 'introduction', 'status', 'weixin_openid', 'weixin_unionid', 'weibo_id', 'qq_id', 'last_ip', 'last_location', 'last_time',
     ];
+
+//    public $dispatchesEvents  = [
+//        'saved' => BehaviorLogEvent::class,
+//    ];
+//
+    public function titleName(){
+        return 'name';
+    }
 
     /**
      * The attributes that should be hidden for arrays.
@@ -32,6 +40,40 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    use HasRoles;
+    use WithOrderHelper;
+    use Notifiable{
+        notify as protected laravelNotify;
+    }
+
+    public function notify($instance)
+    {
+        // 如果要通知的人是当前用户，就不必通知了！
+        if ($this->id == Auth::id()) {
+            return;
+        }
+        $this->increment('notification_count');
+        $this->laravelNotify($instance);
+    }
+
+    public function isAuthorOf($model)
+    {
+        return $this->id == $model->user_id;
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
+
+    public function markAsRead()
+    {
+        $this->notification_count = 0;
+        $this->save();
+        $this->unreadNotifications->markAsRead();
+    }
+
 
     public function getJWTIdentifier()
     {
@@ -68,8 +110,15 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public function getAvatar(){
-        return $this->avatar ? Storage::url($this->avatar) : config('app.url') . '/images/avatar.jpg';
+
+        if ( ! starts_with($this->avatar, 'http')) {
+            // 拼接完整的 URL
+            $this->avatar = $this->avatar ? Storage::url($this->avatar) : config('app.url') . '/images/avatar.jpg';
+        }
+
+        return $this->avatar;
     }
+
 
 
 }

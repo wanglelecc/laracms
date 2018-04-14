@@ -40,4 +40,9 @@ class ArticleObserver
 //        dump($article->category_id); exit;
 //        $article->categorys()->sync($article->category_id);
     }
+
+    public function deleted(Topic $topic)
+    {
+        \DB::table('replies')->where('article_id', $topic->id)->delete();
+    }
 }

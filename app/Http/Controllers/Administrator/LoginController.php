@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administrator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Http\Requests\Administrator\LoginRequest;
 
 class LoginController extends Controller
 {
@@ -38,6 +39,18 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         return backend_view('login');
+    }
+
+    protected function validateLogin(Request $request)
+    {
+        $this->validate($request, [
+            $this->username() => 'required|string',
+            'password' => 'required|string',
+            'captcha' => 'required|captcha',
+        ],[
+            'captcha.required' => '验证码不能为空.',
+            'captcha.captcha' => '验证码错误.',
+        ]);
     }
 
     protected function credentials(Request $request)

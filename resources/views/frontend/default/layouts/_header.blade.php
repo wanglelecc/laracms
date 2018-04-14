@@ -28,14 +28,46 @@ $currentChildNavigations = frontend_current_child_navigation('desktop');
         </ul>
 
         <ul class="layui-nav fly-nav-user">
-            <li class="layui-nav-item"><a href="" _href="{{route('login')}}">登录</a></li>
-            <li class="layui-nav-item"><a href="">退出</a></li>
+            @guest
+            <li class="layui-nav-item"><a href="{{route('login')}}">登录</a></li>
+            <li class="layui-nav-item"><a href="{{route('register')}}">注册</a></li>
+            <li class="layui-nav-item layui-hide-xs">
+                <a href="{{route('oauth.login','qq')}}" onclick="layer.msg('正在通过QQ登录', {icon:16, shade: 0.1, time:0})" title="QQ登入" class="iconfont icon-qq"></a>
+            </li>
+            <li class="layui-nav-item layui-hide-xs">
+                <a href="{{route('oauth.login','weibo')}}" onclick="layer.msg('正在通过微博登录', {icon:16, shade: 0.1, time:0})" title="微博登入" class="iconfont icon-weibo"></a>
+            </li>
+            @else
+            <li class="layui-nav-item" style="margin-right: 15px;">
+                <a href="{{ route('user.messages') }}" style="margin-top: -2px;">
+                    <i class="layui-badge fly-badge-{{ Auth::user()->notification_count > 0 ? 'hint' : 'fade' }} " title="消息提醒">{{ Auth::user()->notification_count }}</i>
+                </a>
+            </li>
+            <li class="layui-nav-item">
+                <a class="fly-nav-avatar" href="javascript:;">
+                    <cite class="layui-hide-xs">{{ Auth::user()->name }}</cite>
+                    <img src="{{ Auth::user()->getAvatar() }}">
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="{{route('user.settings')}}"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
+                    <dd><a href="{{route('user.messages')}}"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
+                    <dd><a href="{{route('user.home', Auth::user()->id )}}"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
+                    <hr style="margin:5px 0;">
+                    <dd><a href="{{route('logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" style="text-align: center;">退出</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </dd>
+                </dl>
+            </li>
+            @endguest
         </ul>
+
     </div>
 </div>
 
 
-
+@if($breadcrumb ?? true)
 <div class="fly-panel fly-column">
     <div class="layui-container">
         @include('frontend.default.layouts._breadcrumb')
@@ -57,3 +89,4 @@ $currentChildNavigations = frontend_current_child_navigation('desktop');
         {{--</div>--}}
     </div>
 </div>
+@endif

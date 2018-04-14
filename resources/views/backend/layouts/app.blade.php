@@ -31,7 +31,7 @@
                 <div class="">
                 @yield('tab')
 
-                @include('backend.layouts._breadcrumb')
+                @includeWhen($breadcrumb ?? true, 'backend.layouts._breadcrumb')
 
                 @yield('content')
 

@@ -28,6 +28,8 @@ class AppServiceProvider extends ServiceProvider
 		\App\Models\Slide::observe(\App\Observers\SlideObserver::class);
 		\App\Models\File::observe(\App\Observers\FileObserver::class);
 		\App\Models\WechatResponse::observe(\App\Observers\WechatResponseObserver::class);
+		\App\Models\Reply::observe(\App\Observers\ReplyObserver::class);
+		\App\Models\Log::observe(\App\Observers\LogObserver::class);
 
         //
         \Carbon\Carbon::setLocale('zh');

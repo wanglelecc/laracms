@@ -33,7 +33,10 @@
                                 <a href="javascript:void(0);" link=""> <cite>{{ $article->getAuthor()  }}</cite> </a>
                                 <span>{{ $article->getDate()  }}</span>
                                 {{--<span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> 20</span>--}}
-                                <span class="fly-list-nums"> <i class="iconfont" title="阅读"></i> {{$article->views}} </span>
+                                <span class="fly-list-nums">
+                                    <i class="iconfont icon-pinglun1" title="回答"></i> {{ $article->reply_count }}
+                                    <i class="iconfont" title="阅读"></i> {{$article->views}}
+                                </span>
                             </div>
                             <div class="fly-list-badge"></div>
                         </li>

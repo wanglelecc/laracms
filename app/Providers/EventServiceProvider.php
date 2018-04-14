@@ -15,12 +15,34 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         \SocialiteProviders\Manager\SocialiteWasCalled::class => [
             // add your listeners (aka providers) here
-            'SocialiteProviders\Weixin\WeixinExtendSocialite@handle'
+            'SocialiteProviders\Weixin\WeixinExtendSocialite@handle',
+            'SocialiteProviders\WeixinWeb\WeixinWebExtendSocialite@handle',
+            'SocialiteProviders\QQ\QqExtendSocialite@handle',
+            'SocialiteProviders\Weibo\WeiboExtendSocialite@handle',
+        ],
+
+        'App\Events\BehaviorLogEvent' => [
+            'App\Listeners\BehaviorLogListener',
         ],
 
         'App\Events\Event' => [
             'App\Listeners\EventListener',
         ],
+
+
+
+//        'Illuminate\Auth\Events\Login' => [
+//            'App\Listeners\UserEventSubscriber@onUserLogin'
+//        ],
+    ];
+
+    /**
+     * 需要注册的订阅者类。
+     *
+     * @var array
+     */
+    protected $subscribe = [
+        'App\Listeners\UserEventSubscriber',
     ];
 
     /**

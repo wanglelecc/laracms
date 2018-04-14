@@ -60,7 +60,7 @@ class Handler extends ExceptionHandler
     protected function unauthenticated($request, AuthenticationException $exception)
     {
         $action = $request->route()->getAction();
-        $redirectUrl = (config('administrator.domain') == $action['domain']) || ('/'. config('administrator.domain') == $action['prefix']) ?
+        $redirectUrl = (isset($action['domain']) && config('administrator.domain') == $action['domain']) || ( isset($action['prefix']) && '/'. config('administrator.domain') == $action['prefix']) ?
             route('administrator.login') : route('login');
 
         return $request->expectsJson()

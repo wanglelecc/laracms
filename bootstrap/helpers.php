@@ -372,3 +372,81 @@ function is_mobile()
     }
     return FALSE;
 }
+
+/**
+ * 记录日志
+ *
+ * @param $group 'laravel','jobs','queue','behavior','business'
+ * @param $type
+ * @param $description
+ * @param null $model
+ * @return mixed
+ */
+function laracms_log($group, $type, $description, $model = null){
+   return \App\Models\Log::create([
+       'group'          => $group,
+       'type'           => $type,
+       'description'    => $description,
+       'model'          => $model,
+   ]);
+}
+
+/**
+ * laravel 日志记录
+ *
+ * @param $type
+ * @param $description
+ * @param null $model
+ * @return mixed
+ */
+function laravel_log($type, $description, $model = null){
+    return laracms_log('laravel', $type, $description, $model);
+}
+
+/**
+ * 任务日志记录
+ *
+ * @param $type
+ * @param $description
+ * @param null $model
+ * @return mixed
+ */
+function jobs_log($type, $description, $model = null){
+    return laracms_log('jobs', $type, $description, $model);
+}
+
+/**
+ * 队列日志记录
+ *
+ * @param $type
+ * @param $description
+ * @param null $model
+ * @return mixed
+ */
+function queue_log($type, $description, $model = null){
+    return laracms_log('queue', $type, $description, $model);
+}
+
+/**
+ * 行为日志记录
+ *
+ * @param $type
+ * @param $description
+ * @param null $model
+ * @return mixed
+ */
+function behavior_log($type, $description, $model = null){
+    return laracms_log('behavior', $type, $description, $model);
+}
+
+/**
+ * 记录业务日志
+ *
+ * @param $type
+ * @param $description
+ * @param null $model
+ * @return mixed
+ */
+function business_log($type, $description, $model = null){
+    return laracms_log('business', $type, $description, $model);
+}

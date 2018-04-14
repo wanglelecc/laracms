@@ -11,6 +11,7 @@
 |
 */
 
+
 // 前台所有URL必须加入 navigation 参数,否则面包屑无法正常使用
 // 站点首页
 Route::get('/', 'WelcomeController@index')->name('welcome');
@@ -26,15 +27,47 @@ Route::get('page/show_{navigation}_{safePage}.html', 'PageController@show')->nam
 Route::get('message/index_{navigation}.html', 'WelcomeController@message')->name('message.index');
 // 关于我们
 Route::get('company/index_{navigation}.html', 'WelcomeController@company')->name('company.index');
+// 搜索页面
+Route::get('search', 'SearchController@index')->name('search');
 
 //Auth::routes();
 
 // 前台认证相关路由
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+Route::get('user/home/{user}', 'UserController@home')->name('user.home');
+Route::get('login/{type}', 'Auth\LoginController@redirectToProvider')->name('oauth.login');
+Route::get('login/{type}/callback', 'Auth\LoginController@handleProviderCallback')->name('oauth.login.callback');
+Route::post('verificationCodes', 'VerificationCodesController@store')->name('verificationCodes.store');
+
+Route::get('wll',function(){
+    return $tomorrow = now()->addDays(0);
+});
+
+// 前台需要用户认证路由
+Route::group(['middleware' => ['auth']], function(){
+     Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+     Route::get('login/{type}/unbind', 'Auth\LoginController@unbind')->name('oauth.login.unbind');
+
+     Route::get('user/index', 'UserController@index')->name('user.index');
+     Route::get('user/settings{type?}', 'UserController@settings')->name('user.settings');
+     Route::get('user/messages', 'UserController@messages')->name('user.messages');
+     Route::get('user/activate', 'UserController@activate')->name('user.activate');
+
+    // 短信验证码
+     Route::patch('user/update_info', 'UserController@updateInfo')->name('user.update_info');
+     Route::patch('user/update_avatar', 'UserController@updateAvatar')->name('user.update_avatar');
+     Route::patch('user/update_password', 'UserController@updatePassword')->name('user.update_password');
+
+     Route::resource('replies', 'RepliesController', ['only' => ['store', 'destroy']]);
+
+});
 
 // =========== 后台相关路由 ==================
 Route::group(['domain' => config('administrator.domain'), 'prefix' => config('administrator.uri'), 'namespace' => 'Administrator', 'middleware' => [], ], function () {
@@ -121,12 +154,22 @@ Route::group(['domain' => config('administrator.domain'), 'prefix' => config('ad
 
 
     Route::resource('pages', 'PagesController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
-    Route::resource('articles', 'ArticlesController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
     Route::put('articles/order','ArticlesController@order')->name('articles.order');
+    Route::resource('articles', 'ArticlesController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+
 
     Route::resource('blocks', 'BlocksController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
-
+    # Laravel日志
+    Route::get('log/laravel', 'LogViewerController@laravel')->name('log.laravel');
+    # 任务日志
+    Route::get('log/jobs', 'LogViewerController@jobs')->name('log.jobs');
+    # 队列日志
+    Route::get('log/queue', 'LogViewerController@queue')->name('log.queue');
+    # 用户行为日志
+    Route::get('log/behavior', 'LogViewerController@behavior')->name('log.behavior');
+    # 业务日志
+    Route::get('log/business', 'LogViewerController@business')->name('log.business');
 
 });
 

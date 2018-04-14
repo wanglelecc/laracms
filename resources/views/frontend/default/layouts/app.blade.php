@@ -47,6 +47,8 @@
 
         @include('frontend.default.layouts._error')
 
+        @include('frontend.default.layouts._script')
+
         @yield('scripts')
 
         @include('frontend.default.layouts._statistics')
