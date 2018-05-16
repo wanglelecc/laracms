@@ -276,6 +276,7 @@ layui.define(['laypage', 'fly', 'element', 'flow'], function(exports){
       layer.confirm('整的要解绑'+ ({
           qq_id: 'QQ'
           ,weibo_id: '微博'
+          ,github_id: 'Github'
       })[type] + '吗？', {icon: 5}, function(){
           window.location.href = href;
       });

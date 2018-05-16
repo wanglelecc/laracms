@@ -52,7 +52,7 @@ Route::get('wll',function(){
 
 // 前台需要用户认证路由
 Route::group(['middleware' => ['auth']], function(){
-     Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
      Route::get('login/{type}/unbind', 'Auth\LoginController@unbind')->name('oauth.login.unbind');
 
      Route::get('user/index', 'UserController@index')->name('user.index');
@@ -73,7 +73,7 @@ Route::group(['middleware' => ['auth']], function(){
 Route::group(['domain' => config('administrator.domain'), 'prefix' => config('administrator.uri'), 'namespace' => 'Administrator', 'middleware' => [], ], function () {
     Route::get('login', 'LoginController@showLoginForm')->name('administrator.login');
     Route::post('login', 'LoginController@login');
-    Route::post('logout', 'LoginController@logout')->name('administrator.logout');
+    Route::get('logout', 'LoginController@logout')->name('administrator.logout');
     Route::get('permission-denied', 'WelcomeController@permissionDenied')->name('administrator.permission-denied');
 });
 

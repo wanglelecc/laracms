@@ -28,6 +28,8 @@ class BehaviorLogListener
      */
     public function handle(BehaviorLogEvent $event)
     {
+        if (app()->runningInConsole()) { return; }
+
         $model = $event->model;
         $type = isset($model->id) ? '更新' : '添加';
         $title = get_value($model, $model->titleName());

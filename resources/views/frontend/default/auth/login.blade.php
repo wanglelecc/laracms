@@ -49,8 +49,9 @@
                                 </div>
                                 <div class="layui-form-item fly-form-app">
                                     <span>或者使用社交账号登入</span>
-                                    <a href="{{route('oauth.login','qq')}}" onclick="layer.msg('正在通过QQ登录', {icon:16, shade: 0.1, time:0})" class="iconfont icon-qq" title="QQ登入"></a>
-                                    <a href="{{route('oauth.login','weibo')}}" onclick="layer.msg('正在通过微博登录', {icon:16, shade: 0.1, time:0})" class="iconfont icon-weibo" title="微博登入"></a>
+                                    <a href="{{route('oauth.login','qq')}}" onclick="layer.msg('正在通过QQ登录', {icon:16, shade: 0.1, time:0})" class="iconfont icon-qq" title="QQ登录"></a>
+                                    <a href="{{route('oauth.login','weibo')}}" onclick="layer.msg('正在通过微博登录', {icon:16, shade: 0.1, time:0})" class="iconfont icon-weibo" title="微博登录"></a>
+                                    <a href="{{route('oauth.login','github')}}" onclick="layer.msg('正在通过Github登录', {icon:16, shade: 0.1, time:0})" class="iconfont icon-github" title="Github登录"></a>
                                 </div>
                             </form>
                         </div>

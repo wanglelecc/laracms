@@ -21,7 +21,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'id','name', 'phone', 'email', 'password', 'avatar', 'introduction', 'status', 'weixin_openid', 'weixin_unionid', 'weibo_id', 'qq_id', 'last_ip', 'last_location', 'last_time',
+        'id','name', 'phone', 'email', 'password', 'avatar', 'introduction', 'status', 'weixin_openid', 'weixin_unionid', 'weibo_id', 'qq_id', 'github_id', 'last_ip', 'last_location', 'last_time',
     ];
 
 //    public $dispatchesEvents  = [

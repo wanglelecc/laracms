@@ -34,7 +34,7 @@ class CreateBlocksTable extends Migration
          */
         Schema::create('blocks', function (Blueprint $table) {
             $table->increments('id');
-            $table->uuid('object_id')->comment('objectId');
+            $table->string('object_id', 64)->comment('objectId');
             $table->integer("group")->default(0)->comment('分组');
             $table->enum("type",['latestArticle','hotArticle','latestProduct','hotProduct','slide','articleTree','productTree','blogTree','pageList','contact','about','links','header','followUs','html','htmlcode','phpcode',])->comment('类型');
             $table->string("template")->default('default')->comment('模板');

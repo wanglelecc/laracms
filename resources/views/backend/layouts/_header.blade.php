@@ -1,5 +1,5 @@
 <div class="layui-header header">
-    <div class="layui-logo">LaraCMS</div>
+    <div class="layui-logo">{{ config('app.name', 'LaraCMS')  }}</div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-left">
         @foreach(config('administrator.shortcut') as $key => $menu)
@@ -35,7 +35,7 @@
         </li>
         <li class="layui-nav-item">
             <a href="{{ route('administrator.logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">退出</a>
-            <form id="logout-form" action="{{ route('administrator.logout') }}" method="POST" style="display: none;">
+            <form id="logout-form" action="{{ route('administrator.logout') }}" method="GET" style="display: none;">
                 {{ csrf_field() }}
             </form>
         </li>

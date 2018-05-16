@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "wanglelecc/laracms",
+    "description": "The Laracms By Laravel Framework.",
+    "keywords": ["framework", "laravel", "cms", "laracms", "wanglelecc"],
     "license": "MIT",
     "type": "project",
     "require": {

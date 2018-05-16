@@ -164,6 +164,16 @@
                                 <span>，即可使用微博帐号登录</span>
                                 @endif
                             </li>
+                            <li class="fly-msg @if($user->github_id) app-havebind @endif">
+                                <i class="iconfont icon-github"></i>
+                                @if($user->github_id)
+                                    <span>已成功绑定，您可以使用Github直接登录，当然，您也可以</span>
+                                    <a href="{{route('oauth.login.unbind', 'github')}}" class="acc-unbind" type="github_id">解除绑定</a>
+                                @else
+                                    <a href="{{route('oauth.login','github')}}" class="acc-github" type="github_id"  onclick="layer.msg('正在绑定Github', {icon:16, shade: 0.1, time:0})" >立即绑定</a>
+                                    <span>，即可使用Github帐号登录</span>
+                                @endif
+                            </li>
                         </ul>
                     </div>
                 </div>

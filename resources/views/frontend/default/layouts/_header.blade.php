@@ -32,10 +32,13 @@ $currentChildNavigations = frontend_current_child_navigation('desktop');
             <li class="layui-nav-item"><a href="{{route('login')}}">登录</a></li>
             <li class="layui-nav-item"><a href="{{route('register')}}">注册</a></li>
             <li class="layui-nav-item layui-hide-xs">
-                <a href="{{route('oauth.login','qq')}}" onclick="layer.msg('正在通过QQ登录', {icon:16, shade: 0.1, time:0})" title="QQ登入" class="iconfont icon-qq"></a>
+                <a href="{{route('oauth.login','qq')}}" onclick="layer.msg('正在通过QQ登录', {icon:16, shade: 0.1, time:0})" title="QQ登录" class="iconfont icon-qq"></a>
             </li>
             <li class="layui-nav-item layui-hide-xs">
-                <a href="{{route('oauth.login','weibo')}}" onclick="layer.msg('正在通过微博登录', {icon:16, shade: 0.1, time:0})" title="微博登入" class="iconfont icon-weibo"></a>
+                <a href="{{route('oauth.login','weibo')}}" onclick="layer.msg('正在通过微博登录', {icon:16, shade: 0.1, time:0})" title="微博登录" class="iconfont icon-weibo"></a>
+            </li>
+            <li class="layui-nav-item layui-hide-xs">
+                <a href="{{route('oauth.login','github')}}" onclick="layer.msg('正在通过Github登录', {icon:16, shade: 0.1, time:0})" title="Github登录" class="iconfont icon-github"></a>
             </li>
             @else
             <li class="layui-nav-item" style="margin-right: 15px;">
@@ -54,7 +57,7 @@ $currentChildNavigations = frontend_current_child_navigation('desktop');
                     <dd><a href="{{route('user.home', Auth::user()->id )}}"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
                     <hr style="margin:5px 0;">
                     <dd><a href="{{route('logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" style="text-align: center;">退出</a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        <form id="logout-form" action="{{ route('logout') }}" method="GET" style="display: none;">
                             {{ csrf_field() }}
                         </form>
                     </dd>

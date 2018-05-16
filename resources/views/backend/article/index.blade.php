@@ -81,6 +81,7 @@
                 <col width="50">
                 <col width=85">
                 <col>
+                <col>
                 <col width="150">
                 <col width="165">
                 <col width="100">
@@ -94,6 +95,7 @@
                 <th>#</th>
                 <th>排序</th>
                 <th>标题</th>
+                <th>分类</th>
                 <th>作者</th>
                 <th>添加时间</th>
                 <th>添加人</th>
@@ -112,6 +114,7 @@
                     <input type="tel" name="order[]" lay-verify="required" autocomplete="off" class="layui-input" value="{{ $article->order  }}">
                 </td>
                 <td><a href="{{$article->getLink()}}" target="_blank">{{ $article->title  }}</a></td>
+                <td class="text-center">{{ implode(' ', $article->categorys->pluck('name')->toArray() ) }}</td>
                 <td>{{ $article->author  }}</td>
                 <td>{{ $article->created_at}}</td>
                 <td>{{ $article->created_user->name}}</td>

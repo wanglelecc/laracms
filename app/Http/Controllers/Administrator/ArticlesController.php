@@ -23,6 +23,8 @@ class ArticlesController extends Controller
             $article = $article->filterWith();
         }
 
+        $article = $article->with(['categorys']);
+
         // 关键字过滤
         if($keyword = $request->keyword ?? ''){
             $article->where('title', 'like', "%{$keyword}%");

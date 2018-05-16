@@ -122,6 +122,13 @@ class LoginController extends Controller
                     'qq_id' => $oauthUser->getId(),
                 ];
                 break;
+
+            case 'github':
+                $user = User::where('github_id', $oauthUser->getId())->first();
+                $userAttributes = [
+                    'github_id' => $oauthUser->getId(),
+                ];
+                break;
         }
 
         // 没有用户且未登录，默认创建一个用户
@@ -138,7 +145,10 @@ class LoginController extends Controller
 //            $user->fill($userAttributes);
 //            $user->save();
             return redirect()->route('user.settings','#bind')->with('success', '绑定成功.');
-//            return redirect()->route('user.settings','#bind');
+        }else if($user && Auth::check() && ($user->id != Auth::user()->id) ){
+            return redirect()->route('user.settings','#bind')->with('danger', '已绑定过其它用户，不能重复绑定.');
+        }else if( $user && Auth::check() && ($user->id == Auth::user()->id) ){
+            return redirect()->route('user.settings','#bind')->with('danger', '已绑定，无需重复绑定.');
         }
 
         # 登录用户
@@ -160,7 +170,7 @@ class LoginController extends Controller
         $user = Auth::user();
 
         if(!$user->email){
-            return redirect()->route('user.settings','#bind')->with('error', '绑定邮箱后才能解绑.');
+            return redirect()->route('user.settings','#bind')->with('danger', '绑定邮箱后才能解绑.');
         }
 
         switch (strtolower($type)) {
@@ -180,6 +190,12 @@ class LoginController extends Controller
             case 'qq':
                 $userAttributes = [
                     'qq_id' => null,
+                ];
+                break;
+
+            case 'github':
+                $userAttributes = [
+                    'github_id' => null,
                 ];
                 break;
         }

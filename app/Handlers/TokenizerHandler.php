@@ -22,12 +22,6 @@ class TokenizerHandler implements TokenizerInterface
     public function getTokens($text, $stopwords = [])
     {
         $split = Jieba::cutForSearch($text);
-//        var_dump($split);
-////        echo '<hr />';
         return $split;
-//        return array_diff($split, $stopwords);
     }
-
-
-
 }
