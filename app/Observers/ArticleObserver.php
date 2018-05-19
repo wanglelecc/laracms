@@ -18,6 +18,10 @@ class ArticleObserver
         $article->created_op || $article->created_op = Auth::id();
         $article->updated_op || $article->updated_op = Auth::id();
 
+        $content = clean($article->content, 'user_body');
+
+        // 生成文章摘录
+        $article->description = make_excerpt($content);
     }
 
     public function updating(Article $article)
@@ -30,9 +34,6 @@ class ArticleObserver
 
         // XSS 过滤
         $article->content = clean($article->content, 'user_body');
-
-        // 生成文章摘录
-        $article->description = make_excerpt($article->content);
     }
 
     public function saved(Article $article){
@@ -41,8 +42,8 @@ class ArticleObserver
 //        $article->categorys()->sync($article->category_id);
     }
 
-    public function deleted(Topic $topic)
+    public function deleted(Article $article)
     {
-        \DB::table('replies')->where('article_id', $topic->id)->delete();
+        \DB::table('replies')->where('article_id', $article->id)->delete();
     }
 }
