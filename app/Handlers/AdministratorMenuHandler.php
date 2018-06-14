@@ -1,12 +1,26 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: lele.wang
- * Date: 2018/2/1
- * Time: 16:24
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
  */
+
 namespace App\Handlers;
 
+/**
+ * 后台菜单工具类
+ *
+ * Class AdministratorMenuHandler
+ * @package App\Handlers
+ */
 class AdministratorMenuHandler
 {
     static $administratorMenu = [];
@@ -31,12 +45,14 @@ class AdministratorMenuHandler
     public function getChildrenAdministratorMenu($menuId){
         return $this->filterChildrenAdministratorMenuWith($this->getAdministratorMenu(), $menuId);
     }
-//
-//    protected function filterWith($menu)
-//    {
-//
-//    }
 
+    /**
+     * 遍历子菜单
+     *
+     * @param $menus
+     * @param $menuId
+     * @return array|mixed
+     */
     protected function filterChildrenAdministratorMenuWith($menus,$menuId)
     {
         foreach($menus as $menu){
@@ -51,6 +67,12 @@ class AdministratorMenuHandler
         return [];
     }
 
+    /**
+     * 过滤有权限显示的菜单
+     *
+     * @param $menus
+     * @return array
+     */
     protected function filterPermissionWith($menus){
         $newMenu = [];
         foreach($menus as $menu){
@@ -65,7 +87,6 @@ class AdministratorMenuHandler
             }
         }
         return $newMenu;
-
     }
 
 

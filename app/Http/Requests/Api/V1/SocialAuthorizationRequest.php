@@ -1,20 +1,23 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 namespace App\Http\Requests\Api\V1;
 
-use Illuminate\Foundation\Http\FormRequest;
 
-class SocialAuthorizationRequest extends FormRequest
+class SocialAuthorizationRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
 
     /**
      * Get the validation rules that apply to the request.

@@ -82,6 +82,10 @@
 <!-- Scripts -->
 <script src="{{asset('layui/layui.all.js')}}"></script>
 <script src="{{asset('js/administrator.js')}}"></script>
+<script src="{{asset('js/jquery.cookie-1.4.1.min.js')}}"></script>
+<script>
+    $.cookie('nav-id', '', { expires: 1, path: '/' });
+</script>
 
 @include('backend.layouts._message')
 

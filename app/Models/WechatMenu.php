@@ -1,4 +1,17 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 namespace App\Models;
 
@@ -7,7 +20,12 @@ use EasyWeChat\Kernel\Messages\News;
 use EasyWeChat\Kernel\Messages\NewsItem;
 use App\Events\BehaviorLogEvent;
 
-
+/**
+ * 微信菜单模型
+ *
+ * Class WechatMenu
+ * @package App\Models
+ */
 class WechatMenu extends Model
 {
     public $table = 'wechat_menu';
@@ -21,6 +39,11 @@ class WechatMenu extends Model
         return 'name';
     }
 
+    /**
+     * 生成菜单响应
+     *
+     * @return News|Text|null
+     */
     public function handle(){
         switch (strtolower($this->type)){
             case 'text':

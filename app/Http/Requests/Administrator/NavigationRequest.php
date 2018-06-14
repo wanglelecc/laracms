@@ -1,4 +1,17 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 namespace App\Http\Requests\Administrator;
 
@@ -7,16 +20,6 @@ use Illuminate\Routing\Router;
 
 class NavigationRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -27,7 +30,7 @@ class NavigationRequest extends Request
         $rules = [
             'title' => 'required|min:1|max:100',
             'category' => 'required|'.Rule::in(['desktop','footer','mobile',]),
-            'type' => 'required|'.Rule::in(['action','link','article','page','category']),
+            'type' => 'required|'.Rule::in(['action','link','article','page','category','navigation']),
             'target' => 'required|'.Rule::in(['_self','_blank',]),
             'description' => 'nullable|max:255',
             'parent' => 'required|integer',

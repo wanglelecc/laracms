@@ -1,4 +1,17 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -34,6 +47,7 @@ class SeedRolesAndPermissionsData extends Migration
         Permission::create(['name' => 'manage_annex', 'remarks'=> '附件管理']);
         Permission::create(['name' => 'manage_wechat', 'remarks'=> '公众号管理']);
         Permission::create(['name' => 'manage_xcx', 'remarks'=> '小程序管理']);
+        Permission::create(['name' => 'manage_media', 'remarks'=> '媒体管理']);
 
         // 创建超级管理角色，并赋予权限
         $administrator = Role::create(['name' => 'Administrator', 'remarks'=> '超级管理员']);
@@ -50,6 +64,7 @@ class SeedRolesAndPermissionsData extends Migration
         $administrator->givePermissionTo('manage_annex');
         $administrator->givePermissionTo('manage_wechat');
         $administrator->givePermissionTo('manage_xcx');
+        $administrator->givePermissionTo('manage_media');
 
         // 创建站长角色，并赋予权限
         $founder = Role::create(['name' => 'Founder', 'remarks'=> '创始人']);
@@ -65,6 +80,7 @@ class SeedRolesAndPermissionsData extends Migration
         $founder->givePermissionTo('manage_annex');
         $founder->givePermissionTo('manage_wechat');
         $founder->givePermissionTo('manage_xcx');
+        $founder->givePermissionTo('manage_media');
 
         // 创建管理员角色，并赋予权限
         $maintainer = Role::create(['name' => 'Maintainer', 'remarks'=> '站长']);

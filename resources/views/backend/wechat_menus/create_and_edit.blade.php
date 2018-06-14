@@ -19,7 +19,7 @@
             <legend>{{ $title }}</legend>
     </fieldset>
 
-    <form class="layui-form layui-form-pane" method="POST" action="{{ $wechat_menu->id ? route('wechat_menus.update', [$wechat_menu->id, $wechat->id]) : route('wechat_menus.store', $wechat->id) }}">
+    <form class="layui-form layui-form-pane" method="POST" action="{{ $wechat_menu->id ? route('wechat_menus.update', [$wechat_menu->id, $wechat->id]) : route('wechat_menus.store', $wechat->id) }}?redirect={{ previous_url() }}">
             {{ csrf_field() }}
             <input type="hidden" name="_method" value="{{ $wechat_menu->id ? 'PUT' : 'POST' }}">
 

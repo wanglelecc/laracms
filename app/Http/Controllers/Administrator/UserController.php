@@ -1,4 +1,17 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 namespace App\Http\Controllers\Administrator;
 
@@ -10,9 +23,21 @@ use App\Models\User;
 use App\Http\Requests\Administrator\UserRequest;
 use App\Handlers\UploadHandler;
 
-
+/**
+ * 用户操作控制器
+ *
+ * Class UserController
+ * @package App\Http\Controllers\Administrator
+ */
 class UserController extends Controller
 {
+    /**
+     * 编辑
+     *
+     * @param User $user
+     * @return mixed
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function edit(User $user)
     {
         $this->authorize('update', $user);
@@ -20,31 +45,42 @@ class UserController extends Controller
         return backend_view('user.edit', compact('user'));
     }
 
+    /**
+     * 更新
+     *
+     * @param UserRequest $request
+     * @param UploadHandler $uploader
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function update(UserRequest $request, UploadHandler $uploader, User $user)
     {
         $this->authorize('update', $user);
 
-//        $data = $request->all();
         $data = $request->only('name','email','avatar','introduction');
-
-//        if ($request->avatar) {
-//            $result = $uploader->saveImage($request->avatar, 'avatars', $user->id, 362);
-//            if ($result) {
-//                $data['avatar'] = $result['path'];
-//            }
-//        }
-
         $user->update($data);
+
         return redirect()->route('user.edit', $user->id)->with('success', '资料更新成功！');
     }
 
+    /**
+     * 密码
+     *
+     * @param User $user
+     * @return mixed
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function password(User $user){
         $this->authorize('update', $user);
+
         return backend_view('user.password', compact('user'));
     }
 
     /**
      * 修改密码
+     *
+     * @return mixed
      */
     public function showPasswordForm(){
         return backend_view('user.password');

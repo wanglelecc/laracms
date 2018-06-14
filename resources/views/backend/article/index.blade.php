@@ -1,10 +1,9 @@
 @extends('backend.layouts.app')
 
-@section('title', $title = '文章列表')
+@section('title', $title = '内容列表')
 
 @section('breadcrumb')
     <a href="">内容管理</a>
-    <a href="">文章管理</a>
     <a href="">{{$title}}</a>
 @endsection
 
@@ -17,6 +16,7 @@
         $keyword = request('keyword', '');
         $begin_time = request('begin_time', '');
         $end_time = request('end_time', '');
+        $type = request('type', 'article');
     @endphp
 
 <div class="layui-main">
@@ -25,13 +25,14 @@
     </fieldset>
 
     <form class="layui-form layui-form-pane" method="GET" action="">
+    <input type="hidden" name="type" value="{{$type}}">
     <div class="layui-form-item">
-        <a href="{{ route('articles.create') }}" class="layui-btn">添加</a>
+        <a href="{{ route('articles.create') }}?type={{$type}}" class="layui-btn">添加</a>
         <button class="layui-btn layui-btn-danger" form="form-article-list">排序</button>
 
         <div style="float: right;">
         <div class="layui-inline">
-            <label class="layui-form-label">文章分类</label>
+            <label class="layui-form-label">分类</label>
             <div class="layui-input-block">
                 <select name="category" lay-filter="articles_category">
                     <option value=""></option>

@@ -1,11 +1,17 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: lele.wang
- * Date: 2018/2/1
- * Time: 18:04
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
  */
-
 use Illuminate\Support\Facades\Auth;
 
 return [
@@ -41,6 +47,7 @@ return [
                     "link" => "",
                     "route" => "users.index",
                     "params" => [],
+                    "query" => [],
                 ],
                 [
                     "id" => "system.permissions",
@@ -50,6 +57,7 @@ return [
                     "link" => "",
                     "route" => "permissions.index",
                     "params" => [],
+                    "query" => [],
                 ],
                 [
                     "id" => "system.roles",
@@ -59,6 +67,7 @@ return [
                     "link" => "",
                     "route" => "roles.index",
                     "params" => [],
+                    "query" => [],
                 ],
             ],
         ],
@@ -80,6 +89,7 @@ return [
                     "link" => "",
                     "route" => "administrator.site.basic",
                     "params" => [],
+                    "query" => [],
                 ],
                 [
                     "id" => "setting.company",
@@ -89,6 +99,7 @@ return [
                     "link" => "",
                     "route" => "administrator.site.company",
                     "params" => [],
+                    "query" => [],
                 ],
                 [
                     "id" => "setting.contact",
@@ -98,6 +109,7 @@ return [
                     "link" => "",
                     "route" => "administrator.site.contact",
                     "params" => [],
+                    "query" => [],
                 ],
                 [
                     "id" => "link",
@@ -107,6 +119,7 @@ return [
                     "link" => "",
                     "route" => "links.index",
                     "params" => [],
+                    "query" => [],
                 ],
                 [
                     "id" => "navigation",
@@ -116,6 +129,7 @@ return [
                     "link" => "",
                     "route" => "administrator.navigation.index",
                     "params" => ['desktop'],
+                    "query" => [],
                 ],
                 [
                     "id" => "wechat",
@@ -125,6 +139,7 @@ return [
                     "link" => "",
                     "route" => "wechats.index",
                     "params" => [],
+                    "query" => [],
                 ],
 
             ],
@@ -146,6 +161,7 @@ return [
                     "link" => "",
                     "route" => "administrator.category.index",
                     "params" => ['article'],
+                    "query" => [],
                 ],
                 [
                     "id" => "roles",
@@ -155,6 +171,27 @@ return [
                     "link" => "",
                     "route" => "articles.index",
                     "params" => [],
+                    "query" => [ "type=article", ],
+                ],
+                [
+                    "id" => "roles",
+                    "text" => "视频管理",
+                    "permission" => function(){ return Auth::user()->can('manage_article'); },
+                    "icon" => "",
+                    "link" => "",
+                    "route" => "articles.index",
+                    "params" => [],
+                    "query" => [ "type=video", ],
+                ],
+                [
+                    "id" => "",
+                    "text" => "图片管理",
+                    "permission" => function(){ return Auth::user()->can('manage_media'); },
+                    "icon" => "",
+                    "link" => "",
+                    "route" => "media.image",
+                    "params" => [],
+                    "query" => [],
                 ],
                 [
                     "id" => "",
@@ -164,6 +201,7 @@ return [
                     "link" => "",
                     "route" => "pages.index",
                     "params" => [],
+                    "query" => [],
                 ],
                 [
                     "id" => "",
@@ -173,6 +211,7 @@ return [
                     "link" => "",
                     "route" => "slides.index",
                     "params" => [],
+                    "query" => [],
                 ],
                 [
                     "id" => "",
@@ -182,6 +221,7 @@ return [
                     "link" => "",
                     "route" => "blocks.index",
                     "params" => [],
+                    "query" => [],
                 ],
                 /*
                 [
@@ -192,6 +232,7 @@ return [
                     "link" => "",
                     "route" => "",
                     "params" => [],
+                    "query" => [],
                 ],
                 [
                     "id" => "",
@@ -201,6 +242,7 @@ return [
                     "link" => "",
                     "route" => "",
                     "params" => [],
+                    "query" => [],
                 ],
                 */
             ],
@@ -219,6 +261,7 @@ return [
             "icon" => "",
             "route" => "administrator.dashboard",
             "params" => [],
+            "query" => [],
             "link" => "",
             "children" => [],
         ],
@@ -230,6 +273,7 @@ return [
             "link" => "",
             "route" => "",
             "params" => [],
+            "query" => [],
             "children" => [
                 [
                     "id" => "log",
@@ -239,6 +283,7 @@ return [
                     "link" => "",
                     "route" => "log.laravel",
                     "params" => [],
+                    "query" => [],
                 ],
                 [
                     "id" => "task",
@@ -248,6 +293,7 @@ return [
                     "link" => "",
                     "route" => "log.jobs",
                     "params" => [],
+                    "query" => [],
                 ],
                 [
                     "id" => "queue",
@@ -257,6 +303,7 @@ return [
                     "link" => "",
                     "route" => "log.queue",
                     "params" => [],
+                    "query" => [],
                 ],
                 [
                     "id" => "behavior",
@@ -266,6 +313,7 @@ return [
                     "link" => "",
                     "route" => "log.behavior",
                     "params" => [],
+                    "query" => [],
                 ],
                 [
                     "id" => "business",
@@ -275,6 +323,7 @@ return [
                     "link" => "",
                     "route" => "log.business",
                     "params" => [],
+                    "query" => [],
                 ],
             ],
         ],
@@ -285,6 +334,7 @@ return [
             "icon" => "",
             "route" => "",
             "params" => [],
+            "query" => [],
             "link" => "https://github.com/wanglelecc",
             "children" => [],
         ],

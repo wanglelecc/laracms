@@ -1,4 +1,17 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -38,12 +51,12 @@ class SeedCategoryAndArticleData extends Migration
 
         Page::create(['id'=>13,'author'=>'管理员','type'=>'page', 'created_op'=>1, 'updated_op'=>1, 'object_id'=>'1593908565063148', 'title'=>'联系我们', 'content'=>'<h4>公司地址</h4><p>中国 青岛 开发区 武夷山路888号</p><h4>联系电话</h4><p>400-8888-6666</p><h4>人才招聘</h4><p>HR@163.com</p><h4>业务合作</h4><p>yewu@163.com</p><h4>媒体合作</h4><p>meiti@163.com</p>']);
 
-        Navigation::create(['id'=>1,'category'=>'desktop','type'=>'action','title'=>'关于我们','target'=>'_self','parent'=>0, 'is_show'=>1, 'created_op'=>1, 'updated_op'=>1, 'params'=>'{"route": "company.index", "params": "{}"}']);
-        Navigation::create(['id'=>2,'category'=>'desktop','type'=>'article','title'=>'企业新闻','target'=>'_self','parent'=>0, 'is_show'=>1, 'created_op'=>1, 'updated_op'=>1, 'params'=>'{"category_id": "1"}']);
-        Navigation::create(['id'=>3,'category'=>'desktop','type'=>'article','title'=>'成功案例','target'=>'_self','parent'=>0, 'is_show'=>1, 'created_op'=>1, 'updated_op'=>1, 'params'=>'{"category_id": "2"}']);
-        Navigation::create(['id'=>4,'category'=>'desktop','type'=>'article','title'=>'产品活动','target'=>'_self','parent'=>0, 'is_show'=>1, 'created_op'=>1, 'updated_op'=>1, 'params'=>'{"category_id": "3"}']);
-        Navigation::create(['id'=>5,'category'=>'desktop','type'=>'article','title'=>'人才招聘','target'=>'_self','parent'=>0, 'is_show'=>1, 'created_op'=>1, 'updated_op'=>1, 'params'=>'{"category_id": "4"}']);
-        Navigation::create(['id'=>6,'category'=>'desktop','type'=>'page','title'=>'联系我们','target'=>'_self','parent'=>0, 'is_show'=>1, 'created_op'=>1, 'updated_op'=>1, 'params'=>'{"page_id": "13"}']);
+        Navigation::create(['id'=>1,'category'=>'desktop','type'=>'action','title'=>'关于我们','target'=>'_self','parent'=>0, 'is_show'=>'1', 'created_op'=>1, 'updated_op'=>1, 'params'=>'{"route": "company.index", "params": "{}"}']);
+        Navigation::create(['id'=>2,'category'=>'desktop','type'=>'article','title'=>'企业新闻','target'=>'_self','parent'=>0, 'is_show'=>'1', 'created_op'=>1, 'updated_op'=>1, 'params'=>'{"category_id": "1"}']);
+        Navigation::create(['id'=>3,'category'=>'desktop','type'=>'article','title'=>'成功案例','target'=>'_self','parent'=>0, 'is_show'=>'1', 'created_op'=>1, 'updated_op'=>1, 'params'=>'{"category_id": "2"}']);
+        Navigation::create(['id'=>4,'category'=>'desktop','type'=>'article','title'=>'产品活动','target'=>'_self','parent'=>0, 'is_show'=>'1', 'created_op'=>1, 'updated_op'=>1, 'params'=>'{"category_id": "3"}']);
+        Navigation::create(['id'=>5,'category'=>'desktop','type'=>'article','title'=>'人才招聘','target'=>'_self','parent'=>0, 'is_show'=>'1', 'created_op'=>1, 'updated_op'=>1, 'params'=>'{"category_id": "4"}']);
+        Navigation::create(['id'=>6,'category'=>'desktop','type'=>'page','title'=>'联系我们','target'=>'_self','parent'=>0, 'is_show'=>'1', 'created_op'=>1, 'updated_op'=>1, 'params'=>'{"page_id": "13"}']);
     }
 
     /**

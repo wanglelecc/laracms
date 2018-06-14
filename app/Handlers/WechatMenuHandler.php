@@ -1,15 +1,28 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: lele.wang
- * Date: 2018/1/31
- * Time: 23:03
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
  */
 
 namespace App\Handlers;
 use App\Http\Requests\Request;
 use App\Models\WechatMenu;
 
+/**
+ * 微信菜单工具类
+ *
+ * Class WechatMenuHandler
+ * @package App\Handlers
+ */
 class WechatMenuHandler
 {
 
@@ -42,7 +55,7 @@ class WechatMenuHandler
     /**
      * 递归处理导航菜单
      *
-     * @param $navigations
+     * @param $menus
      * @param int $parent
      * @return array
      */
@@ -72,7 +85,12 @@ class WechatMenuHandler
         return $newMenus;
     }
 
-    // 重构微信菜单结构
+    /**
+     * 重构微信菜单结构
+     *
+     * @param $menu
+     * @return array
+     */
     private function getMenuValue($menu){
         $tmp = [];
         switch (strtolower($menu->type)){

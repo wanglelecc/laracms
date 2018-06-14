@@ -1,4 +1,17 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 namespace App\Http\Controllers\Api\V1;
 
@@ -8,8 +21,20 @@ use App\Http\Requests\Api\V1\UserRequest;
 use App\Http\Controllers\Api\Controller;
 use App\Transformers\UserTransformer;
 
+/**
+ * 用户控制器
+ *
+ * Class UsersController
+ * @package App\Http\Controllers\Api\V1
+ */
 class UsersController extends Controller
 {
+    /**
+     * 创建
+     *
+     * @param UserRequest $request
+     * @return $this|void
+     */
     public function store(UserRequest $request)
     {
         $verifyData = \Cache::get($request->verification_key);
@@ -41,6 +66,11 @@ class UsersController extends Controller
             ->setStatusCode(201);
     }
 
+    /**
+     * 我（当前登录用户）
+     *
+     * @return \Dingo\Api\Http\Response
+     */
     public function me()
     {
         return $this->response->item($this->user(), new UserTransformer());

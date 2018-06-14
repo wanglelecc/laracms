@@ -1,4 +1,17 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -31,12 +44,13 @@ class CreateBlocksTable extends Migration
          * 自定义：html
          * HTML源代码：htmlcode
          * PHP源代码：phpcode
+         * 推荐位：recommend
          */
         Schema::create('blocks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('object_id', 64)->comment('objectId');
             $table->integer("group")->default(0)->comment('分组');
-            $table->enum("type",['latestArticle','hotArticle','latestProduct','hotProduct','slide','articleTree','productTree','blogTree','pageList','contact','about','links','header','followUs','html','htmlcode','phpcode',])->comment('类型');
+            $table->enum("type",['latestArticle','hotArticle','latestProduct','hotProduct','slide','articleTree','productTree','blogTree','pageList','contact','about','links','header','followUs','html','htmlcode','phpcode', 'recommend', ])->comment('类型');
             $table->string("template")->default('default')->comment('模板');
             $table->string('title')->comment("标题");
             $table->string('icon')->nullable()->comment('图标');

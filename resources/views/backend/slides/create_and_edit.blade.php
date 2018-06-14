@@ -20,7 +20,7 @@
         <a href="{{ route('slides.manage', $group) }}" class="layui-btn layui-btn-primary">返回{{$slideConfig['name']}}</a>
         <br /><br />
 
-        <form class="layui-form layui-form-pane" method="POST" action="{{ $slide->id ? route('slides.update', $slide->id) : route('slides.store') }}">
+        <form class="layui-form layui-form-pane" method="POST" action="{{ $slide->id ? route('slides.update', $slide->id) : route('slides.store') }}?redirect={{ previous_url() }}">
             {{ csrf_field() }}
             <input type="hidden" name="_method" class="mini-hidden" value="{{ $slide->id ? 'PATCH' : 'POST' }}">
 

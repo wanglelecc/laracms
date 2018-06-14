@@ -24,11 +24,11 @@ const app = new Vue({
 */
 
 
-import ElementUI from 'element-ui';
+// import ElementUI from 'element-ui';
 // import 'element-ui/lib/theme-chalk/index.css';
-import App from './App.vue';
+//import App from './App.vue';
 
-Vue.use(ElementUI);
+// Vue.use(ElementUI);
 /*
 const app = new Vue({
   el: '#app',

@@ -1,9 +1,16 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: lele.wang
- * Date: 2018/1/31
- * Time: 23:03
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
  */
 
 namespace App\Handlers;
@@ -11,6 +18,12 @@ use App\Http\Requests\Request;
 use App\Models\Navigation;
 use App\Models\Page;
 
+/**
+ * 导航处理工具类
+ *
+ * Class NavigationHandler
+ * @package App\Handlers
+ */
 class NavigationHandler
 {
 
@@ -195,6 +208,7 @@ class NavigationHandler
                 $args = [
                     $params->route,
                     [$navigation->id],
+                    false
                 ];
 
                 if(is_json($params->params) && !empty($routeParams = json_decode($params->params, true))){
@@ -204,13 +218,16 @@ class NavigationHandler
                 $url = route(...$args);
                 break;
             case 'article':
-                $url = route('article.index',[$navigation->id, $params->category_id]);
+                $url = route('article.index',[$navigation->id, $params->category_id], false);
                 break;
             case 'category':
-                $url = route('category.index',[$navigation->id, $params->category_id]);
+                $url = route('category.index',[$navigation->id, $params->category_id], false);
                 break;
             case 'page':
-                $url = route('page.show',[$navigation->id, $params->page_id]);
+                $url = route('page.show',[$navigation->id, $params->page_id], false);
+                break;
+            case 'navigation':
+                $url = $params->link ?? '';
                 break;
         }
 

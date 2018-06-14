@@ -1,4 +1,17 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 namespace App\Models;
 
@@ -7,7 +20,12 @@ use EasyWeChat\Kernel\Messages\News;
 use EasyWeChat\Kernel\Messages\NewsItem;
 use App\Events\BehaviorLogEvent;
 
-
+/**
+ * 微信响应模型
+ *
+ * Class WechatResponse
+ * @package App\Models
+ */
 class WechatResponse extends Model
 {
     public $table = 'wechat_response';
@@ -21,6 +39,11 @@ class WechatResponse extends Model
         return 'key';
     }
 
+    /**
+     * 生成响应内容
+     *
+     * @return News|Text|null
+     */
     public function handle(){
         switch (strtolower($this->type)){
             case 'text':
@@ -36,7 +59,6 @@ class WechatResponse extends Model
                 $content = is_json($this->content) ? json_decode($this->content) : new \stdClass();
                 $category_id = get_value($content, 'category_id', 0);
                 $limit = get_value($content, 'limit', 6);
-//                $results =  Category::find($category_id)->articles()->valid()->recent()->offset(0)->limit($limit)->get();
                 $results =  Category::find($category_id)->articles()->recent()->offset(0)->limit($limit)->get();
                 foreach($results as $article){
                     $items[] = new NewsItem([

@@ -1,4 +1,17 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 namespace App\Http\Controllers\Administrator;
 
@@ -8,6 +21,12 @@ use App\Support\LogViewer;
 use App\Models\Log;
 use Illuminate\Http\Request;
 
+/**
+ * Log 控制器
+ *
+ * Class LogViewerController
+ * @package App\Http\Controllers\Administrator
+ */
 class LogViewerController extends Controller
 {
     protected $request;
@@ -17,6 +36,15 @@ class LogViewerController extends Controller
         $this->request = app('request');
     }
 
+    /**
+     * 列表
+     *
+     * @param Log $log
+     * @param Request $request
+     * @param $group
+     * @param $title
+     * @return mixed
+     */
     public function index(Log $log, Request $request, $group, $title){
         $types = $log->select('type')->where('group',$group)->groupBy('type')->get();
 
@@ -29,27 +57,56 @@ class LogViewerController extends Controller
         return backend_view('log.index', compact('types','logs', 'title'));
     }
 
-    // 任务日志
+    /**
+     * 任务日志
+     *
+     * @param Log $log
+     * @param Request $request
+     * @return mixed
+     */
     public function jobs(Log $log, Request $request){
         return $this->index($log,$request,'jobs', '任务日志');
     }
 
-    // 队列日志
+    /**
+     * 队列日志
+     *
+     * @param Log $log
+     * @param Request $request
+     * @return mixed
+     */
     public function queue(Log $log, Request $request){
         return $this->index($log,$request,'queue', '队列日志');
     }
 
-    // 行为日志
+    /**
+     * 行为日志
+     *
+     * @param Log $log
+     * @param Request $request
+     * @return mixed
+     */
     public function behavior(Log $log, Request $request){
         return $this->index($log,$request,'behavior', '行为日志');
     }
 
-    // 业务日志
+    /**
+     * 业务日志
+     *
+     * @param Log $log
+     * @param Request $request
+     * @return mixed
+     */
     public function business(Log $log, Request $request){
         return $this->index($log,$request,'business', '业务日志');
     }
 
-    // Laravel日志
+    /**
+     * Laravel日志
+     *
+     * @return array|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|mixed|\Symfony\Component\HttpFoundation\BinaryFileResponse
+     * @throws \Exception
+     */
     public function laravel()
     {
 
@@ -83,7 +140,7 @@ class LogViewerController extends Controller
 //        return app('view')->make('laravel-log-viewer::log', $data);
     }
 
-    private function redirect($to)
+    public function redirect($to)
     {
         if (function_exists('redirect')) {
             return redirect($to);

@@ -1,4 +1,17 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 namespace App\Http\Controllers;
 
@@ -11,45 +24,62 @@ use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
-
+/**
+ * 前台用户控制器
+ *
+ * Class UserController
+ * @package App\Http\Controllers
+ */
 class UserController extends Controller
 {
-   /*
-    |--------------------------------------------------------------------------
-    | 前台用户控制器
-    |--------------------------------------------------------------------------
-    |
-    |
-    |
-    */
 
-
-    // 用户中心
+    /**
+     * 用户中心
+     *
+     * @return mixed
+     */
     public function index()
     {
         return frontend_view('user.index');
     }
 
-    // 激活邮箱
+    /**
+     * 激活邮箱
+     *
+     * @param User $user
+     * @return mixed
+     */
     public function activate(User $user){
         $user = Auth::user();
         return frontend_view('user.activate', compact('user'));
     }
 
-    // 我的主页
+    /**
+     * 我的主页
+     *
+     * @param User $user
+     * @return mixed
+     */
     public function home(User $user){
-//        $user = Auth::user();
         return frontend_view('user.home', compact('user'));
     }
 
-    // 基本设置
+    /**
+     * 基本设置
+     *
+     * @return mixed
+     */
     public function settings()
     {
         $user = Auth::user();
         return frontend_view('user.settings', compact('user'));
     }
 
-    // 我的消息
+    /**
+     * 我的消息
+     *
+     * @return mixed
+     */
     public function messages()
     {
         $user = Auth::user();
@@ -65,11 +95,11 @@ class UserController extends Controller
      *
      * @param UserRequest $request
      * @return \Illuminate\Http\RedirectResponse
+     * @throws ValidationException
      */
     public function updateInfo(UserRequest $request)
     {
         $user = Auth::user();
-//        $data = $request->only('name','email','avatar','introduction');
         $data = $request->only('sex','introduction');
         if( !$user->phone ){
 
@@ -111,7 +141,6 @@ class UserController extends Controller
     public function updateAvatar(Request $request)
     {
         $user = Auth::user();
-//        $data = $request->only('name','email','avatar','introduction');
         $data = $request->only('avatar');
 
         $user->update($data);

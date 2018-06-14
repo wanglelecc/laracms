@@ -1,4 +1,17 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 namespace App\Http\Controllers\Api\V1;
 
@@ -8,8 +21,20 @@ use Gregwar\Captcha\PhraseBuilder;
 use App\Http\Controllers\Api\Controller;
 use App\Http\Requests\Api\V1\CaptchaRequest;
 
+/**
+ * 验证码控制器
+ *
+ * Class CaptchasController
+ * @package App\Http\Controllers\Api\V1
+ */
 class CaptchasController extends Controller
 {
+    /**
+     * 创建
+     *
+     * @param CaptchaRequest $request
+     * @return mixed
+     */
     public function store(CaptchaRequest $request)
     {
         $key = 'captcha-'.str_random(15);

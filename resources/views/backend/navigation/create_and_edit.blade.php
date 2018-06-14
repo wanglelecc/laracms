@@ -21,7 +21,8 @@
             $page_id = get_value($params, 'page_id', 0);
 
             $navigationHandler = app(\App\Handlers\NavigationHandler::class);
-            $navigationItems = $navigationHandler->select($navigationHandler->getNavigations($category));
+            $navigationItemsByResult = $navigationHandler->getNavigations($category);
+            $navigationItems = $navigationHandler->select($navigationItemsByResult);
             $pageItems = $navigationHandler->getPageList();
 
             $categoryHandler = app(\App\Handlers\CategoryHandler::class);
@@ -34,7 +35,7 @@
             <legend>{{ $title }}</legend>
         </fieldset>
 
-        <form id="formApp" class="layui-form layui-form-pane" method="POST" action="{{ $navigation->id ? route('administrator.navigation.update', [$navigation->id, $category]) : route('administrator.navigation.store', $category) }}">
+        <form id="formApp" class="layui-form layui-form-pane" method="POST" action="{{ $navigation->id ? route('administrator.navigation.update', [$navigation->id, $category]) : route('administrator.navigation.store', $category) }}?redirect={{ previous_url() }}">
             {{ csrf_field() }}
             <input type="hidden" name="_method" class="mini-hidden" value="{{ $navigation->id ? 'PUT' : 'POST' }}">
 
@@ -60,6 +61,7 @@
                     <input type="radio" lay-filter="type" required lay-verify="required" name="type" lay-skin="primary" value="article" title="文章" @if($navigation->type == 'article') checked="" @endif >
                     <input type="radio" lay-filter="type" required lay-verify="required" name="type" lay-skin="primary" value="page" title="页面" @if($navigation->type == 'page') checked="" @endif >
                     <input type="radio" lay-filter="type" required lay-verify="required" name="type" lay-skin="primary" value="category" title="栏目" @if($navigation->type == 'category') checked="" @endif >
+                    <input type="radio" lay-filter="type" required lay-verify="required" name="type" lay-skin="primary" value="navigation" title="导航" @if($navigation->type == 'navigation') checked="" @endif >
                 </div>
             </div>
 
@@ -108,6 +110,18 @@
                         <option value=""></option>
                         @foreach($categoryItems as $key => $value)
                             <option @if($category_id == $key) selected @endif value="{{$key}}">{{$value}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-form-item params params-navigation">
+                <label class="layui-form-label">导航</label>
+                <div class="layui-input-block">
+                    <select name="params[link]">
+                        <option value=""></option>
+                        @foreach($navigationItemsByResult as $item)
+                            <option @if($navigation->link == $item->link) selected @endif value="{{$item->link}}">{{$item->title}}</option>
                         @endforeach
                     </select>
                 </div>

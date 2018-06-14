@@ -1,4 +1,17 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 namespace App\Http\Requests\Administrator;
 
@@ -11,7 +24,6 @@ class PageRequest extends Request
 
         return [
             'title' => 'required|min:1|max:191',
-//            'object_id' => 'required|alpha_dash|unique:article|min:1|max:191',
             'keywords' => 'nullable|max:191',
             'description' => 'nullable|max:191',
             'author' => 'nullable|max:191',
@@ -24,34 +36,10 @@ class PageRequest extends Request
             'views' => 'nullable|integer',
             'weight' => 'nullable|integer',
             'top' => 'nullable|'.Rule::in(['0','1']),
-//            'type' => 'required|alpha|min:1|max:16',
             'link' => 'nullable|alpha_dash|unique:article|max:191',
             'template' => 'nullable|alpha_dash|max:191',
         ];
-        switch($this->method())
-        {
-            // CREATE
-            case 'POST':
-            {
-                return [
-                    // CREATE ROLES
-                ];
-            }
-            // UPDATE
-            case 'PUT':
-            case 'PATCH':
-            {
-                return [
-                    // UPDATE ROLES
-                ];
-            }
-            case 'GET':
-            case 'DELETE':
-            default:
-            {
-                return [];
-            };
-        }
+
     }
 
     public function messages()

@@ -1,16 +1,16 @@
 @extends('backend.layouts.app')
 
-@section('title', $title = $article->id ? '编辑文章' : '添加文章' )
+@section('title', $title = $article->id ? '编辑' : '添加' )
 
 @section('breadcrumb')
     <a href="">内容管理</a>
-    <a href="">文章管理</a>
     <a href="">{{$title}}</a>
 @endsection
 
 @section('content')
     @php
         $object_id = $article->object_id ?? create_object_id();
+        $type = $article->type ?? request('type','article');
     @endphp
     <div class="layui-main">
 
@@ -18,9 +18,11 @@
             <legend>{{ $title }}</legend>
         </fieldset>
 
-        <form class="layui-form layui-form-pane" method="POST" action="{{ $article->id ? route('articles.update', $article->id) : route('articles.store') }}">
+        <form class="layui-form layui-form-pane" method="POST" action="{{ $article->id ? route('articles.update', $article->id) : route('articles.store') }}?redirect={{ previous_url() }}">
             {{ csrf_field() }}
-            <input type="hidden" name="_method" class="mini-hidden" value="{{ $article->id ? 'PATCH' : 'POST' }}">
+            <input type="hidden" name="_method"  value="{{ $article->id ? 'PATCH' : 'POST' }}">
+            <input type="hidden" name="type" value="{{ $type }}">
+
 
             <div class="layui-form-item">
                 <label class="layui-form-label">所属分类</label>
@@ -82,7 +84,12 @@
                 </div>
             </div>
 
-            @if($article->id)
+            @if($type)
+                @includeIf('backend.article.template.'.$type,['article' => $article])
+            @endif
+
+
+        @if($article->id)
 
             <div class="layui-form-item">
                 <div class="layui-upload">

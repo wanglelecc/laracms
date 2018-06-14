@@ -1,15 +1,37 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Api\Controller;
 use App\Http\Requests\Api\V1\SocialAuthorizationRequest;
 use App\Http\Requests\Api\V1\AuthorizationRequest;
 
+/**
+ * 认证控制器
+ *
+ * Class AuthorizationsController
+ * @package App\Http\Controllers\Api\V1
+ */
 class AuthorizationsController extends Controller
 {
+    /**
+     * 创建
+     * @param AuthorizationRequest $request
+     */
     public function store(AuthorizationRequest $request)
     {
         $username = $request->username;
@@ -27,18 +49,34 @@ class AuthorizationsController extends Controller
         return $this->respondWithToken($token)->setStatusCode(201);
     }
 
+    /**
+     * 更新
+     *
+     * @return mixed
+     */
     public function update()
     {
         $token = Auth::guard('api')->refresh();
         return $this->respondWithToken($token);
     }
 
+    /**
+     * 注销
+     *
+     * @return \Dingo\Api\Http\Response
+     */
     public function destroy()
     {
         Auth::guard('api')->logout();
         return $this->response->noContent();
     }
 
+    /**
+     * 第三方登录
+     *
+     * @param $type
+     * @param SocialAuthorizationRequest $request
+     */
     public function socialStore($type, SocialAuthorizationRequest $request)
     {
         if (!in_array($type, ['weixin'])) {
@@ -92,6 +130,12 @@ class AuthorizationsController extends Controller
         return $this->respondWithToken($token)->setStatusCode(201);
     }
 
+    /**
+     * 响应 Token 结构体
+     *
+     * @param $token
+     * @return mixed
+     */
     protected function respondWithToken($token)
     {
         return $this->response->array([
@@ -100,4 +144,5 @@ class AuthorizationsController extends Controller
             'expires_in' => \Auth::guard('api')->factory()->getTTL() * 60
         ]);
     }
+
 }

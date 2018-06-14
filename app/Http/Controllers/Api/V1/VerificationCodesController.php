@@ -1,4 +1,17 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 namespace App\Http\Controllers\Api\V1;
 
@@ -7,9 +20,22 @@ use App\Http\Controllers\Api\Controller;
 use App\Http\Requests\Api\V1\VerificationCodeRequest;
 use Overtrue\EasySms\EasySms;
 
-
+/**
+ * 短信验证码控制器
+ *
+ * Class VerificationCodesController
+ * @package App\Http\Controllers\Api\V1
+ */
 class VerificationCodesController extends Controller
 {
+    /**
+     * 生成验证码
+     *
+     * @param VerificationCodeRequest $request
+     * @param EasySms $easySms
+     * @throws \Overtrue\EasySms\Exceptions\InvalidArgumentException
+     * @throws \Overtrue\EasySms\Exceptions\NoGatewayAvailableException
+     */
     public function store(VerificationCodeRequest $request, EasySms $easySms)
     {
         $captchaData = \Cache::get($request->captcha_key);
@@ -24,9 +50,7 @@ class VerificationCodesController extends Controller
             return $this->response->errorUnauthorized('验证码错误');
         }
 
-//        $phone = $request->phone;
         $phone = $captchaData['phone'];
-
 
         if (!app()->environment('production')) {
             $code = '1234';

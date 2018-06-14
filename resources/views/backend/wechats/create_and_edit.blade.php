@@ -17,7 +17,7 @@
     </fieldset>
 
 
-    <form class="layui-form layui-form-pane" method="POST" action="{{ $wechat->id ? route('wechats.update', $wechat->id) : route('wechats.store') }}">
+    <form class="layui-form layui-form-pane" method="POST" action="{{ $wechat->id ? route('wechats.update', $wechat->id) : route('wechats.store') }}?redirect={{ previous_url() }}">
         {{ csrf_field() }}
         <input type="hidden" name="_method" value="{{ $wechat->id ? 'PATCH' : 'POST' }}">
 

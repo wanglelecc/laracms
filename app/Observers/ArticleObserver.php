@@ -1,4 +1,17 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 namespace App\Observers;
 
@@ -8,20 +21,21 @@ use Illuminate\Support\Facades\Auth;
 // creating, created, updating, updated, saving,
 // saved,  deleting, deleted, restoring, restored
 
+/**
+ * 文章观察者
+ *
+ * Class ArticleObserver
+ * @package App\Observers
+ */
 class ArticleObserver
 {
     public function creating(Article $article)
     {
-//        $article->object_id = create_object_id();
         $article->status = '1';
         $article->order = 9999;
         $article->created_op || $article->created_op = Auth::id();
         $article->updated_op || $article->updated_op = Auth::id();
 
-        $content = clean($article->content, 'user_body');
-
-        // 生成文章摘录
-        $article->description = make_excerpt($content);
     }
 
     public function updating(Article $article)
@@ -30,16 +44,21 @@ class ArticleObserver
     }
 
     public function saving(Article $article){
-        $article->type = 'article';
 
         // XSS 过滤
         $article->content = clean($article->content, 'user_body');
+
+        // 生成文章摘录
+        $article->description = make_excerpt($article->content);
+
+        $article->attributes = $article->attributes ?? [];
+        if( is_array($article->attributes) ){
+            $article->attributes = json_encode($article->attributes, JSON_UNESCAPED_UNICODE);
+        }
     }
 
     public function saved(Article $article){
-//        $article->categorys()->detach();
-//        dump($article->category_id); exit;
-//        $article->categorys()->sync($article->category_id);
+
     }
 
     public function deleted(Article $article)

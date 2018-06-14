@@ -15,7 +15,7 @@
             <legend>{{ $title }}</legend>
         </fieldset>
 
-        <form class="layui-form layui-form-pane" method="POST" action="{{ $block->id ? route('blocks.update', $block->id) : route('blocks.store') }}">
+        <form class="layui-form layui-form-pane" method="POST" action="{{ $block->id ? route('blocks.update', $block->id) : route('blocks.store') }}?redirect={{ previous_url() }}">
             {{ csrf_field() }}
             <input type="hidden" name="_method" class="mini-hidden" value="{{ $block->id ? 'PATCH' : 'POST' }}">
 

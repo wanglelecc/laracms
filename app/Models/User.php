@@ -1,4 +1,17 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 namespace App\Models;
 
@@ -11,7 +24,12 @@ use Spatie\Permission\Traits\HasRoles;
 use App\Models\Traits\WithOrderHelper;
 use App\Events\BehaviorLogEvent;
 
-
+/**
+ * 用户模型
+ *
+ * Class User
+ * @package App\Models
+ */
 class User extends Authenticatable implements JWTSubject
 {
 
@@ -24,10 +42,6 @@ class User extends Authenticatable implements JWTSubject
         'id','name', 'phone', 'email', 'password', 'avatar', 'introduction', 'status', 'weixin_openid', 'weixin_unionid', 'weibo_id', 'qq_id', 'github_id', 'last_ip', 'last_location', 'last_time',
     ];
 
-//    public $dispatchesEvents  = [
-//        'saved' => BehaviorLogEvent::class,
-//    ];
-//
     public function titleName(){
         return 'name';
     }
@@ -97,18 +111,21 @@ class User extends Authenticatable implements JWTSubject
         $this->attributes['password'] = $value;
     }
 
+    /**
+     * 处理用户头像地址
+     *
+     * @param $path
+     */
     public function setAvatarAttribute($path)
     {
-        // 如果不是 `http` 子串开头，那就是从后台上传的，需要补全 URL
-//        if ( ! starts_with($path, 'http')) {
-//
-//            // 拼接完整的 URL
-//            $path = config('app.url') . "/uploads/images/avatars/$path";
-//        }
-
         $this->attributes['avatar'] = $path;
     }
 
+    /**
+     * 返回完整的头像地址
+     *
+     * @return mixed|string
+     */
     public function getAvatar(){
 
         if ( ! starts_with($this->avatar, 'http')) {

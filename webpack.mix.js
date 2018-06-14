@@ -20,6 +20,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
    .copyDirectory('resources/assets/layui', 'public/layui')
    .copyDirectory('resources/assets/plugins', 'public/plugins')
    .copyDirectory('resources/assets/images', 'public/images')
+   .copy('resources/assets/js/jquery.cookie-1.4.1.min.js', 'public/js/jquery.cookie-1.4.1.min.js')
    ;
 
 mix.browserSync({

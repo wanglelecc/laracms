@@ -1,4 +1,17 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 namespace App\Http\Controllers;
 
@@ -10,6 +23,12 @@ use EasyWeChat\Kernel\Messages\Transfer;
 use App\Handlers\TextMessageHandler;
 use App\Handlers\EventMessageHandler;
 
+/**
+ * 微信控制器
+ *
+ * Class WeChatController
+ * @package App\Http\Controllers
+ */
 class WeChatController extends Controller
 {
 
@@ -24,15 +43,7 @@ class WeChatController extends Controller
      */
     public function serve(Wechat $safeWechat)
     {
-        #Log::info('request arrived.'); # 注意：Log 为 Laravel 组件，所以它记的日志去 Laravel 日志看，而不是 EasyWeChat 日志
-
-        # $app = app('wechat.official_account');
         $app = $safeWechat->app();
-
-//        $app->server->push(function ($message) {
-//            return "您好！欢迎使用 EasyWeChat!";
-//        });
-
 
         $app->server->push(function($message) use ($safeWechat){
             return app(EventMessageHandler::class)->handle($safeWechat, $message);

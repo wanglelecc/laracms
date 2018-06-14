@@ -1,4 +1,17 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 namespace App\Providers;
 
@@ -25,8 +38,8 @@ class RouteServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        Route::bind('safePage',function($value){ return \App\Models\Page::where('id', $value)->where('type','page')->where('status','1')->first(); });
-        Route::bind('safeArticle',function($value){ return \App\Models\Article::where('id', $value)->where('type','article')->where('status','1')->first(); });
+        Route::bind('safePage',function($value){ return \App\Models\Page::where('id', $value)->where('type','page')->active()->first(); });
+        Route::bind('safeArticle',function($value){ return \App\Models\Article::where('id', $value)->where('type','article')->active()->first(); });
         Route::bind('articleCategory',function($value){ return \App\Models\Category::where('id', $value)->where('type','article')->first(); });
         Route::bind('safeWechat',function($value){ return \App\Models\Wechat::where('object_id', $value)->first(); });
     }

@@ -3,7 +3,6 @@
 @section('title', $title = '分类列表')
 
 @section('breadcrumb')
-    <a href="">站点设置</a>
     <a href="">内容管理</a>
     <a href="">@switch($type)
             @case('article')文章分类@break

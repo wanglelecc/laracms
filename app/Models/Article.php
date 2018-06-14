@@ -1,4 +1,17 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 namespace App\Models;
 
@@ -6,15 +19,19 @@ use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\Traits\WithCommonHelper;
-//use App\Models\Traits\WithBehaviorLogTraits;
 use App\Events\BehaviorLogEvent;
 
-
+/**
+ * 文章模型
+ *
+ * Class Article
+ * @package App\Models
+ */
 class Article extends Model
 {
     use WithCommonHelper;
     use Searchable;
-//    use WithBehaviorLogTraits;
+
     public $dispatchesEvents  = [
         'saved' => BehaviorLogEvent::class,
     ];
@@ -26,15 +43,12 @@ class Article extends Model
     public $asYouType = true;
 
     protected $fillable = [
-         'id','object_id', 'alias','title', 'subtitle', 'keywords', 'description', 'author', 'source', 'order', 'content', 'thumb', 'type', 'is_link','link', 'template', 'status', 'views', 'reply_count', 'weight', 'css', 'js', 'top', 'created_op', 'updated_op',
+         'id','object_id', 'alias','title', 'subtitle', 'keywords', 'description', 'author', 'source', 'order', 'content', 'attributes', 'thumb', 'type', 'is_link','link', 'template', 'status', 'views', 'reply_count', 'weight', 'css', 'js', 'top', 'created_op', 'updated_op',
     ];
 
     public function toSearchableArray()
     {
         $array = $this->toArray();
-
-        // Customize array...
-//        unset($array['content']);
 
         return $array;
     }
@@ -52,8 +66,8 @@ class Article extends Model
         return $this->belongsTo('App\Models\User', 'updated_op');
     }
 
-    public function filterWith($type = 'type'){
-        return $this->where('type','article')->with(['created_user','updated_user']);
+    public function filterWith($type = 'article'){
+        return $this->where('type', $type)->with(['created_user','updated_user']);
     }
 
     public function replies()
@@ -61,7 +75,11 @@ class Article extends Model
         return $this->hasMany(Reply::class);
     }
 
-    // 多对多多态关联
+    /**
+     * 多对多多态关联
+     *
+     * @return MorphToMany
+     */
     public function category(): MorphToMany
     {
         return $this->morphToMany(
@@ -73,7 +91,11 @@ class Article extends Model
         );
     }
 
-    // 多对多
+    /**
+     * 多对多
+     *
+     * @return BelongsToMany
+     */
     public function categorys(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -96,7 +118,6 @@ class Article extends Model
             })
             ->all();
 
-//        $this->category()->saveMany($categorys);
         $this->categorys()->saveMany($categorys);
 
         return $this;
@@ -105,7 +126,6 @@ class Article extends Model
 
     public function syncCategory(...$categorys)
     {
-//        $this->category()->detach();
         $this->categorys()->detach();
 
         return $this->giveCategoryTo($categorys);
@@ -145,6 +165,16 @@ class Article extends Model
             return $this->link;
         }
         return route('article.show',[$navigation_id, $category_id, $this->id]);
+    }
+
+    /**
+     * 获取扩展属性
+     *
+     * @param string $attribute
+     * @return mixed|string
+     */
+    public function getAttr($attribute){
+        return get_json_params($this->attributes, $attribute, null);
     }
 
 }

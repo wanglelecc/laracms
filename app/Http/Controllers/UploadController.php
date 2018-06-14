@@ -1,4 +1,17 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 namespace App\Http\Controllers;
 
@@ -6,25 +19,29 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Handlers\UploadHandler;
 
+/**
+ * 文件上传控制器
+ *
+ * Class UploadController
+ * @package App\Http\Controllers
+ */
 class UploadController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | 文件上传控制器
-    |--------------------------------------------------------------------------
-    |
-    |
-    |
-    */
-
-    protected $folder = ['avatar', 'article', 'blog', 'page', 'website', 'slide', 'link', 'navigation'];
+    // 允许类型
+    protected $folder = ['avatar', 'article', 'blog', 'page', 'website', 'slide', 'link', 'video', 'annex', 'voice', 'navigation'];
 
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    //
+    /**
+     * 图片上传
+     *
+     * @param Request $request
+     * @param UploadHandler $uploader
+     * @return array
+     */
     public function image(Request $request, UploadHandler $uploader)
     {
         // 初始化返回数据，默认是失败的

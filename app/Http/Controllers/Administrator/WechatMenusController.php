@@ -1,4 +1,17 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 namespace App\Http\Controllers\Administrator;
 
@@ -10,6 +23,12 @@ use App\Http\Requests\Administrator\WechatMenuRequest;
 use App\Handlers\WechatMenuHandler;
 use EasyWeChat\Factory;
 
+/**
+ * 微信菜单控制器
+ *
+ * Class WechatMenusController
+ * @package App\Http\Controllers\Administrator
+ */
 class WechatMenusController extends Controller
 {
     public function __construct()
@@ -17,51 +36,118 @@ class WechatMenusController extends Controller
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
+    /**
+     * 列表
+     *
+     * @param Wechat $wechat
+     * @param WechatMenuHandler $handler
+     * @return mixed
+     */
 	public function index(Wechat $wechat, WechatMenuHandler $handler)
 	{
         $wechat_menus = collect($handler->level(WechatMenu::where('group',$wechat->id)->ordered()->recent('asc')->get()));
 		return backend_view('wechat_menus.index', compact('wechat_menus', 'wechat'));
 	}
 
+    /**
+     * 详情
+     *
+     * @param WechatMenu $wechat_menu
+     * @return mixed
+     */
     public function show(WechatMenu $wechat_menu)
     {
         return backend_view('wechat_menus.show', compact('wechat_menu'));
     }
 
+    /**
+     * 创建
+     *
+     * @param WechatMenu $wechat_menu
+     * @param Wechat $wechat
+     * @param int $parent
+     * @return mixed
+     */
 	public function create(WechatMenu $wechat_menu, Wechat $wechat, $parent = 0)
 	{
 		return backend_view('wechat_menus.create_and_edit', compact('wechat_menu', 'wechat', 'parent'));
 	}
 
+    /**
+     * 保存
+     *
+     * @param WechatMenuRequest $request
+     * @param Wechat $wechat
+     * @return \Illuminate\Http\RedirectResponse
+     */
 	public function store(WechatMenuRequest $request, Wechat $wechat)
 	{
 		$wechat_menu = WechatMenu::create($request->all());
-		return redirect()->route('wechat_menus.index',$wechat_menu->group)->with('success', '添加成功.');
+
+		return $this->redirect('wechat_menus.index',$wechat_menu->group)->with('success', '添加成功.');
 	}
 
+    /**
+     * 编辑
+     *
+     * @param WechatMenu $wechat_menu
+     * @param Wechat $wechat
+     * @return mixed
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
 	public function edit(WechatMenu $wechat_menu, Wechat $wechat)
 	{
         $this->authorize('update', $wechat_menu);
+
         $parent = $wechat_menu->parent;
-		return backend_view('wechat_menus.create_and_edit', compact('wechat_menu','wechat', 'parent'));
+
+        return backend_view('wechat_menus.create_and_edit', compact('wechat_menu','wechat', 'parent'));
 	}
 
+    /**
+     * 更新
+     *
+     * @param WechatMenuRequest $request
+     * @param WechatMenu $wechat_menu
+     * @param Wechat $wechat
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
 	public function update(WechatMenuRequest $request, WechatMenu $wechat_menu,  Wechat $wechat)
 	{
 		$this->authorize('update', $wechat_menu);
+
 		$wechat_menu->update($request->all());
 
-		return redirect()->route('wechat_menus.index',$wechat->id)->with('success', '更新成功.');
+		return $this->redirect('wechat_menus.index',$wechat->id)->with('success', '更新成功.');
 	}
 
+    /**
+     * 删除
+     *
+     * @param WechatMenu $wechat_menu
+     * @param Wechat $wechat
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
 	public function destroy(WechatMenu $wechat_menu, Wechat $wechat)
 	{
 		$this->authorize('destroy', $wechat_menu);
+
 		$wechat_menu->delete();
 
-		return redirect()->route('wechat_menus.index', $wechat->id)->with('success', '删除成功.');
+		return $this->redirect()->with('success', '删除成功.');
 	}
 
+    /**
+     * 排序
+     *
+     * @param WechatMenu $wechat_menu
+     * @param $wechat
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function order(WechatMenu $wechat_menu, $wechat){
         $this->authorize('update', $wechat_menu);
 

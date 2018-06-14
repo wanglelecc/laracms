@@ -28,7 +28,7 @@
                 <img src="{{ Auth::user()->getAvatar() }}" class="layui-nav-img" />
                 {{ Auth::user()->name }}
             </a>
-            <dl class="layui-nav-child">
+            <dl class="layui-nav-child layui-nav-header">
                 <dd><a href="{{ route('user.edit', Auth::user()->id)  }}">基本资料</a></dd>
                 <dd><a href="{{ route('administrator.password.edit', Auth::user()->id )  }}">修改密码</a></dd>
             </dl>

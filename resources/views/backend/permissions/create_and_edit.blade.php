@@ -15,7 +15,7 @@
             <legend>{{ $title }}</legend>
         </fieldset>
 
-        <form class="layui-form layui-form-pane" method="POST" action="{{ $permission->id ? route('permissions.update', $permission->id) : route('permissions.store') }}">
+        <form class="layui-form layui-form-pane" method="POST" action="{{ $permission->id ? route('permissions.update', $permission->id) : route('permissions.store') }}?redirect={{ previous_url() }}">
             {{ csrf_field() }}
             <input type="hidden" name="_method" class="mini-hidden" value="{{ $permission->id ? 'PATCH' : 'POST' }}">
 

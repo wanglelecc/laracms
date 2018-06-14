@@ -1,15 +1,29 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: lele.wang
- * Date: 2018/2/1
- * Time: 16:24
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
  */
+
 namespace App\Handlers;
 
 use GuzzleHttp\Client;
 use Overtrue\Pinyin\Pinyin;
 
+/**
+ * 预言翻译工具（暂未用到）
+ *
+ * Class SlugTranslateHandler
+ * @package App\Handlers
+ */
 class SlugTranslateHandler
 {
     public function translate($text)

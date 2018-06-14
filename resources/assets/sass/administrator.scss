@@ -508,3 +508,13 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
   to {transform: translate3d(0, 400px, 0) scale(2); opacity: 0.5;}
 }
 .site-out-up{-webkit-animation-duration: 3s; animation-duration: 3s; -webkit-animation-fill-mode: both; animation-fill-mode: both; -webkit-animation-name: site-anim-closeup; animation-name: site-anim-closeup; overflow: hidden;}
+
+.cmdlist-container{background:#F2F2F2; border:1px solid transparent;}
+.cmdlist-container img{width:100%; height:250px;}
+.cmdlist-text{padding:20px;}
+.cmdlist-text .info{height: 40px; font-size: 14px; line-height: 20px; width: 100%; overflow: hidden; color: #666; margin-bottom: 10px;}
+.cmdlist-text .price{font-size: 14px;}
+.cmdlist-text .price b{margin-right:20px;}
+.cmdlist-text .price p{display: inline-block;}
+.cmdlist-text .flow{text-align: right; float: right;}
+

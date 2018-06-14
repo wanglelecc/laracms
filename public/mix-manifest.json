@@ -4,5 +4,6 @@
     "/css/administrator.css": "/css/administrator.css",
     "/css/app.desktop.css": "/css/app.desktop.css",
     "/js/app.desktop.js": "/js/app.desktop.js",
-    "/js/administrator.js": "/js/administrator.js"
+    "/js/administrator.js": "/js/administrator.js",
+    "/js/jquery.cookie-1.4.1.min.js": "/js/jquery.cookie-1.4.1.min.js"
 }

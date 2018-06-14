@@ -36,7 +36,7 @@
     </fieldset>
 
     @if($group == 'keyword')
-       <form class="layui-form layui-form-pane" method="POST" action="{{ $wechat_response->id ? route('wechat_response.update', [$wechat_response->id, $wechat->id]) : route('wechat_response.store', $wechat->id) }}">
+       <form class="layui-form layui-form-pane" method="POST" action="{{ $wechat_response->id ? route('wechat_response.update', [$wechat_response->id, $wechat->id]) : route('wechat_response.store', $wechat->id) }}?redirect={{ previous_url() }}">
          <input type="hidden" name="_method" value="{{ $wechat_response->id ? 'PUT' : 'POST' }}">
     @else
        <form class="layui-form layui-form-pane" method="POST" action="{{ route('wechat_response.set_response.store', [$wechat->id, $group]) }}">

@@ -1,4 +1,17 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 namespace App\Http\Controllers;
 
@@ -8,16 +21,14 @@ use TeamTNT\TNTSearch\Indexer\TNTIndexer;
 use TeamTNT\TNTSearch\TNTSearch;
 use App\Handlers\TokenizerHandler;
 
+/**
+ * 前台搜索控制器
+ *
+ * Class SearchController
+ * @package App\Http\Controllers
+ */
 class SearchController extends Controller
 {
-   /*
-    |--------------------------------------------------------------------------
-    | 前台搜索控制器
-    |--------------------------------------------------------------------------
-    |
-    |
-    |
-    */
 
     /**
      * 搜索首页

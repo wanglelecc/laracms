@@ -45,6 +45,7 @@
         <!-- Scripts -->
         <script src="{{asset('layui/layui.all.js')}}"></script>
         <script src="{{asset('js/administrator.js')}}"></script>
+        <script src="{{asset('js/jquery.cookie-1.4.1.min.js')}}"></script>
         <script>
             layui.form.verify({
                 username: function(value, item){ //value：表单的值、item：表单的DOM对象
@@ -68,6 +69,21 @@
             });
 
             // layer.msg('的确很重要', {icon: 1});
+
+            $(".layui-nav dd").click(function(){
+                var id = $(this).attr('id');
+                $.cookie('nav-id', id, { expires: 1, path: '/' });
+            });
+
+            $(".layui-nav-header dd").click(function(){
+                $.cookie('nav-id', '', { expires: 1, path: '/' });
+            });
+
+            var NavId = $.cookie('nav-id');
+            if(NavId){
+               $("#"+NavId).addClass("layui-this");
+            }
+
         </script>
 
         @include('backend.layouts._message')

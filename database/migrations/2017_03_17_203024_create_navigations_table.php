@@ -1,4 +1,17 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -16,7 +29,7 @@ class CreateNavigationsTable extends Migration
         Schema::create('navigations', function (Blueprint $table) {
             $table->increments('id');
             $table->enum("category",['desktop','footer','mobile',])->comment('导航分类');
-            $table->enum("type",['action','link','article','page','category'])->comment('类型');
+            $table->enum("type",['action','link','article','page','category', 'navigation'])->comment('类型');
             $table->string("title",100)->comment('标题');
             $table->string("description",255)->nullable()->comment('描述');
             $table->enum("target",['_self','_blank'])->default('_self')->comment("是否新建标签");

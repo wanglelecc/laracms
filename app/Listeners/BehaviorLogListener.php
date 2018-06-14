@@ -21,7 +21,7 @@ class BehaviorLogListener
     }
 
     /**
-     * Handle the event.
+     * 监听处理模型 添加/更新 事件.
      *
      * @param  BehaviorLogEvent  $event
      * @return void

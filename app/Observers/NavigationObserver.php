@@ -1,4 +1,17 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 namespace App\Observers;
 
@@ -7,6 +20,12 @@ use App\Models\Navigation;
 // creating, created, updating, updated, saving,
 // saved,  deleting, deleted, restoring, restored
 
+/**
+ * 导航观察者
+ *
+ * Class NavigationObserver
+ * @package App\Observers
+ */
 class NavigationObserver
 {
     public function creating(Navigation $navigation)

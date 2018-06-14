@@ -1,8 +1,21 @@
 <?php
+/**
+ * LaraCMS - CMS based on laravel
+ *
+ * @category  LaraCMS
+ * @package   Laravel
+ * @author    Wanglelecc <wanglelecc@gmail.com>
+ * @date      2018/06/06 09:08:00
+ * @copyright Copyright 2018 LaraCMS
+ * @license   https://opensource.org/licenses/MIT
+ * @github    https://github.com/wanglelecc/laracms
+ * @link      https://www.laracms.cn
+ * @version   Release 1.0
+ */
 
 namespace App\Http\Requests\Administrator;
-use Illuminate\Validation\Rule;
 
+use Illuminate\Validation\Rule;
 
 class ArticleRequest extends Request
 {
@@ -24,6 +37,7 @@ class ArticleRequest extends Request
                     'author' => 'nullable|max:191',
                     'source' => 'nullable|max:191',
                     'content' => 'required|min:1|max:65535',
+                    'attributes' => 'nullable|array',
                     'thumb' => 'nullable|max:191',
                     'order' => 'nullable|integer',
                     'status' => 'nullable|integer',
@@ -31,9 +45,7 @@ class ArticleRequest extends Request
                     'weight' => 'nullable|integer',
                     'top' => 'nullable|'.Rule::in(['0','1']),
                     'is_link' => 'nullable|'.Rule::in(['0','1']),
-//            'type' => 'required|alpha|min:1|max:16',
                     'link' => 'nullable|alpha_dash|unique:article|max:191',
-//            'template' => 'nullable|alpha_dash|max:191',
                 ];
             }
             // UPDATE
@@ -50,6 +62,7 @@ class ArticleRequest extends Request
                     'author' => 'nullable|max:191',
                     'source' => 'nullable|max:191',
                     'content' => 'required|min:1|max:65535',
+                    'attributes' => 'nullable|array',
                     'thumb' => 'nullable|max:191',
                     'order' => 'nullable|integer',
                     'status' => 'nullable|integer',
@@ -57,9 +70,7 @@ class ArticleRequest extends Request
                     'weight' => 'nullable|integer',
                     'top' => 'nullable|'.Rule::in(['0','1']),
                     'is_link' => 'nullable|'.Rule::in(['0','1']),
-//            'type' => 'required|alpha|min:1|max:16',
                     'link' => 'nullable|alpha_dash|unique:article|max:191',
-//            'template' => 'nullable|alpha_dash|max:191',
                 ];
             }
             case 'GET':
