@@ -1,4 +1,4 @@
-@extends('backend.layouts.app')
+@extends('backend::layouts.app')
 
 @section('title', $title = '系统日志')
 
@@ -32,8 +32,6 @@
     <div class="layui-tab layui-tab-brief site-demo-table" lay-filter="demoTitle">
         <ul class="layui-tab-title site-demo-title">
             <li class="layui-this">系统日志</li>
-            <li>任务日志</li>
-            <li>队列日志</li>
         </ul>
         <div class="layui-body layui-tab-content site-demo">
 

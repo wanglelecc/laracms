@@ -38,6 +38,7 @@ class CreateCategorysTable extends Migration
             $table->string("link")->nullable()->comment('链接');
             $table->string("template")->nullable()->comment('模板');
             $table->timestamps();
+            $table->softDeletes();
             $table->index('type','type_index');
             $table->index('parent','parent_index');
             $table->index('path','path_index');

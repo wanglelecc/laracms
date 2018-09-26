@@ -42,6 +42,13 @@ class CreateNavigationsTable extends Migration
             $table->enum("is_show",['0','1'])->default('1')->comment("是否显示");
             $table->integer("order")->comment('排序');
             $table->timestamps();
+            
+            $table->softDeletes();
+    
+            $table->index('category','category_index');
+            $table->index('type','type_index');
+            $table->index('order','order_index');
+            $table->index('is_show','is_show_index');
         });
     }
 

@@ -16,7 +16,6 @@
 namespace App\Http\Controllers\Administrator;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -28,6 +27,11 @@ use Spatie\Permission\Models\Permission;
  */
 class RolesController extends Controller
 {
+    public function __construct()
+    {
+        static::$activeNavId = 'system.roles';
+    }
+    
     /**
      * 列表
      *

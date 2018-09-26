@@ -37,8 +37,14 @@ class CreateSlidesTable extends Migration
             $table->string("image",255)->comment('图片');
             $table->integer("order")->comment('排序');
             $table->enum("status",[0,1,2])->default(1)->comment('状态');
-            $table->index('group','group_index');
+           
             $table->timestamps();
+            $table->softDeletes();
+    
+            $table->index('group','group_index');
+            $table->index('order','order_index');
+            $table->index('status','status_index');
+            
         });
     }
 

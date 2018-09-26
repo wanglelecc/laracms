@@ -42,4 +42,11 @@ class WelcomeController extends Controller
     public function company(){
         return frontend_view('company');
     }
+
+    /**
+     * 站点地图
+     */
+    public function map(){
+        return frontend_view('map');
+    }
 }

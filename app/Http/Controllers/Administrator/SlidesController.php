@@ -17,7 +17,6 @@ namespace App\Http\Controllers\Administrator;
 
 use App\Models\Slide;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Administrator\SlideRequest;
 
 /**
@@ -31,6 +30,7 @@ class SlidesController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
+        static::$activeNavId = 'content.slide';
     }
 
     /**

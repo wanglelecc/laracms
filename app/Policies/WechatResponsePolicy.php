@@ -28,11 +28,11 @@ class WechatResponsePolicy extends Policy
 {
     public function update(User $user, WechatResponse $wechatResponse)
     {
-        return true;
+        return $user->can("manage_wechat");
     }
 
     public function destroy(User $user, WechatResponse $wechatResponse)
     {
-        return true;
+        return $user->can("manage_wechat");
     }
 }

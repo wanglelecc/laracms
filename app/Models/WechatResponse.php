@@ -19,6 +19,8 @@ use EasyWeChat\Kernel\Messages\Text;
 use EasyWeChat\Kernel\Messages\News;
 use EasyWeChat\Kernel\Messages\NewsItem;
 use App\Events\BehaviorLogEvent;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 /**
  * 微信响应模型
@@ -28,8 +30,12 @@ use App\Events\BehaviorLogEvent;
  */
 class WechatResponse extends Model
 {
+    use SoftDeletes;
+    
     public $table = 'wechat_response';
     protected $fillable = ['wechat_id', 'key', 'group', 'type', 'source', 'content'];
+    
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     public $dispatchesEvents  = [
         'saved' => BehaviorLogEvent::class,

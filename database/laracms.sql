@@ -126,10 +126,10 @@ CREATE TABLE IF NOT EXISTS `lara_blocks` (
 DELETE FROM `lara_blocks`;
 /*!40000 ALTER TABLE `lara_blocks` DISABLE KEYS */;
 INSERT INTO `lara_blocks` (`id`, `object_id`, `group`, `type`, `template`, `title`, `icon`, `more_title`, `more_link`, `content`, `created_op`, `updated_op`, `created_at`, `updated_at`) VALUES
-	(1, '1593921820130870', 0, 'slide', 'default', '首页幻灯', NULL, NULL, NULL, '{"mark":"1"}', 1, 1, '2018-03-03 21:05:02', '2018-03-03 21:05:02'),
-	(2, '1593926806514812', 0, 'hotArticle', 'default', '企业新闻', NULL, '更多', 'http://laracms.leleserver.cc/article/list_2_1.html', '{"category_id":"1","display":"4"}', 1, 1, '2018-03-03 22:24:17', '2018-03-03 22:24:17'),
-	(3, '1593929822441295', 0, 'hotArticle', 'default', '成功案例', NULL, '更多', 'http://laracms.leleserver.cc/article/list_3_2.html', '{"category_id":"2","display":"4"}', 1, 1, '2018-03-03 23:12:13', '2018-03-03 23:12:13'),
-	(4, '1593930272075407', 0, 'hotArticle', 'default', '本周热议', NULL, NULL, NULL, '{"category_id":"3","display":"10"}', 1, 1, '2018-03-03 23:19:22', '2018-03-03 23:19:22');
+	(1, '2018_03_04_224524_index_slide_block', 0, 'slide', 'default', '首页幻灯', NULL, NULL, NULL, '{"mark":"1"}', 1, 1, '2018-03-03 21:05:02', '2018-03-03 21:05:02'),
+	(2, '2018_03_04_234810_index_enterprise_news_block', 0, 'hotArticle', 'default', '企业新闻', NULL, '更多', 'http://laracms.leleserver.cc/article/list_2_1.html', '{"category_id":"1","display":"4"}', 1, 1, '2018-03-03 22:24:17', '2018-03-03 22:24:17'),
+	(3, '2018_03_04_235036_index_case_news_block', 0, 'hotArticle', 'default', '成功案例', NULL, '更多', 'http://laracms.leleserver.cc/article/list_3_2.html', '{"category_id":"2","display":"4"}', 1, 1, '2018-03-03 23:12:13', '2018-03-03 23:12:13'),
+	(4, '2018_03_04_235540_index_hot_news_block', 0, 'hotArticle', 'default', '本周热议', NULL, NULL, NULL, '{"category_id":"3","display":"10"}', 1, 1, '2018-03-03 23:19:22', '2018-03-03 23:19:22');
 /*!40000 ALTER TABLE `lara_blocks` ENABLE KEYS */;
 
 -- 导出  表 com_leleserver_laracms.lara_categorys 结构

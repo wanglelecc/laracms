@@ -17,7 +17,6 @@ namespace App\Http\Controllers\Administrator;
 
 use Hash;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Administrator\UserRequest;
@@ -32,7 +31,11 @@ use Spatie\Permission\Models\Role;
  */
 class UsersController extends Controller
 {
-
+    public function __construct()
+    {
+        static::$activeNavId = 'system.users';
+    }
+    
     /**
      * 列表
      *
@@ -84,7 +87,7 @@ class UsersController extends Controller
         $roles = $request->input('roles') ? $request->input('roles') : [];
         $user->assignRole($roles);
 
-        return $this->redirect('users.index')->with('success', '添加成功.');
+        return redirect()->route('users.index')->with('success', '添加成功.');
     }
 
     /**

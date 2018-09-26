@@ -43,7 +43,7 @@ class ArticleController extends Controller
         $articles = [];
         $articles = $articleCategory->articles()->ordered()->recent()->paginate(10);
 
-        return frontend_view('category.index', compact('navigation','category','articles'));
+        return frontend_view('category.'.$articleCategory->getTemplate('index'), compact('navigation','category','articles'));
     }
 
     /**
@@ -59,7 +59,7 @@ class ArticleController extends Controller
         $category = $articleCategory;
         $articles = $category->articles()->active()->ordered()->recent()->paginate(10);
 
-        return frontend_view('article.list', compact('navigation','category','articles'));
+        return frontend_view('article.'.$articleCategory->getTemplate('list'), compact('navigation','category','articles'));
     }
 
     /**

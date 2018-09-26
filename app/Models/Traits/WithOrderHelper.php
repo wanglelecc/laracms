@@ -55,7 +55,8 @@ trait WithOrderHelper
      * 追加排序条件
      *
      * @param $query
-     * @param string $sortOrder
+     * @param $sortField
+     * @param $sortOrder
      * @return mixed
      */
     public function scopeWithOrder($query, $sortField, $sortOrder)

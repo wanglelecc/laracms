@@ -5,22 +5,24 @@
     $categoryHandler = app(\App\Handlers\CategoryHandler::class);
     $category = $categoryHandler->select($categoryHandler->getCategorys('article'));
 @endphp
-
-<div class="layui-form-item">
-    <label class="layui-form-label">文章分类</label>
-    <div class="layui-input-block">
-        <select name="content[category_id]">
-            <option value=""></option>
-            @foreach($category as $key => $value)
-                <option @if($category_id == $key) selected @endif value="{{$key}}">{{$value}}</option>
-            @endforeach
-        </select>
+<div class="form-group has-feedback  has-icon-right">
+    <label for="content[category_id]" class="col-md-2 col-sm-2 control-label required">文章分类</label>
+    <div class="col-md-5 col-sm-10">
+    <select name="content[category_id]" class="form-control">
+        <option value=""></option>
+        @foreach($category as $key => $value)
+            <option @if($category_id == $key) selected @endif value="{{$key}}">{{$value}}</option>
+        @endforeach
+    </select>
     </div>
 </div>
-
-<div class="layui-form-item">
-    <label class="layui-form-label">显示数量</label>
-    <div class="layui-input-block">
-        <input type="number" lay-verify="required" id="content[display]" name="content[display]" autocomplete="off" placeholder="显示数量" class="layui-input" value="{{  get_value($content, 'display', 10) }}" />
-    </div>
+<div class="form-group has-feedback  has-icon-right">
+    <label for="content[display]" class="col-md-2 col-sm-2 control-label required">显示数量</label>
+    <div class="col-md-5 col-sm-10">
+    <input type="number" id="content[display]" name="content[display]" autocomplete="off" placeholder="" class="form-control" value="{{  get_value($content, 'display', 10) }}"
+           required
+           data-fv-trigger="blur"
+           min="1"
+           max="100"
+    ></div>
 </div>

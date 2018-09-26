@@ -15,5 +15,6 @@ class VerifyCsrfToken extends Middleware
         //
 //        'upload/image',
         'wechat/*.html',
+        'uploader/*',
     ];
 }

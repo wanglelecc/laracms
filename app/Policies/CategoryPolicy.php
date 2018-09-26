@@ -28,21 +28,21 @@ class CategoryPolicy extends Policy
 {
     public function index(User $user, Category $category)
     {
-        return $user->can('manage_article');
+        return $user->can('manage_category');
     }
 
     public function create(User $user, Category $category)
     {
-        return $user->can('manage_article');
+        return $user->can('manage_category');
     }
 
     public function update(User $user, Category $category)
     {
-        return $user->can('manage_article');
+        return $user->can('manage_category');
     }
 
     public function destroy(User $user, Category $category)
     {
-        return $user->can('manage_article');
+        return $user->can('manage_category');
     }
 }

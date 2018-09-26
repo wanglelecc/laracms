@@ -15,7 +15,6 @@
 
 namespace App\Http\Controllers\Administrator;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Crypt;
 use App\Support\LogViewer;
 use App\Models\Log;
@@ -34,6 +33,7 @@ class LogViewerController extends Controller
     public function __construct ()
     {
         $this->request = app('request');
+        static::$activeNavId = 'develop';
     }
 
     /**
@@ -65,6 +65,7 @@ class LogViewerController extends Controller
      * @return mixed
      */
     public function jobs(Log $log, Request $request){
+        static::$activeNavId = 'develop.task';
         return $this->index($log,$request,'jobs', '任务日志');
     }
 
@@ -76,6 +77,7 @@ class LogViewerController extends Controller
      * @return mixed
      */
     public function queue(Log $log, Request $request){
+        static::$activeNavId = 'develop.queue';
         return $this->index($log,$request,'queue', '队列日志');
     }
 
@@ -87,6 +89,7 @@ class LogViewerController extends Controller
      * @return mixed
      */
     public function behavior(Log $log, Request $request){
+        static::$activeNavId = 'develop.behavior';
         return $this->index($log,$request,'behavior', '行为日志');
     }
 
@@ -98,6 +101,7 @@ class LogViewerController extends Controller
      * @return mixed
      */
     public function business(Log $log, Request $request){
+        static::$activeNavId = 'develop.business';
         return $this->index($log,$request,'business', '业务日志');
     }
 
@@ -109,7 +113,7 @@ class LogViewerController extends Controller
      */
     public function laravel()
     {
-
+        static::$activeNavId = 'develop.log';
         if ($this->request->input('l')) {
             LogViewer::setFile(Crypt::decrypt($this->request->input('l')));
         }
@@ -140,7 +144,7 @@ class LogViewerController extends Controller
 //        return app('view')->make('laravel-log-viewer::log', $data);
     }
 
-    public function redirect($to)
+    protected function redirect($to = null)
     {
         if (function_exists('redirect')) {
             return redirect($to);

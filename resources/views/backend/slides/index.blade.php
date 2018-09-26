@@ -1,67 +1,62 @@
-@extends('backend.layouts.app')
+@extends('backend::layouts.app')
 
 @section('title', $title = '幻灯片')
 
 @section('breadcrumb')
-    <a href="">内容管理</a>
-    <a href="">幻灯管理</a>
-    <a href="">{{$title}}</a>
+    <li><a href="javascript:;">内容管理</a></li>
+    <li><a href="javascript:;">幻灯管理</a></li>
+    <li class="active">{{$title}}</li>
 @endsection
 
 @section('content')
-    <div class="layui-main">
-        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-            <legend>{{$title}}</legend>
-        </fieldset>
 
-        {{--<a href="{{ route('slides.create') }}" class="layui-btn">添加</a>--}}
+    <h2 class="header-dividing">{{$title}} <small></small></h2>
+    <div class="row">
+        <div class="col-md-12">
 
-        <div class="layui-form">
+            <div class="table-tools" style="margin-bottom: 15px;">
+                <div class="pull-right" style="width: 250px;">
+                </div>
+                <div class="tools-group">
+                </div>
+            </div>
             @if($slides->count())
-                <table class="layui-table">
+                <table class="table table-bordered">
                     <colgroup>
                         <col width="50">
                         <col width="200">
                         <col width="300">
                         <col>
-                        <col width="300">
+                        <col width="120">
                     </colgroup>
                     <thead>
                     <tr>
-                        <th>#</th>
-                        <th>标识</th>
-                        <th>名称</th>
-                        <th>描述</th>
-                        <th>操作</th>
+                        <th class="text-center">#</th>
+                        <th class="text-center">标识</th>
+                        <th class="text-center">名称</th>
+                        <th class="text-center">描述</th>
+                        <th class="text-center">操作</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($slides as $index => $slide)
                         <tr>
-                            <td>{{ $slide['id'] }}</td>
+                            <td class="text-center">{{ $slide['id'] }}</td>
                             <td>{{ $slide['mark']}}</td>
                             <td>{{ $slide['name']}}</td>
                             <td>{{ $slide['description']}}</td>
-                            <td>
-                                <a href="{{ route('slides.manage', $slide['id']) }}" class="layui-btn layui-btn-sm layui-btn-normal">管理</a>
+                            <td class="text-center">
+                                <a href="{{ route('slides.manage', $slide['id']) }}" class="btn btn-xs btn-primary">管理</a>
                             </td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
-                <form id="delete-form" action="" method="POST" style="display:none;">
-                    <input type="hidden" name="_method" value="DELETE">
-                    {{ csrf_field() }}
-                </form>
-                <div id="paginate-render"></div>
             @else
-                <br />
-                <blockquote class="layui-elem-quote">暂无数据!</blockquote>
+                <div class="alert alert-info alert-block">暂无数据</div>
             @endif
-
         </div>
     </div>
-
 @endsection
 
 @section('scripts')

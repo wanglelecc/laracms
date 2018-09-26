@@ -61,11 +61,34 @@ class Setting extends Model
     }
 
     /**
+     * @param string $owner
+     */
+    public static function getStore(){
+
+        $key = 'settings_cache';
+
+        $settings = \Cache::get($key);
+
+        if( \App::environment('production') && $settings ){
+            return $settings;
+        }
+
+        $settings = static::get();
+
+        if(\App::environment('production')){
+            $expiredAt = now()->addMinutes(config('cache.expired.settings', 10));
+            \Cache::put($key, $settings, $expiredAt);
+        }
+
+        return $settings;
+    }
+
+    /**
      * 将数据库中的配置信息注入到框架中
      */
     public static function afflux(){
         $config = [];
-        foreach(static::get() as $item){
+        foreach(static::getStore() as $item){
             $key = "{$item->owner}.{$item->module}.{$item->section}.{$item->key}";
             $config[$key] = $item->value;
         }

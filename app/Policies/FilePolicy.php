@@ -19,26 +19,21 @@ use App\Models\User;
 use App\Models\File;
 
 /**
- * 文件授权策略
+ * 媒体授权策略
  *
- * Class FilePolicy
+ * Class WechatPolicy
  * @package App\Policies
  */
 class FilePolicy extends Policy
 {
-    public function index(User $user, File $file)
+    public function images(User $user, File $file)
     {
-        return true;
+        return $user->can("manage_images");
     }
 
-    public function update(User $user, File $file)
+    public function annex(User $user, File $file)
     {
-        // return $file->user_id == $user->id;
-        return true;
+        return $user->can("manage_annex");
     }
 
-    public function destroy(User $user, File $file)
-    {
-        return true;
-    }
 }

@@ -28,16 +28,15 @@ class WechatPolicy extends Policy
 {
     public function update(User $user, Wechat $wechat)
     {
-        // return $wechat->user_id == $user->id;
-        return true;
+        return $user->can("manage_wechat");
     }
 
     public function destroy(User $user, Wechat $wechat)
     {
-        return true;
+        return $user->can("manage_wechat");
     }
 
     public function show(User $user, Wechat $wechat){
-        return true;
+        return $user->can("manage_wechat");
     }
 }

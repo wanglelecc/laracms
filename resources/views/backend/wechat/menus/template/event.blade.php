@@ -1,0 +1,14 @@
+@php
+    $data = is_json($wechat_menu->data) ? json_decode($wechat_menu->data) : new \stdClass();
+    $event = $data->event ?? '';
+@endphp
+<div class="form-group has-feedback has-icon-right">
+    <label for="data[event]" class="col-md-2 col-sm-2 control-label required">自定义事件</label>
+    <div class="col-md-5 col-sm-10">
+    <input type="text" class="form-control" id="data[event]" name="data[media_id]" autocomplete="off" placeholder="" value="{{ old('data.event',$event) }}"
+           required
+           data-fv-trigger="blur"
+           minlength="1"
+           maxlength="128"
+    ></div>
+</div>

@@ -1,4 +1,4 @@
-@extends('backend.layouts.app')
+@extends('backend::layouts.app')
 
 @section('title', $title)
 
@@ -25,7 +25,7 @@
     <div class="layui-form-item">
         <div style="">
         <div class="layui-inline">
-            <label class="layui-form-label">文章分类</label>
+            <label class="layui-form-label">日志分类</label>
             <div class="layui-input-block">
                 <select name="type" lay-filter="log_type">
                     <option value=""></option>
@@ -141,5 +141,5 @@
         });
 
     </script>
-    @include('backend.layouts._paginate',[ 'count' => $logs->total(), ])
+    @include('backend::layouts._paginate',[ 'count' => $logs->total(), ])
 @endsection

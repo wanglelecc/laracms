@@ -14,7 +14,7 @@
     <!-- Fonts -->
 
     <!-- Styles -->
-    <link href="{{asset('layui/css/layui.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('plugins/layui/css/layui.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/administrator.css')}}" rel="stylesheet" type="text/css">
     <link rel="apple-touch-icon" href="/favicon.png">
     @yield('styles')
@@ -61,12 +61,12 @@
 </div>
 
 <!-- Scripts -->
-<script src="{{asset('layui/layui.all.js')}}"></script>
+<script src="{{asset('plugins/layui/layui.all.js')}}"></script>
 <script src="{{asset('js/administrator.js')}}"></script>
 
-@include('backend.layouts._message')
+@include('backend::layouts._message')
 
-@include('backend.layouts._error')
+@include('backend::layouts._error')
 
 @yield('scripts')
 </body>

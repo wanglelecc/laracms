@@ -18,6 +18,7 @@ namespace App\Models;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Traits\WithCommonHelper;
 use App\Events\BehaviorLogEvent;
 
@@ -29,6 +30,7 @@ use App\Events\BehaviorLogEvent;
  */
 class Article extends Model
 {
+    use SoftDeletes;
     use WithCommonHelper;
     use Searchable;
 
@@ -43,8 +45,10 @@ class Article extends Model
     public $asYouType = true;
 
     protected $fillable = [
-         'id','object_id', 'alias','title', 'subtitle', 'keywords', 'description', 'author', 'source', 'order', 'content', 'attributes', 'thumb', 'type', 'is_link','link', 'template', 'status', 'views', 'reply_count', 'weight', 'css', 'js', 'top', 'created_op', 'updated_op',
+         'id','object_id', 'alias','title', 'subtitle', 'keywords', 'description', 'author', 'source', 'order', 'content', 'attribute', 'thumb', 'type', 'is_link','link', 'template', 'status', 'views', 'reply_count', 'weight', 'css', 'js', 'top', 'created_op', 'updated_op',
     ];
+    
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     public function toSearchableArray()
     {
@@ -73,6 +77,24 @@ class Article extends Model
     public function replies()
     {
         return $this->hasMany(Reply::class);
+    }
+
+    /**
+     * 获取多图
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function images(){
+        return $this->multiple_files();
+    }
+
+    /**
+     * 获取附件
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function annex(){
+        return $this->multiple_files();
     }
 
     /**
@@ -168,13 +190,55 @@ class Article extends Model
     }
 
     /**
-     * 获取扩展属性
+     * 复写获取属性方法，扩展自定义复合属性
      *
-     * @param string $attribute
-     * @return mixed|string
+     * @param string $key
+     * @return mixed|null
      */
-    public function getAttr($attribute){
-        return get_json_params($this->attributes, $attribute, null);
+    public function getAttribute($key){
+
+        $value = parent::getAttribute($key);
+        
+        $attribute = parent::getAttribute('attribute');
+        
+        if(is_array($attribute)){
+            $attribute = empty($attribute) ? new \stdClass() : $attribute;
+        }else if( is_string( $attribute ) ){
+            $attribute = empty($attribute) ? new \stdClass() : json_decode($attribute, true);
+        }
+        
+        if( $key !== $value && is_array($attribute) && array_key_exists($key, $attribute)){
+            $value = $attribute[$key] ?? null;
+        }
+
+        return $value;
+    }
+
+    /**
+     * 前台获取文章详情
+     *
+     * @param $id
+     * @return mixed
+     */
+    public static function show( $id ){
+        $id = intval($id);
+
+        $key = 'article_active_cache_'.$id;
+
+        $article = \Cache::get($key);
+
+        if( \App::environment('production') && $article ){
+            return $article;
+        }
+
+        $article = static::where('id', $id)->where('type','article')->active()->first();
+
+        if(\App::environment('production')){
+            $expiredAt = now()->addMinutes(config('cache.expired.article', 10));
+            \Cache::put($key, $article, $expiredAt);
+        }
+
+        return $article;
     }
 
 }

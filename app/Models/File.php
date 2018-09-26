@@ -16,6 +16,8 @@
 namespace App\Models;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 /**
  * 文件模型
@@ -25,9 +27,9 @@ use Illuminate\Support\Facades\Storage;
  */
 class File extends Model
 {
+    use SoftDeletes;
     protected $fillable = ['id','type', 'path', 'mime_type', 'md5', 'title', 'folder', 'object_id', 'size', 'width', 'height', 'downloads', 'public', 'editor', 'status', 'created_op'];
-
-    public function getImageUrl(){
-        return $this->path ? Storage::url($this->path) : config('app.url') . '/images/pic-none.png';
-    }
+    
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+    
 }

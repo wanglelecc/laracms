@@ -38,7 +38,7 @@ class CreateArticlesTable extends Migration
             $table->string("source",50)->nullable()->comment('文章来源');
 //            $table->integer("category_id")->comment('分类id');
             $table->text("content")->comment('文章内容');
-            $table->json("attributes")->nullable()->comment('附加属性');
+            $table->json("attribute")->nullable()->comment('附加属性');
             $table->string("thumb",255)->nullable()->comment('封面');
             $table->enum("is_link",[0,1])->default(0)->comment('isLink');
             $table->string("link",255)->nullable()->comment('Link');
@@ -55,6 +55,9 @@ class CreateArticlesTable extends Migration
             $table->integer("created_op")->default(0)->comment("创建人");
             $table->integer("updated_op")->default(0)->comment("更新人");
             $table->timestamps();
+    
+            $table->softDeletes();
+            
             $table->unique('object_id','object_id_unique');
             $table->index('order','order_index');
             $table->index('views','views_index');

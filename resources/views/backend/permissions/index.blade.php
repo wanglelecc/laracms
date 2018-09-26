@@ -1,67 +1,65 @@
-@extends('backend.layouts.app')
+@extends('backend::layouts.app')
 
 @section('title', $title = '权限列表')
 
 @section('breadcrumb')
-    <a href="">系统设置</a>
-    <a href="">权限管理</a>
-    <a href="">{{$title}}</a>
+    <li><a href="javascript:;">系统设置</a></li>
+    <li><a href="javascript:;">权限管理</a></li>
+    <li class="active">{{$title}}</li>
 @endsection
 
 @section('content')
-<div class="layui-main">
-    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-        <legend>{{$title}}</legend>
-    </fieldset>
 
-    <a href="{{ route('permissions.create') }}" class="layui-btn">添加</a>
+    <h2 class="header-dividing">{{$title}} <small></small></h2>
+    <div class="row">
+        <div class="col-md-12">
 
-    <div class="layui-form">
-        @if($permissions->count())
-        <table class="layui-table">
-            <colgroup>
-                <col width="50">
-                <col>
-                <col>
-                <col width="300">
-            </colgroup>
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>权限名称</th>
-                <th>权限备注</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($permissions as $index => $permission)
-            <tr>
-                <td>{{ $permission->id }}</td>
-                <td>{{ $permission->name  }}</td>
-                <td>{{ $permission->remarks  }}</td>
-                <td>
-                    <a href="{{ route('permissions.edit', $permission->id) }}" class="layui-btn layui-btn-sm layui-btn-normal">编辑</a>
-                    <a href="javascript:;" data-url="{{ route('permissions.destroy', $permission->id) }}" class="layui-btn layui-btn-sm layui-btn-danger form-delete">删除</a>
-                </td>
-            </tr>
-            @endforeach
-            </tbody>
-        </table>
-        <form id="delete-form" action="" method="POST" style="display:none;">
-            <input type="hidden" name="_method" value="DELETE">
-            {{ csrf_field() }}
-        </form>
-        <div id="paginate-render"></div>
-        @else
-            <br />
-            <blockquote class="layui-elem-quote">暂无数据!</blockquote>
-        @endif
-
+            <div class="table-tools" style="margin-bottom: 15px;">
+                <div class="pull-right" style="width: 250px;">
+                </div>
+                <div class="tools-group">
+                    <a href="{{ route('permissions.create') }}" class="btn btn-primary"><i class="icon icon-plus-sign"></i> 添加</a>
+                </div>
+            </div>
+            @if($permissions->count())
+            <table class="table table-bordered">
+                <colgroup>
+                    <col width="50">
+                    <col width="330">
+                    <col>
+                    <col width="120">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">权限名称</th>
+                    <th class="text-center">权限备注</th>
+                    <th class="text-center">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($permissions as $index => $permission)
+                    <tr>
+                        <td class="text-center">{{ $permission->id }}</td>
+                        <td>{{ $permission->name  }}</td>
+                        <td>{{ $permission->remarks  }}</td>
+                        <td class="text-center">
+                            <a href="{{ route('permissions.edit', $permission->id) }}" class="btn btn-xs btn-primary">编辑</a>
+                            <a href="javascript:;" data-url="{{ route('permissions.destroy', $permission->id) }}" class="btn btn-xs btn-danger form-delete">删除</a>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+            <div id="paginate-render">
+                {{$permissions->links()}}
+            </div>
+            @else
+                <div class="alert alert-info alert-block">暂无数据</div>
+            @endif
+        </div>
     </div>
-</div>
-
 @endsection
 
 @section('scripts')
-    @include('backend.layouts._paginate',[ 'count' => $permissions->total(), ])
 @endsection

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>控制台</title>
+    <link href="/css/app.css" rel="stylesheet" type="text/css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+</head>
+<body>
+
+<div class="wrapper">
+    <header class="main-header">
+        <nav class="navbar navbar-fixed-top bg-primary">
+            <div class="navbar-header">
+                <a class="navbar-toggle" href="javascript:;" data-toggle="collapse" data-target=".navbar-collapse"><i class="icon icon-th-large"></i></a>
+                <a class="sidebar-toggle" href="javascript:;" data-toggle="push-menu"><i class="icon icon-bars"></i></a>
+                <a class="navbar-brand" href="#">
+                    <span class="logo">LaraCMS</span>
+                    <span class="logo-mini">LC</span>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav">
+                        <li><a href="javascript:;" data-toggle="push-menu"><i class="icon icon-bars"></i></a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="javascript:;" data-toggle="dropdown">
+                                <img src="http://zui.sexy/docs/img/img2.jpg" width="32px" height="32px" class="img-circle" alt="圆形图片">&nbsp;&nbsp;
+                                管理员
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">基本资料</a></li>
+                                <li><a href="#">修改密码</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">退出</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul class="sidebar-menu" data-widget="tree">
+                <li>
+                    <a href="layout.html">
+                        <i class="icon icon-dashboard"></i>
+                        <span>仪表盘</span>
+                        <span class="pull-right-container"></span>
+                    </a>
+                </li>
+
+                <li class="treeview">
+                    <a href="javascript:;">
+                        <i class="icon icon-columns"></i>
+                        <span>基础组件</span>
+                        <span class="pull-right-container">
+                            <i class="icon icon-angle-left"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href=""><i class="icon icon-circle-blank"></i> 多选和单选框</a></li>
+                        <li><a href=""><i class="icon icon-circle-blank"></i> 步骤条</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="javascript:;">
+                        <i class="icon icon-file"></i>
+                        <span>页面演示</span>
+                        <span class="pull-right-container">
+                            <i class="icon icon-angle-left"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="active"><a href=""><i class="icon icon-circle-blank"></i> 空白页</a></li>
+                        <li><a href=""><i class="icon icon-circle-blank"></i> 登录</a></li>
+                        <li><a href=""><i class="icon icon-circle-blank"></i> 404页</a></li>
+                        <li><a href=""><i class="icon icon-circle-blank"></i> 系统设置</a></li>
+                        <li><a href=""><i class="icon icon-circle-blank"></i> 用户列表</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </aside>
+    <div class="content-wrapper">
+        <div class="content-header">
+            <ul class="breadcrumb">
+                <li><a href="#"><i class="icon icon-home"></i></a></li>
+                <li>仪表盘</li>
+                <li class="active">空白页</li>
+            </ul>
+        </div>
+        <div class="content-body">
+            <div class="container-fluid">
+                <h3 class="text-center">从这里开始写代码</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>

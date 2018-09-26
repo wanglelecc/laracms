@@ -29,21 +29,21 @@ class LinkPolicy extends Policy
 
     public function index(User $user, Link $link)
     {
-        return $user->can('manage_setting');
+        return $user->can('manage_links');
     }
 
     public function create(User $user, Link $link)
     {
-        return $user->can('manage_setting');
+        return $user->can('manage_links');
     }
 
     public function update(User $user, Link $link)
     {
-        return $user->can('manage_setting');
+        return $user->can('manage_links');
     }
 
     public function destroy(User $user, Link $link)
     {
-        return $user->can('manage_setting');
+        return $user->can('manage_links');
     }
 }

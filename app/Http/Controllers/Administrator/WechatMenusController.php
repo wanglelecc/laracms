@@ -18,10 +18,10 @@ namespace App\Http\Controllers\Administrator;
 use App\Models\Wechat;
 use App\Models\WechatMenu;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Administrator\WechatMenuRequest;
 use App\Handlers\WechatMenuHandler;
 use EasyWeChat\Factory;
+use EasyWeChat\Kernel\Exceptions\HttpException;
 
 /**
  * 微信菜单控制器
@@ -34,6 +34,8 @@ class WechatMenusController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
+    
+        static::$activeNavId = 'website.wechat';
     }
 
     /**
@@ -46,7 +48,7 @@ class WechatMenusController extends Controller
 	public function index(Wechat $wechat, WechatMenuHandler $handler)
 	{
         $wechat_menus = collect($handler->level(WechatMenu::where('group',$wechat->id)->ordered()->recent('asc')->get()));
-		return backend_view('wechat_menus.index', compact('wechat_menus', 'wechat'));
+		return backend_view('wechat.menus.index', compact('wechat_menus', 'wechat'));
 	}
 
     /**
@@ -57,7 +59,7 @@ class WechatMenusController extends Controller
      */
     public function show(WechatMenu $wechat_menu)
     {
-        return backend_view('wechat_menus.show', compact('wechat_menu'));
+        return backend_view('wechat.menus.show', compact('wechat_menu'));
     }
 
     /**
@@ -70,7 +72,7 @@ class WechatMenusController extends Controller
      */
 	public function create(WechatMenu $wechat_menu, Wechat $wechat, $parent = 0)
 	{
-		return backend_view('wechat_menus.create_and_edit', compact('wechat_menu', 'wechat', 'parent'));
+		return backend_view('wechat.menus.create_and_edit', compact('wechat_menu', 'wechat', 'parent'));
 	}
 
     /**
@@ -84,7 +86,7 @@ class WechatMenusController extends Controller
 	{
 		$wechat_menu = WechatMenu::create($request->all());
 
-		return $this->redirect('wechat_menus.index',$wechat_menu->group)->with('success', '添加成功.');
+		return $this->redirect('wechat.menus.index',$wechat)->with('success', '添加成功.');
 	}
 
     /**
@@ -101,7 +103,7 @@ class WechatMenusController extends Controller
 
         $parent = $wechat_menu->parent;
 
-        return backend_view('wechat_menus.create_and_edit', compact('wechat_menu','wechat', 'parent'));
+        return backend_view('wechat.menus.create_and_edit', compact('wechat_menu','wechat', 'parent'));
 	}
 
     /**
@@ -119,7 +121,7 @@ class WechatMenusController extends Controller
 
 		$wechat_menu->update($request->all());
 
-		return $this->redirect('wechat_menus.index',$wechat->id)->with('success', '更新成功.');
+		return $this->redirect('wechat.menus.index',$wechat->id)->with('success', '更新成功.');
 	}
 
     /**
@@ -158,20 +160,31 @@ class WechatMenusController extends Controller
             $wechat_menu->where('id',$id)->update(['order' => $order[$k] ?? 999 ]);
         }
 
-        return redirect()->route('wechat_menus.index', $wechat)->with('success', '操作成功.');
+        return redirect()->route('wechat.menus.index', $wechat)->with('success', '操作成功.');
     }
 
     /**
      * 同步到微信服务器
+     *
+     * @param Wechat $wechat
+     * @param WechatMenuHandler $handler
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function synchronizeWechatServer(Wechat $wechat, WechatMenuHandler $handler){
+
         $buttons = $handler->withRecursionWeixinServer(WechatMenu::where('group',$wechat->id)->ordered()->recent('asc')->get());
-        $app = Factory::officialAccount(['app_id'=>$wechat->app_id,'secret'=>$wechat->app_secret]);
-        $result = $app->menu->create($buttons);
+
+        try{
+            $app = Factory::officialAccount(['app_id'=>$wechat->app_id,'secret'=>$wechat->app_secret]);
+            $result = $app->menu->create($buttons);
+        }catch (HttpException $exception){
+            return redirect()->route('wechat.menus.index',$wechat->id)->with('danger', '同步失败！原因：'.$exception->getMessage().'');
+        }
+
         if($result['errcode'] == 0){
-            return redirect()->route('wechat_menus.index',$wechat->id)->with('success', '成功同步到微信服务器.');
+            return redirect()->route('wechat.menus.index',$wechat->id)->with('success', '成功同步到微信服务器.');
         }else{
-            return redirect()->route('wechat_menus.index',$wechat->id)->with('danger', '同步失败！原因('.$result['errcode'].')：'.$result['errmsg']);
+            return redirect()->route('wechat.menus.index',$wechat->id)->with('danger', '同步失败！原因('.$result['errcode'].')：'.$result['errmsg']);
         }
     }
 }

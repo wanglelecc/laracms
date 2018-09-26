@@ -48,7 +48,7 @@ class UserEventSubscriber
         $user->last_ip = Request::ip();
         $location = Ip::find($user->last_ip);
         $user->last_location = is_array($location) && !empty($location) ? trim(implode(' ', array_slice($location,1,3))) : '未知';
-        $user->last_time = Carbon::now();
+        $user->last_at = now();
         $user->save();
     }
 

@@ -1,120 +1,123 @@
-@extends('backend.layouts.app')
+@extends('backend::layouts.app')
 
 @section('title', $title = ($slide->id ? '编辑' : '添加') . $slideConfig['name'] )
 
 @section('breadcrumb')
-    <a href="">内容管理</a>
-    <a href="">幻灯管理</a>
-    <a href="">幻灯片</a>
-    <a href="">{{$slideConfig['name']}}管理</a>
-    <a href="">{{$title}}</a>
+    <li><a href="javascript:;">内容管理</a></li>
+    <li><a href="javascript:;">幻灯管理</a></li>
+    <li><a href="javascript:;">幻灯片</a></li>
+    <li><a href="javascript:;">{{$slideConfig['name']}}管理</a></li>
+    <li>{{$title}}</li>
 @endsection
 
 @section('content')
-    <div class="layui-main">
 
-        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-            <legend>{{ $title }}</legend>
-        </fieldset>
+    <h2 class="header-dividing">{{$title}} <small></small></h2>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-body">
+                    <form id="form-validator" class="form-horizontal" method="POST" action="{{ $slide->id ? route('slides.update', $slide->id) : route('slides.store') }}?redirect={{ previous_url() }}">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="_method" value="{{ $slide->id ? 'PATCH' : 'POST' }}">
 
-        <a href="{{ route('slides.manage', $group) }}" class="layui-btn layui-btn-primary">返回{{$slideConfig['name']}}</a>
-        <br /><br />
+                        <div class="form-group has-feedback  has-icon-right">
+                            <label for="title" class="col-md-2 col-sm-2 control-label required">标题</label>
+                            <div class="col-md-5 col-sm-10">
+                            <input type="text" name="title" id="title" autocomplete="off" placeholder="" class="form-control" value="{{ old('title',$slide->title) }}"
+                                   required
+                                   data-fv-trigger="blur"
+                                   minlength="1"
+                                   maxlength="100"
+                            ></div>
+                        </div>
 
-        <form class="layui-form layui-form-pane" method="POST" action="{{ $slide->id ? route('slides.update', $slide->id) : route('slides.store') }}?redirect={{ previous_url() }}">
-            {{ csrf_field() }}
-            <input type="hidden" name="_method" class="mini-hidden" value="{{ $slide->id ? 'PATCH' : 'POST' }}">
+                        <div class="form-group has-feedback  has-icon-right">
+                            <label for="link" class="col-md-2 col-sm-2 control-label required">链接</label>
+                            <div class="col-md-5 col-sm-10">
+                            <input type="text" class="form-control" id="link" name="link" autocomplete="off" placeholder="" value="{{ old('link',$slide->link) }}"
+                                   required
+                                   data-fv-trigger="blur"
+                                   minlength="1"
+                                   maxlength="128"
+                            ></div>
+                        </div>
 
-            <div class="layui-form-item">
-                <label class="layui-form-label">标题</label>
-                <div class="layui-input-block">
-                    <input type="text" name="title" lay-verify="required" autocomplete="off" placeholder="请输入标题" class="layui-input" value="{{ old('title', $slide->title) }}" >
+                        <div class="form-group has-feedback has-icon-right">
+                            <label for="target" class="col-md-2 col-sm-2 control-label required">打开方式</label>
+                            <div class="col-md-5 col-sm-10">
+                            <div class="radio">
+                                <label class="radio-inline">
+                                    <input type="radio" name="target" value="_self" @if(old('target',$slide->target) == '_self') checked="" @endif required > 当前窗口
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="target" value="_blank" @if(old('target',$slide->target) == '_blank') checked="" @endif required > 新开窗口
+                                </label>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="" class="col-md-2 col-sm-2 control-label">图片</label>
+                            <div class="col-md-8 col-sm-10">
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <img src="{{ storage_image_url($slide->image) }}" id="image_image" class="img-rounded" width="660px" height="300px" alt="">
+                                    <input type="hidden" name="image" id="form_image" value="{{ old('image',$slide->image) }}" />
+                                    <button id="upload_image" type="button" class="btn btn-info uploader-btn-browse"><i class="icon icon-upload"></i> 上传</button>
+                                    <button id="select_thumb" type="button" class="btn btn-primary"><i class="icon icon-file-image"></i> 选择</button>
+                                    <button id="delete_thumb" type="button" class="btn btn-danger"><i class="icon icon-remove-sign"></i> 删除</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        @if($slide->id)
+                        <div class="form-group has-feedback  has-icon-right">
+                            <label for="order" class="col-md-2 col-sm-2 control-label required">排序</label>
+                            <div class="col-md-5 col-sm-10">
+                            <input type="number" class="form-control" id="order" name="order" autocomplete="off" placeholder="" value="{{ old('order',$slide->order) }}"
+                                   required
+                                   data-fv-trigger="blur"
+                                   min="0"
+                                   max="9999"
+                            ></div>
+                        </div>
+                        @endif
+
+                        <div class="form-group has-feedback has-icon-right">
+                            <label for="" class="col-md-2 col-sm-2 control-label required">状态</label>
+                            <div class="col-md-5 col-sm-10">
+                            <div class="radio">
+                                <label class="radio-inline">
+                                    <input type="radio" name="status" value="0" @if($slide->status == 0) checked="" @endif required > 隐藏
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="status" value="1" @if($slide->status == 1) checked="" @endif required > 显示
+                                </label>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-5 col-sm-10">
+                                <input type="hidden" name="group" value="{{$group}}" />
+                                <button type="submit" class="btn btn-primary">提交</button>
+                                <button type="reset" class="btn btn-default">重置</button>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
             </div>
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">链接</label>
-                <div class="layui-input-block">
-                    <input type="url" name="link" lay-verify="required" autocomplete="off" placeholder="请输入链接" class="layui-input" value="{{ old('link', $slide->link) }}" >
-                </div>
-            </div>
-
-            <div class="layui-form-item" pane="">
-                <label class="layui-form-label">打开方式</label>
-                <div class="layui-input-block">
-                    <input type="radio" name="target" lay-verify="required" lay-skin="primary" value="_self" title="当前窗口" @if($slide->target == '_self') checked="" @endif >
-                    <input type="radio" name="target" lay-verify="required" lay-skin="primary" value="_blank" title="新开窗口" @if($slide->target == '_blank') checked="" @endif >
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <div class="layui-upload">
-                    <button type="button" class="layui-btn" id="upload_image">图片</button>
-                    <input type="hidden" name="image" id="form_image" value="{{ old('image',$slide->image) }}" />
-                    <div class="layui-upload-list">
-                        <img class="layui-upload-img" src="{{ $slide->getImage() }}" id="image_image" style="max-width: 520px;" _height="280">
-                    </div>
-                </div>
-            </div>
-
-            @if($slide->id)
-            <div class="layui-form-item">
-                <label class="layui-form-label">排序</label>
-                <div class="layui-input-block">
-                    <input type="number" name="order" lay-verify="required" autocomplete="off" placeholder="请输入排序" class="layui-input" value="{{ old('order',$slide->order) }}" >
-                </div>
-            </div>
-
-            {{--<div class="layui-form-item layui-form-text">--}}
-                {{--<label class="layui-form-label">描述</label>--}}
-                {{--<div class="layui-input-block">--}}
-                    {{--<textarea name="description" lay-verify="" placeholder="描述" class="layui-textarea">{{  old('description', $slide->description) }}</textarea>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-
-            <div class="layui-form-item" pane="">
-                <label class="layui-form-label">状态</label>
-                <div class="layui-input-block">
-                    <input type="radio" name="status" lay-skin="primary" value="0" title="隐藏" @if($slide->status == '0') checked="" @endif >
-                    <input type="radio" name="status" lay-skin="primary" value="1" title="显示" @if($slide->status == '1') checked="" @endif >
-                </div>
-            </div>
-            @endif
-
-            <div class="layui-form-item">
-                {{--<div class="layui-input-block">--}}
-                <input type="hidden" name="group" value="{{$group}}" />
-                <button class="layui-btn" lay-submit="" lay-filter="demo1">提交</button>
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                {{--</div>--}}
-            </div>
-        </form>
+        </div>
     </div>
 @endsection
 
 @section('scripts')
 
-    <script>
-        layui.use('upload', function(){
-            var upload = layui.upload;
+    @include('backend::common._upload_image_scripts',['elem' => '#upload_image', 'previewElem' => '#image_image', 'fieldElem' => '#form_image', 'folder'=>'slide', 'object_id' => $group->id ?? 0 ])
+    @include('backend::common._delete_image_scripts',['elem' => '#delete_thumb', 'previewElem' => '#image_image', 'fieldElem' => '#form_image', ])
+    @include('backend::common._select_image_scripts',['elem' => '#select_thumb', 'previewElem' => '#image_image', 'fieldElem' => '#form_image', 'folder'=>'slide', 'object_id' => $group->id ?? 0 ])
 
-            //执行实例
-            var uploadInst = upload.render({
-                elem: '#upload_image' // 绑定元素
-                ,url: '{{ route('upload.image') }}?folder=slide&object_id={{$group ?? 0}}' // 上传接口
-                ,field: 'upload_file'
-                ,done: function(res){
-                    if(res.success == true){
-                        $("#form_image").val(res.file_uri);
-                        $("#image_image").attr("src",res.file_path);
-                    }
-                    //上传完毕回调
-                    console.log(res);
-                }
-                ,error: function(){
-                    //请求异常回调
-                    layer.alert('上传失败，请重试!', 2);
-                }
-            });
-        });
-    </script>
 @endsection

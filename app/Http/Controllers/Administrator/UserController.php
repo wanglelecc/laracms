@@ -18,7 +18,6 @@ namespace App\Http\Controllers\Administrator;
 use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Http\Requests\Administrator\UserRequest;
 use App\Handlers\UploadHandler;
@@ -31,6 +30,11 @@ use App\Handlers\UploadHandler;
  */
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        static::$activeNavId = 'system.users';
+    }
+    
     /**
      * 编辑
      *

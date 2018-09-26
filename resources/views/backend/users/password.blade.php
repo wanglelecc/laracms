@@ -1,43 +1,60 @@
-@extends('backend.layouts.app')
+@extends('backend::layouts.app')
 
 @section('title', $title = '重置密码')
 
 @section('breadcrumb')
-    <a href="">系统设置</a>
-    <a href="">用户管理</a>
-    <a href="">{{$title}}</a>
+    <li><a href="javascript:;">系统设置</a></li>
+    <li><a href="javascript:;">用户管理</a></li>
+    <li class="active">{{$title}}</li>
 @endsection
 
 @section('content')
-<div class="layui-main">
 
-    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-        <legend>{{$title}}</legend>
-    </fieldset>
+    <h2 class="header-dividing">{{$title}} <small></small></h2>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-body">
 
-    <form class="layui-form layui-form-pane" method="POST" action="{{ route('administrator.users.password.update', $user->id)  }}">
-        {{ csrf_field() }}
-        <input type="hidden" name="_method" class="mini-hidden" value="PUT">
+                    <form id="form-validator" class="form-horizontal" method="POST" action="{{ route('administrator.users.password.update', $user->id) }}">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="_method" value="PUT">
 
-        <div class="layui-form-item">
-            <label class="layui-form-label">新密码</label>
-            <div class="layui-input-block">
-                <input type="password" name="password" lay-verify="required" placeholder="新密码" autocomplete="off" class="layui-input" value="{{ old("password")  }}" >
+                        <div class="form-group">
+                            <label for="password" class="col-md-2 col-sm-2 control-label required">新密码</label>
+                            <div class="col-md-5 col-sm-10">
+                            <input type="password" class="form-control" id="password" name="password" autocomplete="off" placeholder="请输入新密码" value="{{ old('password') }}"
+                                   required
+                                   data-fv-trigger="blur"
+                                   minlength="6"
+                                   maxlength="16"
+                            ></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password_confirmation" class="col-md-2 col-sm-2 control-label required">确认密码</label>
+                            <div class="col-md-5 col-sm-10">
+                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" autocomplete="off" placeholder="请输入确认密码" value="{{ old('password_confirmation') }}"
+                                   required
+                                   data-fv-trigger="blur"
+                                   minlength="6"
+                                   maxlength="16"
+                                   data-fv-identical="true"
+                                   data-fv-identical-field="password"
+                                   data-fv-identical-message="两次输入不一致"
+                            ></div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-5 col-sm-10">
+                                <button type="submit" class="btn btn-primary">提交</button>
+                                <button type="reset" class="btn btn-default">重置</button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">重复密码</label>
-            <div class="layui-input-block">
-                <input type="password" name="password_confirmation" lay-verify="required" placeholder="重复密码" autocomplete="off" class="layui-input" value="{{ old("password_confirmation") }}" >
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            {{--<div class="layui-input-block">--}}
-                <button class="layui-btn" lay-submit="" lay-filter="demo1">提交</button>
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-            {{--</div>--}}
-        </div>
-    </form>
-</div>
+    </div>
 @endsection

@@ -16,6 +16,7 @@
 namespace App\Models;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Events\BehaviorLogEvent;
 
 /**
@@ -26,8 +27,12 @@ use App\Events\BehaviorLogEvent;
  */
 class Navigation extends Model
 {
+    use SoftDeletes;
     protected $fillable = ['id','category', 'type', 'title', 'description', 'target', 'link', 'image', 'icon', 'parent', 'path', 'params', 'order', 'is_show'];
-
+    
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+    
+    
     public $dispatchesEvents  = [
         'saved' => BehaviorLogEvent::class,
     ];
@@ -35,8 +40,5 @@ class Navigation extends Model
     public function titleName(){
         return 'title';
     }
-
-    public function getImage(){
-        return $this->image ? Storage::url($this->image) : config('app.url') . '/images/pic-none.png';
-    }
+    
 }

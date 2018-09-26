@@ -1,11 +1,11 @@
-@extends('backend.layouts.app')
+@extends('backend::layouts.app')
 
 @section('title', $title = $wechat->id ? '详情' : '' )
 
 @section('breadcrumb')
-    <a href="">站点设置</a>
-    <a href="">wechat</a>
-    <a href="">{{$title}}</a>
+    <li><a href="javascript:;">站点设置</a></li>
+    <li><a href="javascript:;">微信管理</a></li>
+    <li class="active">{{$title}}</li>
 @endsection
 
 @section('content')

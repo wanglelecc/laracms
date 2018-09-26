@@ -17,7 +17,6 @@ namespace App\Http\Controllers\Administrator;
 
 use App\Models\File;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 /**
  * 媒体控制器
@@ -27,6 +26,12 @@ use App\Http\Controllers\Controller;
  */
 class MediaController extends Controller
 {
+    
+    public function __construct()
+    {
+        static::$activeNavId = 'media';
+    }
+    
     /**
      * 图片
      *
@@ -37,10 +42,31 @@ class MediaController extends Controller
      */
 	public function image(Request $request, File $file)
 	{
-	    $this->authorize('index',$file);
+        static::$activeNavId = 'content.images';
+        
+	    $this->authorize('images', $file);
 
-		$images = $file->where('type','image')->recent()->paginate((config('administrator.paginate.limit')));
+        $folder = $request->folder ?? '';
+        if($folder){
+            $file = $file->where('folder', $folder);
+        }
 
-		return backend_view('media.image', compact('images'));
+	    $paginateLimit = config('administrator.paginate.limit');
+		$images = $file->where('type','image')->recent()->paginate(24);
+
+		return backend_view('media.image', compact('images', 'folder'));
 	}
+
+    /**
+     * 选择图片
+     *
+     * @param Request $request
+     * @param File $file
+     * @return mixed
+     */
+	public function uploadImage(Request $request, File $file){
+        $images = $file->where('type','image')->recent()->paginate(18);
+
+        return backend_view('media.upload.image', compact('images'));
+    }
 }

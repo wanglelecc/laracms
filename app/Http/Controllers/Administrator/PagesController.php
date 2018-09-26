@@ -17,7 +17,6 @@ namespace App\Http\Controllers\Administrator;
 
 use App\Models\Page;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Administrator\PageRequest;
 
 /**
@@ -28,6 +27,11 @@ use App\Http\Requests\Administrator\PageRequest;
  */
 class PagesController extends Controller
 {
+    public function __construct(Request $request)
+    {
+        static::$activeNavId = 'content.page';
+    }
+    
     /**
      * 列表
      *
@@ -128,6 +132,11 @@ class PagesController extends Controller
     public function destroy(Page $page)
     {
         $this->authorize('destroy', $page);
+        
+//        var_dump($page->isDestroy()); exit;
+        if( !$page->isDestroy() ){ // danger
+            return $this->redirect()->with('message', '导航已使用，无法删除！');
+        }
 
         $page->delete();
 

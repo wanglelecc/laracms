@@ -42,10 +42,10 @@ class SeedSlideAndBlockAndFilesData extends Migration
         Slide::create(['id' => 3, 'object_id' => '1593925368321300', 'group' => 1, 'title' => '3333', 'description' => '', 'target'=>'_self', 'link'=>'https://www.baidu.com/', 'image'=>'images/slide/201803/03/GrEN5y7OH8Ps1FM3lDzGFMe2P1aP5pMgPRnd62aT.jpeg', 'order'=>9999, 'status'=>1 ]);
         Slide::create(['id' => 4, 'object_id' => '1593925415909278', 'group' => 1, 'title' => '4444', 'description' => '', 'target'=>'_self', 'link'=>'https://www.baidu.com/', 'image'=>'images/slide/201803/03/yq9VLRIKJty8orH8Vq7CO8D5WhRZx1h6OJqVDyPb.jpeg', 'order'=>9999, 'status'=>1 ]);
 
-        Block::create(['id' => 1, 'object_id' => '1593921820130870', 'group' => 0, 'type' => 'slide', 'template' => 'default', 'title' => '首页幻灯',  'created_op'=>1, 'updated_op'=>1, 'content'=>'{"mark":"1"}',]);
-        Block::create(['id' => 2, 'object_id' => '1593926806514812', 'group' => 0, 'type' => 'hotArticle', 'template' => 'default', 'title' => '企业新闻', 'more_title'=>'更多', 'more_link'=>'/article/list_2_1.html', 'created_op'=>1, 'updated_op'=>1, 'content'=>'{"category_id":"1","display":"4"}',]);
-        Block::create(['id' => 3, 'object_id' => '1593929822441295', 'group' => 0, 'type' => 'hotArticle', 'template' => 'default', 'title' => '成功案例', 'more_title'=>'更多', 'more_link'=>'/article/list_3_2.html', 'created_op'=>1, 'updated_op'=>1, 'content'=>'{"category_id":"2","display":"4"}',]);
-        Block::create(['id' => 4, 'object_id' => '1593930272075407', 'group' => 0, 'type' => 'hotArticle', 'template' => 'default', 'title' => '本周热议', 'created_op'=>1, 'updated_op'=>1, 'content'=>'{"category_id":"3","display":"10"}',]);
+        Block::create(['id' => 1, 'object_id' => '2018_03_04_224524_index_slide_block', 'group' => 0, 'type' => 'slide', 'template' => 'default', 'title' => '首页幻灯',  'created_op'=>1, 'updated_op'=>1, 'content'=>'{"mark":"1"}',]);
+        Block::create(['id' => 2, 'object_id' => '2018_03_04_234810_index_enterprise_news_block', 'group' => 0, 'type' => 'hotArticle', 'template' => 'default', 'title' => '企业新闻', 'more_title'=>'更多', 'more_link'=>'/article/list_2_1.html', 'created_op'=>1, 'updated_op'=>1, 'content'=>'{"category_id":"1","display":"4"}',]);
+        Block::create(['id' => 3, 'object_id' => '2018_03_04_235036_index_case_news_block', 'group' => 0, 'type' => 'hotArticle', 'template' => 'default', 'title' => '成功案例', 'more_title'=>'更多', 'more_link'=>'/article/list_3_2.html', 'created_op'=>1, 'updated_op'=>1, 'content'=>'{"category_id":"2","display":"4"}',]);
+        Block::create(['id' => 4, 'object_id' => '2018_03_04_235540_index_hot_news_block', 'group' => 0, 'type' => 'hotArticle', 'template' => 'default', 'title' => '本周热议', 'created_op'=>1, 'updated_op'=>1, 'content'=>'{"category_id":"3","display":"10"}',]);
 
 //        User::find(1)->update(['avatar'=>'images/avatar/201803/04/9CT3XvX0Jcv8QEEzPCzgg8k0NXJVwrMsaKKf1iN9.jpeg']);
     }

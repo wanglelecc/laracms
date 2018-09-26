@@ -16,7 +16,6 @@
 namespace App\Http\Controllers\Administrator;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Administrator\NavigationRequest;
 use Illuminate\Support\Facades\View;
 use App\Models\Navigation;
@@ -30,6 +29,11 @@ use App\Handlers\NavigationHandler;
  */
 class NavigationsController extends Controller
 {
+    public function __construct()
+    {
+        static::$activeNavId = 'website.navigation';
+    }
+    
     /**
      * 列表
      *
@@ -113,6 +117,7 @@ class NavigationsController extends Controller
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Navigation $navigation, $category, NavigationRequest $request){
+
         $this->authorize('update', $navigation);
 
         $navigation->update($request->all());

@@ -15,10 +15,10 @@
 
 namespace App\Http\Controllers\Administrator;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Administrator\CategoryRequest;
 use App\Models\Category;
 use App\Handlers\CategoryHandler;
+use Illuminate\Http\Request;
 
 /**
  * 分类控制器
@@ -28,6 +28,12 @@ use App\Handlers\CategoryHandler;
  */
 class CategorysController extends Controller
 {
+    public function __construct(Request $request)
+    {
+        $type = ($request->route('type'));
+        static::$activeNavId = 'content.category.'.$type;
+    }
+    
     /**
      * 列表
      *
@@ -129,6 +135,10 @@ class CategorysController extends Controller
      */
     public function destroy(Category $category, $type){
         $this->authorize('destroy', $category);
+        
+        if( is_string($message = $category->isDestroy()) ){
+            return $this->redirect()->with('message', $message);
+        }
 
         $category->delete();
 

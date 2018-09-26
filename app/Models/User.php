@@ -20,6 +20,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\Traits\WithOrderHelper;
 use App\Events\BehaviorLogEvent;
@@ -32,15 +33,19 @@ use App\Events\BehaviorLogEvent;
  */
 class User extends Authenticatable implements JWTSubject
 {
-
+ 
+    use SoftDeletes;
+ 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'id','name', 'phone', 'email', 'password', 'avatar', 'introduction', 'status', 'weixin_openid', 'weixin_unionid', 'weibo_id', 'qq_id', 'github_id', 'last_ip', 'last_location', 'last_time',
+        'id','name', 'phone', 'email', 'password', 'avatar', 'introduction', 'status', 'weixin_openid', 'weixin_unionid', 'weibo_id', 'qq_id', 'github_id', 'last_ip', 'last_location', 'last_at',
     ];
+    
+    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'last_at'];
 
     public function titleName(){
         return 'name';
@@ -130,7 +135,7 @@ class User extends Authenticatable implements JWTSubject
 
         if ( ! starts_with($this->avatar, 'http')) {
             // 拼接完整的 URL
-            $this->avatar = $this->avatar ? Storage::url($this->avatar) : config('app.url') . '/images/avatar.jpg';
+            $this->avatar = storage_image_url($this->avatar);
         }
 
         return $this->avatar;

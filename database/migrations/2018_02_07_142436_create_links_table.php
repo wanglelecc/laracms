@@ -31,7 +31,12 @@ class CreateLinksTable extends Migration
             $table->string('rel')->nullable()->comment('链接与网站的关系');
             $table->integer('order')->default(999)->comment('排序');
             $table->enum("status",[0,1])->default(1)->comment('状态:1显示;0不显示');
+            
             $table->timestamps();
+            $table->softDeletes();
+            
+            $table->index('order','order_index');
+            $table->index('status','status_index');
         });
 	}
 

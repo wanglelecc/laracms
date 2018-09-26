@@ -29,26 +29,26 @@ class RolePolicy extends Policy
 
     public function index(User $user, Role $role)
     {
-        return $user->can("manage_permissions");
+        return $user->can("manage_roles");
     }
 
     public function manage(User $user, Role $role)
     {
-        return $user->can("manage_permissions");
+        return $user->can("manage_roles");
     }
 
     public function create(User $user, Role $role)
     {
-        return $user->can("manage_permissions");
+        return $user->can("manage_roles");
     }
 
     public function update(User $user, Role $role)
     {
-        return $user->can("manage_permissions");
+        return $user->can("manage_roles");
     }
 
     public function destroy(User $user, Role $role)
     {
-        return $user->can("manage_permissions");
+        return $user->can("manage_roles");
     }
 }

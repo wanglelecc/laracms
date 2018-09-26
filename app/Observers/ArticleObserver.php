@@ -49,11 +49,11 @@ class ArticleObserver
         $article->content = clean($article->content, 'user_body');
 
         // 生成文章摘录
-        $article->description = make_excerpt($article->content);
+//        $article->description = make_excerpt($article->content);
 
-        $article->attributes = $article->attributes ?? [];
-        if( is_array($article->attributes) ){
-            $article->attributes = json_encode($article->attributes, JSON_UNESCAPED_UNICODE);
+        $article->attribute = $article->attribute ?? '{}';
+        if( is_array($article->attribute) ){
+            $article->attribute = json_encode($article->attribute, JSON_UNESCAPED_UNICODE);
         }
     }
 
@@ -64,5 +64,6 @@ class ArticleObserver
     public function deleted(Article $article)
     {
         \DB::table('replies')->where('article_id', $article->id)->delete();
+
     }
 }

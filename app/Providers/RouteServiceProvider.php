@@ -38,9 +38,9 @@ class RouteServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        Route::bind('safePage',function($value){ return \App\Models\Page::where('id', $value)->where('type','page')->active()->first(); });
-        Route::bind('safeArticle',function($value){ return \App\Models\Article::where('id', $value)->where('type','article')->active()->first(); });
-        Route::bind('articleCategory',function($value){ return \App\Models\Category::where('id', $value)->where('type','article')->first(); });
+        Route::bind('safePage',function($value){ return \App\Models\Page::show($value); });
+        Route::bind('safeArticle',function($value){ return \App\Models\Article::show( $value); });
+        Route::bind('articleCategory',function($value){ return \App\Models\Category::show($value, 'article'); });
         Route::bind('safeWechat',function($value){ return \App\Models\Wechat::where('object_id', $value)->first(); });
     }
 

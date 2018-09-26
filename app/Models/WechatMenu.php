@@ -19,6 +19,8 @@ use EasyWeChat\Kernel\Messages\Text;
 use EasyWeChat\Kernel\Messages\News;
 use EasyWeChat\Kernel\Messages\NewsItem;
 use App\Events\BehaviorLogEvent;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 /**
  * 微信菜单模型
@@ -28,8 +30,12 @@ use App\Events\BehaviorLogEvent;
  */
 class WechatMenu extends Model
 {
+    use SoftDeletes;
+    
     public $table = 'wechat_menu';
     protected $fillable = ['group', 'parent', 'name', 'type', 'data', 'order'];
+    
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     public $dispatchesEvents  = [
         'saved' => BehaviorLogEvent::class,

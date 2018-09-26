@@ -29,16 +29,16 @@ class SettingPolicy extends Policy
 
     public function basic(User $user, Setting $setting)
     {
-        return $user->can("manage_setting");
+        return $user->can("manage_site_basic");
     }
 
     public function company(User $user, Setting $setting)
     {
-        return $user->can("manage_setting");
+        return $user->can("manage_site_company");
     }
 
     public function contact(User $user, Setting $setting)
     {
-        return $user->can("manage_setting");
+        return $user->can("manage_site_contact");
     }
 }

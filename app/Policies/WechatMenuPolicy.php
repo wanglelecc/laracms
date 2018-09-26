@@ -28,12 +28,11 @@ class WechatMenuPolicy extends Policy
 {
     public function update(User $user, WechatMenu $wechat_menu)
     {
-        // return $wechat_menu->user_id == $user->id;
-        return true;
+        return $user->can("manage_wechat");
     }
 
     public function destroy(User $user, WechatMenu $wechat_menu)
     {
-        return true;
+        return $user->can("manage_wechat");
     }
 }

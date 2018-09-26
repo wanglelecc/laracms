@@ -41,39 +41,24 @@ trait WithCommonHelper
 
         if($this->template){
             $template = $template . '-' . strtolower($this->template);
-        }else if( $category && ($category = Category::find($category)) && $category->template ){
+        }else if( $category && ($category = Category::show($category,'article')) && $category->template ){
             $template = $template . '-' . strtolower($category->template);
         }
 
         return $template;
     }
-
+    
     /**
      * 获取作者
      *
-     * @return string
-     */
-    public function getAuthor(){
-        return $this->author ?? '管理员';
-    }
-
-    /**
-     * 获取时间
-     *
-     * @return mixed
-     */
-    public function getDate(){
-        return $this->created_at->diffForHumans();
-    }
-
-    /**
-     * 获取图片
+     * @param $value
      *
      * @return string
      */
-    public function getThumb(){
-        return $this->thumb ? Storage::url($this->thumb) : config('app.url') . '/images/pic-none.png';
+    public function getAuthorAttribute($value){
+        return empty($value) ? '管理员' : $value;
     }
+    
 
     /**
      * 追加过滤条件
@@ -92,6 +77,6 @@ trait WithCommonHelper
      */
     public function scopeActive($query)
     {
-        return $query->where('status', 1);
+        return $query->where('status', '1');
     }
 }

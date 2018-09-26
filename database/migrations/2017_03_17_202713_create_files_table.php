@@ -30,7 +30,7 @@ class CreateFilesTable extends Migration
             $table->increments('id');
             $table->enum("type",['image','voice','video','annex','file'])->comment('文件类型');
             $table->string("path",255)->comment('文件路径');
-            $table->char("mime_type",30)->comment('文件mimeType');
+            $table->string("mime_type",128)->comment('文件mimeType');
             $table->char("md5",32)->comment('Md5');
             $table->string("title",100)->comment('文件标题');
             $table->char("folder",20)->comment('文件对象类型');
@@ -44,10 +44,13 @@ class CreateFilesTable extends Migration
             $table->enum("status",[0,1])->default(0)->comment("附件状态");
             $table->integer("created_op")->default(0)->comment("创建人");
             $table->timestamps();
+            $table->softDeletes();
             $table->unique(['md5','type','folder'],'md5_type_folder_unique');
             $table->index('type','type_index');
             $table->index('folder','folder_index');
             $table->index('object_id','object_id_index');
+            $table->index('public','public_index');
+            $table->index('status','status_index');
         });
     }
 

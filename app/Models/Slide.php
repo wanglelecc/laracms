@@ -16,6 +16,7 @@
 namespace App\Models;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * 幻灯模型
@@ -25,10 +26,21 @@ use Illuminate\Support\Facades\Storage;
  */
 class Slide extends Model
 {
+    use SoftDeletes;
+    
     protected $fillable = ['id','object_id', 'group', 'title', 'description', 'trage', 'link', 'image', 'order', 'status'];
-
-    public function getImage(){
-        return $this->image ? Storage::url($this->image) : config('app.url') . '/images/pic-none.png';
+    
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+    
+    /**
+     * 追加过滤条件
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('status', '1');
     }
 
 }

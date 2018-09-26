@@ -330,6 +330,8 @@ body .layui-layer-dir .layui-layer-content{padding: 10px;}
 .grid-demo-bg2{background-color: #49A761;}
 .grid-demo-bg3{background-color: #38814A;}
 
+.grid{padding-left: 10px; padding-right:10px; }
+
 
 /* 演示 */
 body .layui-layout-admin .site-demo{bottom: 60px; padding: 0;}
@@ -509,8 +511,13 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
 }
 .site-out-up{-webkit-animation-duration: 3s; animation-duration: 3s; -webkit-animation-fill-mode: both; animation-fill-mode: both; -webkit-animation-name: site-anim-closeup; animation-name: site-anim-closeup; overflow: hidden;}
 
-.cmdlist-container{background:#F2F2F2; border:1px solid transparent;}
-.cmdlist-container img{width:100%; height:250px;}
+.cmdlist-container{background:#F2F2F2; border:1px solid transparent; line-height: 200px; text-align: center; vertical-align: middle;}
+.cmdlist-container img{max-width:220px; max-height: 190px; vertical-align: middle;}
+.cmdlist-upload-container-active{border:2px solid #009688 !important;}
+
+.cmdlist-upload-container{background:#F2F2F2; border:1px solid transparent; line-height: 150px; text-align: center; vertical-align: middle;}
+.cmdlist-upload-container img{max-width:140px; max-height: 130px; vertical-align: middle;}
+
 .cmdlist-text{padding:20px;}
 .cmdlist-text .info{height: 40px; font-size: 14px; line-height: 20px; width: 100%; overflow: hidden; color: #666; margin-bottom: 10px;}
 .cmdlist-text .price{font-size: 14px;}
@@ -518,3 +525,66 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
 .cmdlist-text .price p{display: inline-block;}
 .cmdlist-text .flow{text-align: right; float: right;}
 
+.simditor{
+  select{
+    display: inline-block;
+    width: 200px;
+  }
+}
+
+.layui-table th{
+  text-align: center;
+}
+
+.laracms-table-view{
+  .layui-table td, .layui-table-view .layui-table th{
+    padding: 5px 15px;
+    border-top: none;
+    //border-left: none;
+  }
+}
+
+/* 多图上传 */
+.block-multiple-files{
+
+  padding:15px 2px;
+
+  button{
+    margin-left:2.5%;
+  }
+
+  .block-multiple-files-item{
+    border:1px solid #ccc; vertical-align: middle; text-align: center;
+
+    img{
+      max-width: 100%; max-height:120px;
+    }
+
+  }
+
+  #sortable-items{
+    padding-left:2.5%;
+  }
+
+  .sortable-item{
+    float:left;
+    width: 22.4%;
+    margin-right: 2.5%;
+    margin-bottom: 2.5%;
+    cursor:move;
+    position: relative;
+
+    .sortable-item-delete{
+      position: absolute;
+      right:1px;
+      top:1px;
+      display:inline-block;
+      padding:5px 8px;
+      background: #0C0C0C;
+      color:#FFF;
+      font-size:10px;
+      opacity:0.9;
+    }
+  }
+
+}

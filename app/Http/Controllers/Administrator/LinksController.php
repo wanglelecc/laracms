@@ -17,7 +17,6 @@ namespace App\Http\Controllers\Administrator;
 
 use App\Models\Link;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Administrator\LinkRequest;
 
 /**
@@ -31,6 +30,8 @@ class LinksController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
+    
+        static::$activeNavId = 'website.link';
     }
 
     /**
@@ -89,7 +90,7 @@ class LinksController extends Controller
 
         $link = Link::create($request->all());
 
-        return $this->redirect('links.index')->with('success', '添加成功.');
+        return redirect()->route('links.index')->with('success', '添加成功.');
 	}
 
     /**

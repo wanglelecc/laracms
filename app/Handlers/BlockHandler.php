@@ -169,7 +169,7 @@ class BlockHandler
     protected function slide(Block $block){
         $content = is_json($block->content) ? json_decode($block->content) : new \stdClass();
         $mark = get_value($content, 'mark', 0);
-        return app(Slide::class)->where('group',$mark)->ordered()->recent()->get();
+        return app(Slide::class)->where('group',$mark)->active()->ordered()->recent()->get();
     }
 
     /**

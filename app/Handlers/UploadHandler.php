@@ -16,8 +16,9 @@
 namespace App\Handlers;
 
 use Image;
+use Illuminate\HTTP\File;
 use Illuminate\Support\Facades\Storage;
-use App\Models\File;
+use App\Models\File as FileModel;
 
 /**
  * 文件上传工具类
@@ -27,83 +28,233 @@ use App\Models\File;
  */
 class UploadHandler
 {
-    protected $allowed_ext = ["png", "jpg", "gif", 'jpeg'];
 
-    public function saveImage($object_id, $file, $folder, $editor, $file_prefix, $max_width = false)
-    {
-        $type = 'image';
-        // 构建存储的文件夹规则，值如：uploads/images/avatars/201709/21/
-        // 文件夹切割能让查找效率更高。
-        $folder_name = "images/$folder/" . date("Ym", time()) . '/'.date("d", time());
+    /**
+     * 检查分片是否存在
+     *
+     * @param $guid
+     * @param $md5
+     * @param $chunk
+     * @return mixed
+     */
+    public function checkChunk($guid, $md5, $chunk){
+        $md5 = strtolower($md5);
 
-        // 文件具体存储的物理路径，`public_path()` 获取的是 `public` 文件夹的物理路径。
-        // 值如：/home/vagrant/Code/larabbs/public/uploads/images/avatars/201709/21/
-//        $upload_path = public_path() . '/' . $folder_name;
-        $upload_path = $folder_name;
+        // 构建分片文件名
+        $filename = "chunks/{$md5}/{$chunk}.part";
 
-        // 获取文件的后缀名，因图片从剪贴板里黏贴时后缀名为空，所以此处确保后缀一直存在
-        $extension = strtolower($file->getClientOriginalExtension()) ?: 'png';
+        return Storage::disk('local')->exists($filename);
+    }
+    
+    /**
+     * 保存上传的文件分片
+     *
+     * @param $guid 整体文件的 guid
+     * @param $md5 整体文件的 MD5 值
+     * @param $file
+     * @param $chunk
+     *
+     *  @return mixed
+     */
+    public function saveUploadChunk($guid, $md5, $file, $chunk){
+        $md5 = strtolower($md5);
 
-        // 拼接文件名，加前缀是为了增加辨析度，前缀可以是相关数据模型的 ID
-        // 值如：1_1493521050_7BVc9v9ujP.png
-        $filename = $file_prefix . '_' . time() . '_' . str_random(10) . '.' . $extension;
+        // 构建分片目录
+        $tmp_chunks_directory = "chunks/{$md5}";
+        
+        return Storage::disk('local')->putFileAs($tmp_chunks_directory, $file, "{$chunk}.part");
+    }
+    
+    /**
+     * 合并分片文件并保存到文件系统记录入库
+     *
+     * @param $guid
+     * @param $md5
+     * @param $chunks
+     * @param $originalName
+     * @param $mimeType
+     * @param $extension
+     * @param $type
+     * @param $object_id
+     * @param $folder
+     * @param $editor
+     *
+     * @return array|bool
+     */
+    public function mergeChunks($guid, $md5, $chunks, $originalName, $mimeType, $extension, $type, $object_id, $folder, $editor){
 
-        // 如果上传的不是图片将终止操作
-        if ( ! in_array($extension, $this->allowed_ext)) {
+        $md5            = strtolower($md5);
+        $type           = strtolower($type);
+        $extension      = strtolower($extension);
+        $originalName   = strtolower($originalName);
+
+        // 检查文件后缀是否是规则允许后缀
+        if ( ! in_array($extension, config('filesystems.uploader.'.$type.'.allowed_ext')) ) {
             return false;
         }
 
-        $title = $file->getClientOriginalName(); // 原始文件名
-        $mimeType = $file->getClientMimeType(); // 获取文件的 Mime
-        $size = $file->getSize();
-
-        // 将图片移动到我们的目标存储路径中
-        // $file->move($upload_path, $filename);
-        if( ! ($path = $file->store($folder_name)) ) {
-            return false;
-        }
-
-        $md5 = md5(Storage::get($path));
         // 检查文件是否已上传过
-        if($fileModel = $this->checkFile($md5,$type,$folder)){
-            Storage::delete($path);
-            return ['uri' => $fileModel->path, 'path' => Storage::url($fileModel->path)];
+        if($fileModel = $this->checkFile($md5, $type, $folder)){
+            return [
+                'id'    => $fileModel->id,
+                'path'  => $fileModel->path,
+                'url'   => $type == 'image' ? storage_image_url($fileModel->path) : storage_url($fileModel->path),
+            ];
         }
+
+        // 获取本地 Storage 实例
+        $storage = Storage::disk('local');
+
+        // 构建分片目录
+        $directory = "chunks/{$md5}";
+        $directories = $storage->files($directory);
+
+        // 分片数目不对
+        if( count($directories) !== intval($chunks) ){
+            return false;
+        }
+
+        // 临时设置响应超时时间
+        set_time_limit(0);
+
+        // 合并文件
+        $filename = 'chunks/' . $md5 . '.' . $extension;
+        $filenamePath = $storage->path($filename);
+        $storage->delete($filename);
+        $directoryPath = $storage->path($directory);
+
+        $fp = fopen($filenamePath, "ab");
+        for($i = 0; $i < $chunks; $i++ ){
+            $partFilenamePath = $directoryPath. '/'. $i . '.part';
+            $handle = fopen($partFilenamePath, "rb");
+            fwrite($fp, fread($handle, filesize($partFilenamePath)));
+            fclose($handle);
+            unset($handle);
+            unset($partFilenamePath);
+        }
+        fclose($fp);
+
+        // 计算合并后文件的 MD5 值进行校验
+        if( $md5 !== md5_file($filenamePath) ){
+            // MD5 校验失败
+            return false;
+        }
+
+        // 获取文件大小
+        $size = filesize($filenamePath);
 
         // 实例化 Image 对象
-        $image = Image::make(Storage::get($path));
-        $width = $image->width();
-        $height = $image->height();
-
-
-        // 如果限制了图片宽度，就进行裁剪
-        if ($max_width && $extension != 'gif') {
-            // 此类中封装的函数，用于裁剪图片
-            $reduceResult = $this->reduceSize($image, $max_width);
-
-            // 再次检查
-            if($fileModel = $this->checkFile($newMd5 = md5($reduceResult['data']),$type,$folder)){
-                // 如果存在，删除已保存的图片，使用已有图片
-                Storage::delete($path);
-                return ['uri' => $fileModel->path, 'path' => Storage::url($fileModel->path)];
-            }else{
-                // 如果不存在，重新覆盖 md5, width, width
-                Storage::put($path, $reduceResult['data']); // 重新保存
-
-                $md5 = $newMd5;
-                $width = $reduceResult['image']->width();
-                $height = $reduceResult['image']->height();
-                $size = Storage::size($path);
-            }
+        if($type == 'image'){
+            $image = Image::make($storage->path($filename));
+            $width = $image->width();
+            $height = $image->height();
+        }else{
+            // 文件无宽度属性。默认 0
+            $width = 0;
+            $height = 0;
         }
 
-        // 保存
-        if($this->saveFile($object_id, $type, $path, $mimeType, $md5, $title, $folder, $size, $width, $height, $editor)){
-            return ['uri' => $path, 'path' => Storage::url($path)];
-        }else{
-            Storage::delete($path);
+        // 构建存储的文件夹规则，值如：images/avatars/201709/21/
+        $folderName = $type."s/$folder/" . date("Ym", time()) . '/'.date("d", time());
+
+        // 将合并后的文件移动到我们的目标存储路径中 或 云存储中
+        if( ! ( $path = Storage::putFile($folderName, new File($storage->path($filename)), 'public') ) ) {
             return false;
         }
+
+        // 将文件信息记录到数据库
+        if($result = $this->saveFile($object_id, $type, $path, $mimeType, $md5, $originalName, $folder, $size, $width, $height, $editor)){
+
+            # 删除临时分片信息
+            $storage->delete($filename);
+            $storage->deleteDirectory($directory);
+
+            # 所有信息准备完毕，返回文件信息
+            return [
+                'id'    => $result->id,
+                'path'  => $path,
+                'url'   => $type == 'image' ? storage_image_url($result->path) : storage_url($result->path),
+            ];
+        }
+
+        return false;
+    }
+    
+    /**
+     * 保存上传文件
+     *
+     * @param $type
+     * @param $object_id
+     * @param $file
+     * @param $folder
+     * @param $editor
+     *
+     * @return array|bool
+     */
+    public function saveUploadFile($type, $object_id, $file, $folder, $editor)
+    {
+        $type = strtolower($type);
+        
+        // 构建存储的文件夹规则，值如：images/avatars/201709/21/
+        $folder_name = $type."s/$folder/" . date("Ym", time()) . '/'.date("d", time());
+        
+        // 获取文件的后缀名，因图片从剪贴板里黏贴时后缀名为空，所以此处确保后缀一直存在
+        $extension = strtolower($file->getClientOriginalExtension()) ? : 'png';
+        
+        // 检查文件后缀是否是规则允许后缀
+        if ( ! in_array($extension, config('filesystems.uploader.'.$type.'.allowed_ext')) ) {
+            return false;
+        }
+    
+        // 原始文件名
+        $title = $file->getClientOriginalName();
+    
+        // 获取文件的 Mime
+        $mimeType = $file->getClientMimeType();
+        
+        // 获取文件大小
+        $size = $file->getSize();
+        
+        // 获取文件 MD5 值
+        $md5 = md5_file($file->getPathname());
+       
+        // 检查文件是否已上传过
+        if($fileModel = $this->checkFile($md5, $type, $folder)){
+            return [
+                'id'    => $fileModel->id,
+                'path'  => $fileModel->path,
+                'url'   => $type == 'image' ? storage_image_url($fileModel->path) : storage_url($fileModel->path),
+            ];
+        }
+    
+        // 实例化 Image 对象
+        if($type == 'image'){
+            $image = Image::make($file->getPathname());
+            $width = $image->width();
+            $height = $image->height();
+        }else{
+            // 文件无宽度属性。默认 0
+            $width = 0;
+            $height = 0;
+        }
+        
+        // 将图片移动到我们的目标存储路径中 或 云存储中
+        if( ! ( $path = $file->store($folder_name)) ) {
+            return false;
+        }
+        
+        // 将文件信息记录到数据库
+        if($result = $this->saveFile($object_id, $type, $path, $mimeType, $md5, $title, $folder, $size, $width, $height, $editor)){
+            return [
+                'id'    => $result->id,
+                'path'  => $path,
+                'url'   => $type == 'image' ? storage_image_url($result->path) : storage_url($result->path),
+            ];
+        }else{
+            Storage::delete($path);
+        }
+    
+        return false;
     }
 
     /**
@@ -137,8 +288,8 @@ class UploadHandler
      * @param $md5
      * @return mixed
      */
-    public function checkFile($md5,$type,$folder){
-        return File::where('md5','=',$md5)->where('type','=',$type)->where('folder','=',$folder)->first();
+    public function checkFile($md5, $type, $folder){
+        return FileModel::where('md5','=',$md5)->where('type','=',$type)->first();
     }
 
     /**
@@ -158,7 +309,7 @@ class UploadHandler
      * @return mixed
      */
     public function saveFile($object_id, $type, $path, $mimeType, $md5, $title, $folder, $size, $width, $height, $editor = 0){
-        return File::create([
+        return FileModel::create([
             'object_id' => $object_id,
             'type' => $type,
             'path' => $path,

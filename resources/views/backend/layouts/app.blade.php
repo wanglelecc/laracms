@@ -14,82 +14,101 @@
         <!-- Fonts -->
 
         <!-- Styles -->
-        <link href="{{asset('layui/css/layui.css')}}" rel="stylesheet" type="text/css">
-        <link href="{{asset('css/administrator.css')}}" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="{{asset('plugins/zui/css/zui.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('plugins/zui/lib/bootbox/bootbox.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('plugins/zui/lib/chosen/chosen.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('plugins/formvalidation/css/formValidation.min.css')}}">
+        <link rel="stylesheet" href="{{asset('plugins/zui/lib/uploader/zui.uploader.min.css')}}">
+        <link rel="stylesheet" href="{{asset('plugins/webuploader/webuploader.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
         <link rel="apple-touch-icon" href="/favicon.png">
         @yield('styles')
     </head>
-    <body  class="layui-layout {{ route_class() }}-body">
+    <body class="{{ route_class() }}-body">
 
-        <div id="app" class="layui-layout-admin {{ route_class() }}-page">
-
-            @include('backend.layouts._header')
-
-            @include('backend.layouts._side')
-
-            <div class="layui-body  {{ route_class() }}-content">
-                <div class="">
-                @yield('tab')
-
-                @includeWhen($breadcrumb ?? true, 'backend.layouts._breadcrumb')
-
-                @yield('content')
-
+        <div id="app" class="{{ route_class() }}-page">
+            <div class="wrapper">
+                @include('backend::layouts._header')
+                @include('backend::layouts._side')
+                <div class="content-wrapper {{ route_class() }}-content">
+                    <div class="content-header">
+                        @includeWhen($breadcrumb ?? true, 'backend::layouts._breadcrumb')
+                    </div>
+                    <div class="content-body">
+                        <div class="container-fluid">
+                            @yield('tab')
+                            @include('backend::layouts._message')
+                            @include('backend::layouts._error')
+                            @yield('content')
+                        </div>
+                    </div>
+                    @include('backend::layouts._footer')
                 </div>
             </div>
-
-            @include('backend.layouts._footer')
-
         </div>
 
+        <!-- Delete Form -->
+        <form id="form-delete" action="" method="POST" style="display:none;">
+            <input type="hidden" name="_method" value="DELETE">
+            {{ csrf_field() }}
+        </form>
+
         <!-- Scripts -->
-        <script src="{{asset('layui/layui.all.js')}}"></script>
-        <script src="{{asset('js/administrator.js')}}"></script>
-        <script src="{{asset('js/jquery.cookie-1.4.1.min.js')}}"></script>
+        <script src="{{asset('js/app.js')}}"></script>
+        <script src="{{asset('plugins/zui/js/zui.min.js')}}"></script>
+        <script src="{{asset('plugins/zui/lib/bootbox/bootbox.min.js')}}"></script>
+        <script src="{{asset('plugins/zui/lib/chosen/chosen.min.js')}}"></script>
+        <script src="{{asset('plugins/zui/lib/uploader/zui.uploader.min.js')}}"></script>
+        <script src="{{asset('plugins/zui/lib/sortable/zui.sortable.min.js')}}"></script>
+        <script src="{{asset('plugins/webuploader/webuploader.min.js')}}"></script>
+        <script src="{{asset('plugins/formvalidation/js/formValidation.min.js')}}"></script>
+        <script src="{{asset('plugins/formvalidation/js/framework/bootstrap.min.js')}}"></script>
+        <script src="{{asset('plugins/formvalidation/js/language/zh_CN.js')}}"></script>
+
+        @yield('scripts')
         <script>
-            layui.form.verify({
-                username: function(value, item){ //value：表单的值、item：表单的DOM对象
-                    if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
-                        return '用户名不能有特殊字符';
+            /**
+             * 表单验证
+             *
+             * @type {jQuery.fn.init|*|jQuery|HTMLElement}
+             */
+            var formValidator = $('#form-validator');
+            if(formValidator){
+                formValidator.formValidation({
+                    framework: 'bootstrap',
+                    locale: 'zh_CN',
+                    message: '值无效',
+                    icon: {
+                        valid: 'glyphicon glyphicon-ok', // icon icon-check
+                        invalid: 'glyphicon glyphicon-remove',
+                        validating: 'glyphicon glyphicon-refresh'
                     }
-                    if(/(^\_)|(\__)|(\_+$)/.test(value)){
-                        return '用户名首尾不能出现下划线\'_\'';
-                    }
-                    if(/^\d+\d+\d$/.test(value)){
-                        return '用户名不能全为数字';
-                    }
-                }
-
-                //我们既支持上述函数式的方式，也支持下述数组的形式
-                //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
-                ,pass: [
-                    /^[\S]{6,12}$/
-                    ,'密码必须6到12位，且不能出现空格'
-                ]
-            });
-
-            // layer.msg('的确很重要', {icon: 1});
-
-            $(".layui-nav dd").click(function(){
-                var id = $(this).attr('id');
-                $.cookie('nav-id', id, { expires: 1, path: '/' });
-            });
-
-            $(".layui-nav-header dd").click(function(){
-                $.cookie('nav-id', '', { expires: 1, path: '/' });
-            });
-
-            var NavId = $.cookie('nav-id');
-            if(NavId){
-               $("#"+NavId).addClass("layui-this");
+                });
             }
+
+            /**
+             * 内容删除按钮
+             */
+            $("a.form-delete").click(function(){
+                var tUrl = $(this).attr('data-url');
+
+                bootbox.confirm({
+                    size: "small",
+                    title: "系统提示",
+                    message: "确认删除吗？",
+                    callback: function(result){ if(result === true){ $("form#form-delete").attr("action",tUrl).submit(); } }
+                });
+
+                return false;
+            });
+
+            $('select.chosen-select').chosen({
+                no_results_text: '没有找到',    // 当检索时没有找到匹配项时显示的提示文本
+                disable_search_threshold: 10, // 10 个以下的选择项则不显示检索框
+                search_contains: true         // 从任意位置开始检索
+            });
 
         </script>
 
-        @include('backend.layouts._message')
-
-        @include('backend.layouts._error')
-
-        @yield('scripts')
     </body>
 </html>

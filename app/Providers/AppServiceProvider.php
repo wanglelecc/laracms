@@ -19,6 +19,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Handlers\AdministratorMenuHandler;
 
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -28,23 +29,26 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
 	{
-		\App\Models\User::observe(\App\Observers\UserObserver::class);
-		\App\Models\WechatMenu::observe(\App\Observers\WechatMenuObserver::class);
-		\App\Models\Wechat::observe(\App\Observers\WechatObserver::class);
-		\App\Models\Block::observe(\App\Observers\BlockObserver::class);
-		\App\Models\Link::observe(\App\Observers\LinkObserver::class);
-		\App\Models\Project::observe(\App\Observers\ProjectObserver::class);
-		\App\Models\Category::observe(\App\Observers\CategoryObserver::class);
-		\App\Models\Navigation::observe(\App\Observers\NavigationObserver::class);
-		\App\Models\Page::observe(\App\Observers\PageObserver::class);
-		\App\Models\Article::observe(\App\Observers\ArticleObserver::class);
-		\App\Models\Slide::observe(\App\Observers\SlideObserver::class);
-		\App\Models\File::observe(\App\Observers\FileObserver::class);
-		\App\Models\WechatResponse::observe(\App\Observers\WechatResponseObserver::class);
-		\App\Models\Reply::observe(\App\Observers\ReplyObserver::class);
-		\App\Models\Log::observe(\App\Observers\LogObserver::class);
+	    // 注册模型观察者
+		\App\Models\User::observe(                  \App\Observers\UserObserver::class);
+		\App\Models\WechatMenu::observe(            \App\Observers\WechatMenuObserver::class);
+		\App\Models\Wechat::observe(                \App\Observers\WechatObserver::class);
+		\App\Models\Block::observe(                 \App\Observers\BlockObserver::class);
+		\App\Models\Link::observe(                  \App\Observers\LinkObserver::class);
+		\App\Models\Project::observe(               \App\Observers\ProjectObserver::class);
+		\App\Models\Category::observe(              \App\Observers\CategoryObserver::class);
+		\App\Models\Navigation::observe(            \App\Observers\NavigationObserver::class);
+		\App\Models\Page::observe(                  \App\Observers\PageObserver::class);
+		\App\Models\Article::observe(               \App\Observers\ArticleObserver::class);
+		\App\Models\Slide::observe(                 \App\Observers\SlideObserver::class);
+		\App\Models\File::observe(                  \App\Observers\FileObserver::class);
+		\App\Models\WechatResponse::observe(        \App\Observers\WechatResponseObserver::class);
+		\App\Models\Reply::observe(                 \App\Observers\ReplyObserver::class);
+		\App\Models\Log::observe(                   \App\Observers\LogObserver::class);
+		\App\Models\MultipleFile::observe(          \App\Observers\MultipleFileObserver::class);
+		\App\Models\Form::observe(                  \App\Observers\FormObserver::class);
 
-        //
+        // 设置时区
         \Carbon\Carbon::setLocale('zh');
 
 
@@ -56,10 +60,11 @@ class AppServiceProvider extends ServiceProvider
             // 非命令行模式
             \App\Models\Setting::afflux();
         }
-
-
-
-//        View::share('AdministratorMenu',app(AdministratorMenuHandler::class)->getAdministratorMenu());
+        
+        // 注册模板变量
+        $theme = is_mobile() ? config('theme.mobile') : config('theme.desktop');
+        $this->loadViewsFrom( resource_path('views/backend') , 'backend' );
+        $this->loadViewsFrom( resource_path('views/frontend/'.$theme) , 'frontend' );
     }
 
     /**

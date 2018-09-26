@@ -1,9 +1,14 @@
 @php
-    $attributes= is_json($article->attributes) ? json_decode($article->attributes) : new \stdClass();
+    $attribute = is_json($article->attribute) ? json_decode($article->attribute) : new \stdClass();
 @endphp
-<div class="layui-form-item">
-    <label class="layui-form-label">视频ID</label>
-    <div class="layui-input-block">
-        <input type="text" lay-verify="required" id="attributes[video_id]" name="attributes[video_id]" autocomplete="off" placeholder="视频ID" class="layui-input" value="{{  get_value($attributes, 'video_id', '') }}" />
-    </div>
+
+<div class="form-group has-feedback has-icon-right">
+    <label for="attribute[video_id]" class="col-md-2 col-sm-2 control-label">视频ID</label>
+    <div class="col-md-5 col-sm-10">
+    <input id="attribute[video_id]" type="text" name="attribute[video_id]" autocomplete="off" class="form-control" value="{{  get_value($attribute, 'video_id', '') }}"
+           required
+           data-fv-trigger="blur"
+           minlength="1"
+           maxlength="64"
+    ></div>
 </div>

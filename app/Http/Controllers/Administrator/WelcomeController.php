@@ -16,7 +16,6 @@
 namespace App\Http\Controllers\Administrator;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Auth;
 
 /**
@@ -27,6 +26,12 @@ use Auth;
  */
 class WelcomeController extends Controller
 {
+    
+    public function __construct()
+    {
+        static::$activeNavId = 'dashboard';
+    }
+    
     /**
      * 仪表盘
      * @return mixed

@@ -37,7 +37,7 @@ class ArticleRequest extends Request
                     'author' => 'nullable|max:191',
                     'source' => 'nullable|max:191',
                     'content' => 'required|min:1|max:65535',
-                    'attributes' => 'nullable|array',
+                    'attribute' => 'nullable|array',
                     'thumb' => 'nullable|max:191',
                     'order' => 'nullable|integer',
                     'status' => 'nullable|integer',

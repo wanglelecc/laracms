@@ -1,91 +1,72 @@
-@extends('backend.layouts.app')
+@extends('backend::layouts.app')
 
 @section('title', $title = '图片管理')
 
 @section('breadcrumb')
-    <a href="">内容管理</a>
-    <a href="">媒体管理</a>
-    <a href="">{{$title}}</a>
+    <li><a href="javascript:;">内容管理</a></li>
+    <li><a href="javascript:;">媒体管理</a></li>
+    <li><a href="javascript:;">{{ $title }}</a></li>
+    <li class="active">@switch($folder)
+            @case('article')文章@break
+            @case('slide')幻灯@break
+            @case('avatar')头像@break
+            @default全部@break
+        @endswitch</li>
+@endsection
+
+@section('tab')
+    <ul class="nav nav-tabs">
+        <li class="@if($folder == '' || $folder == 'all') active @endif"><a href="{{ route('media.image') }}?folder=">全部</a></li>
+        <li class="@if($folder == 'article') active @endif"><a href="{{ route('media.image') }}?folder=article">文章</a></li>
+        <li class="@if($folder == 'slide') active @endif"><a href="{{ route('media.image') }}?folder=slide">幻灯</a></li>
+        <li class="@if($folder == 'avatar') active @endif"><a href="{{ route('media.image') }}?folder=avatar">头像</a></li>
+    </ul>
+    <br />
 @endsection
 
 @section('content')
-    <div class="layui-main">
-        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-            <legend>{{$title}}</legend>
-        </fieldset>
+    {{--<h2 class="header-dividing">{{$title}} <small></small></h2>--}}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-tools" style="margin-bottom: 15px;">
+                <div class="pull-right" style="width: 250px;">
+                </div>
+                <div class="tools-group">
+                    <button type="button" class="btn btn-primary"><i class="icon icon-upload"></i> 上传</button>
+                </div>
+            </div>
 
-        <a id="upload_image" href="javascript:;" style="margin-left: 15px;" class="layui-btn">上传图片</a>
-
-        <br />
-        <br />
-
-        <div class="layui-form">
             @if($images->count())
+                <div class="panel">
+                    <div class="panel-body">
 
-                <div class="layui-fluid layadmin-cmdlist-fluid">
-                    <div class="layui-row layui-col-space30">
-
+                        <div class="row">
                         @foreach($images as $image)
-                        <div class="layui-col-md2 layui-col-sm4">
-                            <div class="cmdlist-container">
-                                <a target="_blank" href="{{$image->getImageUrl()}}">
-                                    <img style="width:100%" src="{{$image->getImageUrl()}}">
-                                </a>
-                                <a href="javascript:;">
-                                    <div class="cmdlist-text">
-                                        <p class="info">{{$image->title}}</p>
-                                    </div>
-                                </a>
+                        <div class="col-md-3 col-sm-4 col-lg-2">
+                            <div class="card" href="###">
+                                <div class="media-wrapper">
+                                    <img src="{{ storage_image_url($image->path) }}" alt="{{$image->title}}" style="height: 166px;">
+                                </div>
+                                {{--<div class="caption">“良辰美景” 出自《牡丹亭》</div>--}}
+                                <div class="card-heading"><strong>{{$image->title}}</strong></div>
+                                {{--<div class="card-content text-muted">良辰美景奈何天，赏心乐事谁家院。</div>--}}
                             </div>
                         </div>
                         @endforeach
-
-
-                        <div class="layui-col-md12 layui-col-sm12">
-                            <div id="paginate-render"></div>
                         </div>
+                        <div id="paginate-render">
+                            {{$images->links()}}
+                        </div>
+
                     </div>
                 </div>
             @else
-                <br />
-                <blockquote class="layui-elem-quote">暂无数据!</blockquote>
+                <div class="alert alert-info alert-block">暂无数据</div>
             @endif
-
         </div>
     </div>
-
 @endsection
 
 @section('scripts')
-    @include('backend.layouts._paginate',[ 'count' => $images->total(), ])
 
-    <script type="">
-        layui.use(['upload','form'], function(){
-            var form = layui.form;
-            var upload = layui.upload;
-
-            //执行实例
-            var uploadInst = upload.render({
-                elem: '#upload_image' // 绑定元素
-                ,url: '{{ route('upload.image') }}?folder=website&object_id=0' // 上传接口
-                ,field: 'upload_file'
-                ,done: function(res){
-                    if(res.success == true){
-                        window.location.href="{{route('media.image')}}";
-                    }
-                    //上传完毕回调
-                    console.log(res);
-                }
-                ,error: function(){
-                    //请求异常回调
-                    layer.alert('上传失败，请重试!', 2);
-                }
-            });
-
-            form.render();
-        });
-
-
-
-    </script>
 @endsection

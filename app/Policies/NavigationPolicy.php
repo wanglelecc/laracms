@@ -28,21 +28,21 @@ class NavigationPolicy extends Policy
 {
     public function index(User $user, Navigation $navigation)
     {
-        return $user->can('manage_setting');
+        return $user->can('manage_navigation');
     }
 
     public function create(User $user, Navigation $navigation)
     {
-        return $user->can('manage_setting');
+        return $user->can('manage_navigation');
     }
 
     public function update(User $user, Navigation $navigation)
     {
-        return $user->can('manage_setting');
+        return $user->can('manage_navigation');
     }
 
     public function destroy(User $user, Navigation $navigation)
     {
-        return $user->can('manage_setting');
+        return $user->can('manage_navigation');
     }
 }

@@ -106,6 +106,11 @@ Route::group(['domain' => config('administrator.domain'), 'prefix' => config('ad
 
     # 文章相关路由
     Route::put('articles/order','ArticlesController@order')->name('articles.order');
+    Route::post('articles/destroy/all','ArticlesController@destroyAll')->name('articles.destroy.all');
+    Route::get('articles/multiple/files/{article}/{field}','ArticlesController@multipleFiles')->name('articles.multiple.files');
+    Route::put('articles/multiple/files/{article}/{field}','ArticlesController@multipleFilesOrder')->name('articles.multiple.files.order');
+    Route::delete('articles/multiple/files/{article}/{field}/{multipleFile}','ArticlesController@multipleFilesDestroy')->name('articles.multiple.files.destroy');
+    Route::post('articles/multiple/files/{article}/{field}','ArticlesController@multipleFilesStore');
     Route::resource('articles', 'ArticlesController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
     # 区块相关路由
@@ -117,27 +122,27 @@ Route::group(['domain' => config('administrator.domain'), 'prefix' => config('ad
     Route::resource('wechats', 'WechatsController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
     # 微信菜单相关路由
-    Route::get('wechat_menus/{wechat}','WechatMenusController@index')->name('wechat_menus.index');
-    Route::post('wechat_menus/{wechat}','WechatMenusController@store')->name('wechat_menus.store');
-    Route::get('wechat_menus/create/{wechat}/{parent}','WechatMenusController@create')->name('wechat_menus.create');
-    Route::get('wechat_menus/{wechat_menu}/{wechat}','WechatMenusController@show')->name('wechat_menus.show');
-    Route::get('wechat_menus/{wechat_menu}/edit/{wechat}','WechatMenusController@edit')->name('wechat_menus.edit');
-    Route::put('wechat_menus/{wechat}/order','WechatMenusController@order')->name('wechat_menus.order');
-    Route::put('wechat_menus/{wechat_menu}/{wechat}','WechatMenusController@update')->name('wechat_menus.update');
-    Route::delete('wechat_menus/{wechat_menu}/{wechat}','WechatMenusController@destroy')->name('wechat_menus.destroy');
-    Route::post('wechat_menus/sync/{wechat}','WechatMenusController@synchronizeWechatServer')->name('wechat_menus.sync');
+    Route::get('wechat/menus/{wechat}','WechatMenusController@index')->name('wechat.menus.index');
+    Route::post('wechat/menus/{wechat}','WechatMenusController@store')->name('wechat.menus.store');
+    Route::get('wechat/menus/create/{wechat}/{parent}','WechatMenusController@create')->name('wechat.menus.create');
+    Route::get('wechat/menus/{wechat_menu}/{wechat}','WechatMenusController@show')->name('wechat.menus.show');
+    Route::get('wechat/menus/{wechat_menu}/edit/{wechat}','WechatMenusController@edit')->name('wechat.menus.edit');
+    Route::put('wechat/menus/{wechat}/order','WechatMenusController@order')->name('wechat.menus.order');
+    Route::put('wechat/menus/{wechat_menu}/{wechat}','WechatMenusController@update')->name('wechat.menus.update');
+    Route::delete('wechat/menus/{wechat_menu}/{wechat}','WechatMenusController@destroy')->name('wechat.menus.destroy');
+    Route::post('wechat/menus/sync/{wechat}','WechatMenusController@synchronizeWechatServer')->name('wechat.menus.sync');
 
     # 微信自定义响应相关路由
-    Route::get('wechat_response/{wechat}','WechatResponseController@index')->name('wechat_response.index');
-    Route::post('wechat_response/{wechat}','WechatResponseController@store')->name('wechat_response.store');
-    Route::get('wechat_response/create/{wechat}/{parent}','WechatResponseController@create')->name('wechat_response.create');
-    Route::get('wechat_response/{wechat_response}/{wechat}','WechatResponseController@show')->name('wechat_response.show');
-    Route::get('wechat_response/{wechat_response}/edit/{wechat}','WechatResponseController@edit')->name('wechat_response.edit');
-    Route::put('wechat_response/{wechat}/order','WechatResponseController@order')->name('wechat_response.order');
-    Route::put('wechat_response/{wechat_response}/{wechat}','WechatResponseController@update')->name('wechat_response.update');
-    Route::delete('wechat_response/{wechat_response}/{wechat}','WechatResponseController@destroy')->name('wechat_response.destroy');
-    Route::get('wechat_response/set_response/{wechat}/{group}','WechatResponseController@setResponse')->name('wechat_response.set_response.create');
-    Route::post('wechat_response/set_response/{wechat}/{group}','WechatResponseController@setResponseStore')->name('wechat_response.set_response.store');
+    Route::get('wechat/response/{wechat}','WechatResponseController@index')->name('wechat.response.index');
+    Route::post('wechat/response/{wechat}','WechatResponseController@store')->name('wechat.response.store');
+    Route::get('wechat/response/create/{wechat}/{parent}','WechatResponseController@create')->name('wechat.response.create');
+    Route::get('wechat/response/{wechat_response}/{wechat}','WechatResponseController@show')->name('wechat.response.show');
+    Route::get('wechat/response/{wechat_response}/edit/{wechat}','WechatResponseController@edit')->name('wechat.response.edit');
+    Route::put('wechat/response/{wechat}/order','WechatResponseController@order')->name('wechat.response.order');
+    Route::put('wechat/response/{wechat_response}/{wechat}','WechatResponseController@update')->name('wechat.response.update');
+    Route::delete('wechat/response/{wechat_response}/{wechat}','WechatResponseController@destroy')->name('wechat.response.destroy');
+    Route::get('wechat/response/set/response/{wechat}/{group}','WechatResponseController@setResponse')->name('wechat.response.set.response.create');
+    Route::post('wechat/response/set/response/{wechat}/{group}','WechatResponseController@setResponseStore')->name('wechat.response.set.response.store');
 
     # Laravel 日志
     Route::get('log/laravel', 'LogViewerController@laravel')->name('log.laravel');
@@ -156,5 +161,11 @@ Route::group(['domain' => config('administrator.domain'), 'prefix' => config('ad
 
     # 媒体库管理
     Route::get('media/image', 'MediaController@image')->name('media.image');
+    Route::get('media/upload/image', 'MediaController@uploadImage')->name('media.upload.image');
+
+    # 自定义表单
+    Route::get('form/{type}', 'FormController@index')->name('form.index');
+    Route::get('form/{form}/{type}', 'FormController@show')->name('form.show');
+    Route::delete('form/{form}/{type}', 'FormController@destroy')->name('form.destroy');
 
 });

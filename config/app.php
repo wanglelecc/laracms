@@ -170,6 +170,8 @@ return [
          * Package Service Providers...
          */
         App\Providers\EasySmsServiceProvider::class,
+        //App\Providers\AzureBlobStorageAdapter::class,
+        App\Providers\AliyunOssServiceProvider::class,
         SocialiteProviders\Manager\ServiceProvider::class,
 //        TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
 

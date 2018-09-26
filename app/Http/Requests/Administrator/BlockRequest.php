@@ -26,7 +26,7 @@ class BlockRequest extends Request
             'type' => 'required|'.Rule::in(array_keys(config('blocks.types'))),
             'title' => 'required|min:1|max:255',
             'more_title' => 'nullable|max:255',
-            'more_link' => 'nullable|url',
+            'more_link' => 'nullable|max:255',
         ];
     }
 

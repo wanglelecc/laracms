@@ -15,12 +15,10 @@ mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
    .js('resources/assets/js/administrator.js', 'public/js')
    .sass('resources/assets/sass/administrator.scss', 'public/css')
-   .js('resources/assets/js/app.desktop.js', 'public/js')
-   .sass('resources/assets/sass/app.desktop.scss', 'public/css')
-   .copyDirectory('resources/assets/layui', 'public/layui')
+   .js('resources/assets/js/website.js', 'public/js')
+   .sass('resources/assets/sass/website.scss', 'public/css')
    .copyDirectory('resources/assets/plugins', 'public/plugins')
    .copyDirectory('resources/assets/images', 'public/images')
-   .copy('resources/assets/js/jquery.cookie-1.4.1.min.js', 'public/js/jquery.cookie-1.4.1.min.js')
    ;
 
 mix.browserSync({

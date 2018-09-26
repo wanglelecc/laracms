@@ -27,9 +27,9 @@ class AddLastIpAndLastDateToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('last_ip')->nullable()->comment('最后一次登录IP');
+            $table->ipAddress('last_ip')->nullable()->comment('最后一次登录IP');
             $table->string('last_location')->nullable()->comment('最后一次登录地址');
-            $table->timestamp('last_time')->nullable()->comment('最后一次登录时间');
+            $table->timestamp('last_at')->nullable()->comment('最后一次登录时间');
         });
     }
 
@@ -43,7 +43,7 @@ class AddLastIpAndLastDateToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('last_ip');
             $table->dropColumn('last_location');
-            $table->dropColumn('last_time');
+            $table->dropColumn('last_at');
         });
     }
 }

@@ -17,7 +17,6 @@ namespace App\Http\Controllers\Administrator;
 
 use App\Models\Wechat;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Administrator\WechatRequest;
 
 /**
@@ -31,6 +30,7 @@ class WechatsController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
+        static::$activeNavId = 'website.wechat';
     }
 
     /**

@@ -1,16 +1,16 @@
-@extends('backend.layouts.app')
+@extends('backend::layouts.app')
 
 @section('title', $title = $navigation->id ? '编辑导航' : '添加导航' )
 
 @section('breadcrumb')
-    <a href="">站点设置</a>
-    <a href="">栏目导航</a>
-    <a href="">@switch($category)
+    <li><a href="javascript:;">站点设置</a></li>
+    <li><a href="javascript:;">栏目导航</a></li>
+    <li><a href="javascript:;">@switch($category)
             @case('desktop')主导航@break
             @case('footer')底部导航@break
             @case('mobile')手机导航@break
-        @endswitch</a>
-    <a href="">{{$title}}</a>
+        @endswitch</a></li>
+    <li class="active">{{$title}}</li>
 @endsection
 
 @section('content')
@@ -29,219 +29,223 @@
             $categoryItems = $categoryHandler->select($categoryHandler->getCategorys('article'));
     @endphp
 
-    <div class="layui-main">
 
-        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-            <legend>{{ $title }}</legend>
-        </fieldset>
+    <h2 class="header-dividing">{{$title}} <small></small></h2>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-body">
+                    <form id="form-validator" class="form-horizontal" method="POST"action="{{ $navigation->id ? route('administrator.navigation.update', [$navigation->id, $category]) : route('administrator.navigation.store', $category) }}?redirect={{ previous_url() }}">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="_method" value="{{ $navigation->id ? 'PUT' : 'POST' }}">
 
-        <form id="formApp" class="layui-form layui-form-pane" method="POST" action="{{ $navigation->id ? route('administrator.navigation.update', [$navigation->id, $category]) : route('administrator.navigation.store', $category) }}?redirect={{ previous_url() }}">
-            {{ csrf_field() }}
-            <input type="hidden" name="_method" class="mini-hidden" value="{{ $navigation->id ? 'PUT' : 'POST' }}">
+                        <div class="form-group has-feedback  has-icon-right">
+                            <label for="parent" class="col-md-2 col-sm-2 control-label required">父级</label>
+                            <div class="col-md-5 col-sm-10">
+                            <select data-placeholder="请选择父级菜单" class="chosen-select form-control"  tabindex="2" name="parent">
+                                <option value=""></option>
+                                <option @if($parent == 0) selected @endif value="0">/</option>
+                                @foreach($navigationItems as $key => $value)
+                                    <option @if($parent == $key) selected @endif value="{{$key}}">{{$value}}</option>
+                                @endforeach
+                            </select>
+                            </div>
+                        </div>
 
-            <div class="layui-form-item">
-                <label class="layui-form-label">父级</label>
-                <div class="layui-input-block">
-                    <select name="parent">
-                        <option value=""></option>
-                        <option @if($parent == 0) selected @endif value="0">/</option>
-                        @foreach($navigationItems as $key => $value)
-                            <option @if($parent == $key) selected @endif value="{{$key}}">{{$value}}</option>
-                        @endforeach
-                    </select>
+                        <div class="form-group has-feedback has-icon-right">
+                            <label for="target" class="col-md-2 col-sm-2 control-label required">类型</label>
+                            <div class="col-md-5 col-sm-10">
+                            <div class="radio">
+                                <label class="radio-inline">
+                                    <input type="radio" name="type" value="action" v-model="type" required > 控制器
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="type" value="link" v-model="type" required > 链接
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="type" value="article" v-model="type" required > 文章
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="type" value="page" v-model="type" required > 页面
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="type" value="category" v-model="type" required > 栏目
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="type" value="navigation" v-model="type" required > 导航
+                                </label>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group has-feedback  has-icon-right">
+                            <label for="title" class="col-md-2 col-sm-2 control-label required">名称</label>
+                            <div class="col-md-5 col-sm-10">
+                            <input type="text" class="form-control" id="title" name="title" autocomplete="off" placeholder="" value="{{ old('title',$navigation->title) }}"
+                                   required
+                                   data-fv-trigger="blur"
+                                   minlength="1"
+                                   maxlength="100"
+                            ></div>
+                        </div>
+
+                        <div class="form-group has-feedback has-icon-right">
+                            <label for="target" class="col-md-2 col-sm-2 control-label required">打开方式</label>
+                            <div class="col-md-5 col-sm-10">
+                            <div class="radio">
+                                <label class="radio-inline">
+                                    <input type="radio" name="target" value="_self" @if(old('target',$navigation->target) == '_self') checked="" @endif required > 当前窗口
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="target" value="_blank" @if(old('target',$navigation->target) == '_blank') checked="" @endif required > 新开窗口
+                                </label>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div v-if="type == 'action'" class="form-group has-feedback  has-icon-right">
+                            <label for="params[route]" class="col-md-2 col-sm-2 control-label required">路由</label>
+                            <div class="col-md-5 col-sm-10">
+                            <input type="text" class="form-control" id="params[route]" name="params[route]" autocomplete="off" placeholder="" value="{{ get_value($params,'route','') }}"
+                                   required
+                                   data-fv-trigger="blur"
+                                   minlength="1"
+                                   maxlength="128"
+                            >
+                            </div>
+                        </div>
+
+                        <div v-if="type == 'action'" class="form-group has-feedback  has-icon-right">
+                            <label for="params[route]" class="col-md-2 col-sm-2 control-label required">参数</label>
+                            <div class="col-md-5 col-sm-10">
+                            <input type="text" class="form-control" id="params[params]" name="params[params]" autocomplete="off" placeholder="" value="{{ get_value($params,'params','') }}"
+                                   required
+                                   data-fv-trigger="blur"
+                                   minlength="1"
+                                   maxlength="128"
+                            >
+                            </div>
+                        </div>
+
+                        <div  v-if="type == 'article' || type == 'category' " class="form-group has-feedback  has-icon-right">
+                            <label for="parent" class="col-md-2 col-sm-2 control-label required">分类</label>
+                            <div class="col-md-5 col-sm-10">
+                            <select class="form-control" name="params[category_id]">
+                                <option value=""></option>
+                                @foreach($categoryItems as $key => $value)
+                                    <option @if($category_id == $key) selected @endif value="{{$key}}">{{$value}}</option>
+                                @endforeach
+                            </select>
+                            </div>
+                        </div>
+
+                        <div v-if="type == 'navigation'" class="form-group has-feedback  has-icon-right">
+                            <label for="parent" class="col-md-2 col-sm-2 control-label required">导航</label>
+                            <div class="col-md-5 col-sm-10">
+                            <select class="form-control" name="params[link]">
+                                <option value=""></option>
+                                @foreach($navigationItemsByResult as $item)
+                                    <option @if($navigation->link == $item->link) selected @endif value="{{$item->link}}">{{$item->title}}</option>
+                                @endforeach
+                            </select>
+                            </div>
+                        </div>
+
+                        <div v-if="type == 'page'" class="form-group has-feedback  has-icon-right">
+                            <label for="parent" class="col-md-2 col-sm-2 control-label required">页面</label>
+                            <div class="col-md-5 col-sm-10">
+                            <select class="form-control" name="params[page_id]">
+                                <option value="">请选择</option>
+                                @foreach($pageItems as $key => $value)
+                                    <option @if($page_id == $key) selected @endif value="{{$key}}">{{$value}}</option>
+                                @endforeach
+                            </select>
+                            </div>
+                        </div>
+
+                        <div v-if="type == 'link'" class="form-group has-feedback  has-icon-right">
+                            <label for="params[route]" class="col-md-2 col-sm-2 control-label required">链接</label>
+                            <div class="col-md-5 col-sm-10">
+                            <input type="text" class="form-control" id="params[link]" name="params[link]" autocomplete="off" placeholder="" value="{{ get_value($params,'link','') }}"
+                                   required
+                                   data-fv-trigger="blur"
+                                   minlength="1"
+                                   maxlength="128"
+                            >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-sm-2 ">导航图片</label>
+                            <div class="col-md-5 col-sm-10">
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <img src="{{ storage_image_url($navigation->image) }}" id="image_image" class="img-rounded" width="200px" height="200px" alt="">
+                                    <input type="hidden" name="image" id="form_image" value="{{ old('image',$navigation->image) }}" />
+                                    <button id="upload_image" type="button" class="btn btn-info uploader-btn-browse"><i class="icon icon-upload"></i> 上传</button>
+                                    <button id="select_thumb" type="button" class="btn btn-primary"><i class="icon icon-file-image"></i> 选择</button>
+                                    <button id="delete_thumb" type="button" class="btn btn-danger"><i class="icon icon-remove-sign"></i> 删除</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group has-feedback has-icon-right">
+                            <label for="" class="col-md-2 col-sm-2 control-label required">状态</label>
+                            <div class="col-md-5 col-sm-10">
+                            <div class="radio">
+                                <label class="radio-inline">
+                                    <input type="radio" name="is_show" value="0" @if($navigation->is_show == 0) checked="" @endif required > 隐藏
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="is_show" value="1"  @if($navigation->is_show == '1' || empty($navigation->is_show)) checked="" @endif required > 显示
+                                </label>
+                            </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-5 col-sm-10">
+                                <input type="hidden" name="category" value="{{$category}}">
+                                <button type="submit" class="btn btn-primary">提交</button>
+                                <button type="reset" class="btn btn-default">重置</button>
+                            </div>
+                        </div>
+
+                    </form>
+
                 </div>
             </div>
-
-
-            <div class="layui-form-item" pane="">
-                <label class="layui-form-label">类型</label>
-                <div class="layui-input-block">
-                    <input type="radio" lay-filter="type" required lay-verify="required" name="type" lay-skin="primary" value="action" title="控制器" @if($navigation->type == 'action' || empty($navigation->type)) checked="" @endif >
-                    <input type="radio" lay-filter="type" required lay-verify="required" name="type" lay-skin="primary" value="link" title="链接" @if($navigation->type == 'link') checked="" @endif >
-                    <input type="radio" lay-filter="type" required lay-verify="required" name="type" lay-skin="primary" value="article" title="文章" @if($navigation->type == 'article') checked="" @endif >
-                    <input type="radio" lay-filter="type" required lay-verify="required" name="type" lay-skin="primary" value="page" title="页面" @if($navigation->type == 'page') checked="" @endif >
-                    <input type="radio" lay-filter="type" required lay-verify="required" name="type" lay-skin="primary" value="category" title="栏目" @if($navigation->type == 'category') checked="" @endif >
-                    <input type="radio" lay-filter="type" required lay-verify="required" name="type" lay-skin="primary" value="navigation" title="导航" @if($navigation->type == 'navigation') checked="" @endif >
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">名称</label>
-                <div class="layui-input-block">
-                    <input type="text" name="title" lay-verify="required" autocomplete="off" placeholder="请输入名称" class="layui-input" value="{{ old('title',$navigation->title) }}" >
-                </div>
-            </div>
-
-            <!--
-            <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label">描述</label>
-                <div class="layui-input-block">
-                    <textarea name="description" lay-verify="" placeholder="请输入描述" class="layui-textarea">{{  old('description', $navigation->description) }}</textarea>
-                </div>
-            </div>
-            -->
-
-            <div class="layui-form-item" pane="">
-                <label class="layui-form-label">打开方式</label>
-                <div class="layui-input-block">
-                    <input type="radio" name="target" lay-verify="required" lay-skin="primary" value="_self" title="当前窗口" @if($navigation->target == '_self' || empty($navigation->target)) checked="" @endif >
-                    <input type="radio" name="target" lay-verify="required" lay-skin="primary" value="_blank" title="新开窗口" @if($navigation->target == '_blank') checked="" @endif >
-                </div>
-            </div>
-
-            <div class="layui-form-item params params-action">
-                <label class="layui-form-label">路由</label>
-                <div class="layui-input-block">
-                    <input type="text" name="params[route]" lay-verify="" autocomplete="off" placeholder="请输入路由" class="layui-input" value="{{ get_value($params,'route','') }}" >
-                </div>
-            </div>
-
-            <div class="layui-form-item params params-action">
-                <label class="layui-form-label">参数</label>
-                <div class="layui-input-block">
-                    <input type="text" name="params[params]" lay-verify="" autocomplete="off" placeholder="请输入关键字" class="layui-input" value="{{ get_value($params,'params','{}') }}" >
-                </div>
-            </div>
-
-            <div class="layui-form-item params params-category">
-                <label class="layui-form-label">分类</label>
-                <div class="layui-input-block">
-                    <select name="params[category_id]">
-                        <option value=""></option>
-                        @foreach($categoryItems as $key => $value)
-                            <option @if($category_id == $key) selected @endif value="{{$key}}">{{$value}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-
-            <div class="layui-form-item params params-navigation">
-                <label class="layui-form-label">导航</label>
-                <div class="layui-input-block">
-                    <select name="params[link]">
-                        <option value=""></option>
-                        @foreach($navigationItemsByResult as $item)
-                            <option @if($navigation->link == $item->link) selected @endif value="{{$item->link}}">{{$item->title}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-
-            <div class="layui-form-item params params-article">
-                <label class="layui-form-label">文章分类</label>
-                <div class="layui-input-block">
-                    <select name="params[category_id]">
-                        <option value=""></option>
-                        @foreach($categoryItems as $key => $value)
-                            <option @if($category_id == $key) selected @endif value="{{$key}}">{{$value}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-
-            <div class="layui-form-item params params-page">
-                <label class="layui-form-label">页面</label>
-                <div class="layui-input-block">
-                    <select name="params[page_id]" lay-search="">
-                        <option value="">直接选择或搜索选择</option>
-                        @foreach($pageItems as $key => $value)
-                            <option @if($page_id == $key) selected @endif value="{{$key}}">{{$value}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-
-            <div class="layui-form-item params params-link">
-                <label class="layui-form-label">链接</label>
-                <div class="layui-input-block">
-                    <input type="text" name="params[link]" lay-verify="" autocomplete="off" placeholder="请输入链接" class="layui-input" value="{{ old('link',$navigation->link) }}" >
-                </div>
-            </div>
-
-            <div class="layui-form-item" pane="">
-                <label class="layui-form-label">状态</label>
-                <div class="layui-input-block">
-                    <input type="radio" name="is_show" lay-skin="primary" value="0" title="隐藏" @if($navigation->is_show == '0') checked="" @endif >
-                    <input type="radio" name="is_show" lay-skin="primary" value="1" title="显示" @if($navigation->is_show == '1' || empty($navigation->is_show)) checked="" @endif >
-                </div>
-            </div>
-
-            @if($navigation->id)
-            <div class="layui-form-item">
-                <div class="layui-upload">
-                    <button type="button" class="layui-btn" id="upload_image">导航图片</button>
-                    <input type="hidden" name="image" id="form_image" value="{{ old('image',$navigation->image) }}" />
-                    <div class="layui-upload-list">
-                        <img class="layui-upload-img" src="{{ $navigation->getImage() }}" id="image_image" style="max-width: 720px;" _height="280">
-                    </div>
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">排序</label>
-                <div class="layui-input-block">
-                    <input type="number" name="order" lay-verify="" autocomplete="off" placeholder="请输入排序" class="layui-input" value="{{ old('order',$navigation->order) }}" >
-                </div>
-            </div>
-            @endif
-
-            <div class="layui-form-item">
-                {{--<div class="layui-input-block">--}}
-                <input type="hidden" name="category" value="{{$category}}">
-                {{--<input type="hidden" name="parent" value="{{$parent}}">--}}
-                <button class="layui-btn" lay-submit="" lay-filter="demo1">提交</button>
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                {{--</div>--}}
-            </div>
-        </form>
+        </div>
     </div>
 @endsection
 
 @section('scripts')
     <script type="text/javascript">
 
-    layui.use('upload', function(){
-        var upload = layui.upload;
+       var app = new Vue({
+           el : '#app',
+           data : {
+               type : "{{old('type',$navigation->type)}}"
+           },
 
-        //执行实例
-        var uploadInst = upload.render({
-            elem: '#upload_image' // 绑定元素
-            ,url: '{{ route('upload.image') }}?folder=navigation&object_id={{$navigation->id ?? 0}}' // 上传接口
-            ,field: 'upload_file'
-            ,done: function(res){
-                if(res.success == true){
-                    $("#form_image").val(res.file_uri);
-                    $("#image_image").attr("src",res.file_path);
-                }
-                //上传完毕回调
-                console.log(res);
-            }
-            ,error: function(){
-                //请求异常回调
-                layer.alert('上传失败，请重试!', 2);
-            }
-        });
-    });
+           updated : function(){
 
-    layui.form.on('radio(type)', function(data){
-         showHideForm(data.value);
-    });
+           },
 
-    function showHideForm(type){
-        var paramsNode = $(".params").hide();
-        paramsNode.find('input').attr('disabled','disabled');
-        paramsNode.find('select').attr('disabled','disabled');
+           watch : {
+               type : function(newValue, oldValue){
+                    // console.log(newValue, oldValue);
 
-        var paramsTypeNode = $(".params-"+type).show();
-        paramsTypeNode.find('input').removeAttr('disabled');
-        paramsTypeNode.find('select').removeAttr('disabled');
-    }
-
-    @if($navigation->type)
-    showHideForm('{{$navigation->type}}');
-    @else
-    showHideForm('action');
-    @endif
+               }
+           }
+       });
 
     </script>
+
+    @include('backend::common._upload_image_scripts',['elem' => '#upload_image', 'previewElem' => '#image_image', 'fieldElem' => '#form_image', 'folder'=>'navigation', 'object_id' => $navigation->id ?? 0 ])
+    @include('backend::common._delete_image_scripts',['elem' => '#delete_thumb', 'previewElem' => '#image_image', 'fieldElem' => '#form_image', ])
+    @include('backend::common._select_image_scripts',['elem' => '#select_thumb', 'previewElem' => '#image_image', 'fieldElem' => '#form_image', 'folder'=>'navigation', 'object_id' => $navigation->id ?? 0 ])
+
 @stop

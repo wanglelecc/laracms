@@ -1,12 +1,11 @@
 @if (count($errors) > 0)
-    {{--<div class="alert alert-danger">--}}
-        {{--<h4>有错误发生：</h4>--}}
-        {{--<ul>--}}
-            {{--@foreach ($errors->all() as $error)--}}
-                {{--<li><i class="glyphicon glyphicon-remove"></i> {{ $error }}</li>--}}
-            {{--@endforeach--}}
-        {{--</ul>--}}
-    {{--</div>--}}
-
-    <script>layer.alert('@foreach ($errors->all() as $error) {{ $error }} <br /> @endforeach', {icon: 2,time:3000});</script>
+    <div class="alert with-icon alert-danger alert-dismissable">
+        <i class="icon-remove-sign"></i>
+        <div class="content">
+            @foreach ($errors->all() as $error)
+            <p>{{ $error }}</p>
+            @endforeach
+        </div>
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    </div>
 @endif

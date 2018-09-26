@@ -16,7 +16,6 @@
 namespace App\Http\Controllers\Administrator;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Setting;
 
 /**
@@ -27,7 +26,12 @@ use App\Models\Setting;
  */
 class SiteController extends Controller
 {
-
+    
+    public function __construct()
+    {
+        static::$activeNavId = 'website';
+    }
+    
     /**
      * 站点设置页面
      *
@@ -36,8 +40,9 @@ class SiteController extends Controller
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function basic(Setting $setting){
+        static::$activeNavId = 'website.basic';
+        
         $this->authorize('basic', $setting);
-
         $site = $setting->take('basic');
 
         return backend_view('site.basic',compact('site'));
@@ -54,7 +59,7 @@ class SiteController extends Controller
     public function basicStore(Request $request, Setting $setting){
         $this->authorize('basic', $setting);
 
-        $data = $request->only('name', 'create_year', 'copyright','keywords','index_keywords','slogan','icp','icp_link','meta','description','statistics');
+        $data = $request->only('status', 'close_tips', 'name', 'create_year', 'copyright','keywords','index_keywords','slogan','icp','icp_link','meta','description','statistics', 'map');
         $setting->store($data,'basic','common','system');
 
         return redirect()->route('administrator.site.basic')->with('success', '保存成功.');
@@ -68,6 +73,7 @@ class SiteController extends Controller
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function company(Setting $setting){
+        static::$activeNavId = 'website.company';
         $this->authorize('company', $setting);
 
         $site = $setting->take('company');
@@ -100,6 +106,7 @@ class SiteController extends Controller
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function contact(Setting $setting){
+        static::$activeNavId = 'website.contact';
         $this->authorize('contact', $setting);
 
         $site = $setting->take('contact');

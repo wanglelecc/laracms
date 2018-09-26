@@ -17,6 +17,8 @@ namespace App\Models;
 
 use EasyWeChat\Factory;
 use App\Events\BehaviorLogEvent;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 /**
  * 微信公众号模型
@@ -26,9 +28,12 @@ use App\Events\BehaviorLogEvent;
  */
 class Wechat extends Model
 {
+    use SoftDeletes;
+    
     public $table = 'wechat';
     protected $fillable = ['type', 'object_id', 'name', 'account', 'app_id', 'app_secret', 'url', 'token', 'qrcode', 'primary', 'certified'];
-
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+    
     public $dispatchesEvents  = [
         'saved' => BehaviorLogEvent::class,
     ];

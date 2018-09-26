@@ -17,6 +17,8 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\Storage;
 use App\Events\BehaviorLogEvent;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 /**
  * 友情链接模型
@@ -26,11 +28,11 @@ use App\Events\BehaviorLogEvent;
  */
 class Link extends Model
 {
+    use SoftDeletes;
+    
     protected $fillable = ['id','name', 'description', 'url', 'order', 'rating', 'image', 'target', 'rel', 'status'];
-
-    public function getImage(){
-        return $this->image ? Storage::url($this->image) : config('app.url') . '/images/pic-none.png';
-    }
+    
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     public $dispatchesEvents  = [
         'saved' => BehaviorLogEvent::class,

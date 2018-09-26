@@ -82,7 +82,23 @@ class NavigationHandler
      * @return mixed
      */
     public function getNavigations($category = 'desktop'){
-        return app(Navigation::class)->ordered()->recent('asc')->where('category','=', $category)->get();
+
+        $key = 'navigation_cache_'.$category;
+
+        $navigation = \Cache::get($key);
+
+        if( \App::environment('production') && $navigation ){
+            return $navigation;
+        }
+
+        $navigation = app(Navigation::class)->ordered()->recent('asc')->where('category','=', $category)->where('is_show', '=', '1')->get();
+
+        if(\App::environment('production')){
+            $expiredAt = now()->addMinutes(config('cache.expired.navigation', 10));
+            \Cache::put($key, $navigation, $expiredAt);
+        }
+
+        return $navigation;
     }
 
     /**
@@ -121,7 +137,7 @@ class NavigationHandler
      * @return array
      */
     public function getCurrentBrothersAndChildNavigation($category = 'desktop', $showOneLevel = false){
-        $navigation = Navigation::find(request('navigation',0));
+        $navigation = $this->getNavigationFind(request('navigation',0));
         $parent = $navigation->parent ?? 0;
         return $parent == 0 && $showOneLevel == false ? [] : $this->withRecursion($this->getNavigations($category), $parent ?? 0);
     }
@@ -143,7 +159,7 @@ class NavigationHandler
      */
     public function breadcrumb(){
         $breadcrumb = [];
-        $navigation = Navigation::find(request('navigation',0));
+        $navigation = $this->getNavigationFind(request('navigation',0));
         if(!$navigation){  return $breadcrumb; } // 默认首页
 
         $path = $navigation->path ?? '0';
@@ -159,6 +175,36 @@ class NavigationHandler
         $breadcrumb[] = $navigation;
 
         return $breadcrumb;
+    }
+
+    /**
+     * 获取单个导航缓存
+     *
+     * @param $id
+     * @return mixed
+     */
+    protected function getNavigationFind($id){
+
+        if(intval($id) < 1){
+            return null;
+        }
+
+        $key = 'navigation_item_cache_'.$id;
+
+        $navigation = \Cache::get($key);
+
+        if( \App::environment('production') && $navigation ){
+            return $navigation;
+        }
+
+        $navigation = Navigation::find($id);
+
+        if(\App::environment('production')){
+            $expiredAt = now()->addMinutes(config('cache.expired.navigation', 10));
+            \Cache::put($key, $navigation, $expiredAt);
+        }
+
+        return $navigation;
     }
 
     /**

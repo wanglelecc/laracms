@@ -1,79 +1,109 @@
-@extends('backend.layouts.app')
+@extends('backend::layouts.app')
 
 @section('title', $title = $user->id ? '编辑用户' : '添加用户' )
 
 @section('breadcrumb')
-    <a href="">系统设置</a>
-    <a href="">用户管理</a>
-    <a href="">{{$title}}</a>
+    <li><a href="javascript:;">系统设置</a></li>
+    <li><a href="javascript:;">用户管理</a></li>
+    <li class="active">{{$title}}</li>
 @endsection
 
 @section('content')
-    <div class="layui-main">
 
-        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-            <legend>{{ $title }}</legend>
-        </fieldset>
+    <h2 class="header-dividing">{{$title}} <small></small></h2>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-body">
 
-        <form class="layui-form layui-form-pane" method="POST" action="{{ $user->id ? route('users.update', $user->id) : route('users.store') }}?redirect={{ previous_url() }}">
-            {{ csrf_field() }}
-            <input type="hidden" name="_method" class="mini-hidden" value="{{ $user->id ? 'PATCH' : 'POST' }}">
+                    <form id="form-validator" method="POST" class="form-horizontal" action="{{ $user->id ? route('users.update', $user->id) : route('users.store') }}?redirect={{ previous_url() }}">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="_method" class="mini-hidden" value="{{ $user->id ? 'PATCH' : 'POST' }}">
 
-            <div class="layui-form-item">
-                <label class="layui-form-label">用户名</label>
-                <div class="layui-input-block">
-                    <input type="text" name="name" lay-verify="required" autocomplete="off" placeholder="请输入标题" class="layui-input" value="{{ old('name',$user->name) }}" >
+                        <div class="form-group has-feedback  has-icon-right">
+                            <label for="name" class="col-md-2 col-sm-2 control-label required">用户名</label>
+                            <div class="col-md-5 col-sm-10">
+                            <input type="text" class="form-control" id="name" name="name" autocomplete="off" placeholder="" value="{{ old('name',$user->name) }}"
+                                   required
+                                   data-fv-trigger="blur"
+                                   minlength="6"
+                                   maxlength="16"
+                            ></div>
+                        </div>
+
+                        <div class="form-group has-feedback  has-icon-right">
+                            <label for="name" class="col-md-2 col-sm-2 control-label required">邮箱</label>
+                            <div class="col-md-5 col-sm-10">
+                            <input type="email" class="form-control" id="email" name="email" autocomplete="off" placeholder="" value="{{ old('email',$user->email) }}"
+                                   required
+                                   data-fv-trigger="blur"
+                                   minlength="6"
+                                   maxlength="32"
+                            ></div>
+                        </div>
+
+                        @if(!$user->id)
+                            <div class="form-group has-feedback  has-icon-right">
+                                <label for="password" class="col-md-2 col-sm-2 control-label required">密码</label>
+                                <div class="col-md-5 col-sm-10">
+                                <input type="password" class="form-control" id="password" name="old_password" autocomplete="off" value="{{ old('old_password') }}"
+                                       required
+                                       data-fv-trigger="blur"
+                                       minlength="6"
+                                       maxlength="16"
+                                ></div>
+                            </div>
+                        @endif
+
+                        <div class="form-group has-feedback has-icon-right">
+                            <label for="" class="col-md-2 col-sm-2 control-label required">角色</label>
+                            <div class="col-md-5 col-sm-10">
+                                <div class="checkbox">
+                                    @foreach($roles as $key => $val)
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="roles[]" value="{{ $val }}" title="{{ $key }}" @if(in_array($val,$userRoles) || in_array($val, old('roles',[]))) checked="checked" @endif required > {{$key}}
+                                    </label>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group has-feedback has-icon-right">
+                            <label for="" class="col-md-2 col-sm-2 control-label required">角色</label>
+                            <div class="col-md-5 col-sm-10">
+                                <div class="radio">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="status" value="0" @if(old('status',$user->status) == 0) checked="checked" @endif required > 未激活
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="status" value="1" @if(old('status',$user->status) == 1) checked="checked" @endif required > 正常
+                                    </label>
+
+                                    <label class="radio-inline">
+                                        <input type="radio" name="status" value="2" @if(old('status',$user->status) == 2) checked="checked" @endif required > 停用
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-sm-2 control-label">个人简介</label>
+                            <div class="col-md-5 col-sm-10">
+                                <textarea class="form-control" name="introduction">{{ old('introduction',$user->introduction) }}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-5 col-sm-10">
+                                <button type="submit" class="btn btn-primary">提交</button>
+                                <button type="reset" class="btn btn-default">重置</button>
+                            </div>
+                        </div>
+
+                    </form>
                 </div>
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">邮箱</label>
-                <div class="layui-input-block">
-                    <input type="email" name="email" lay-verify="required|email" placeholder="请输入" autocomplete="off" class="layui-input" value="{{ old('email',$user->email) }}" >
-                </div>
-            </div>
-
-            @if(!$user->id)
-            <div class="layui-form-item">
-                <label class="layui-form-label">密码</label>
-                <div class="layui-input-block">
-                    <input type="text" name="password" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" value="{{ old('password',$user->password) }}" >
-                </div>
-            </div>
-            @endif
-
-            <div class="layui-form-item" pane="">
-                <label class="layui-form-label">角色</label>
-                <div class="layui-input-block">
-                    @foreach($roles as $key => $val)
-                        <input type="checkbox" name="roles[]" lay-skin="primary" value="{{ $val }}" title="{{ $key }}" @if(in_array($val,$userRoles)) checked="" @endif >
-                    @endforeach
-                </div>
-            </div>
-
-            <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label">个人简介</label>
-                <div class="layui-input-block">
-                    <textarea placeholder="请输入内容" name="introduction" lay-verify="required" class="layui-textarea">{{ old('introduction',$user->introduction) }}</textarea>
-                </div>
-            </div>
-
-            <div class="layui-form-item" pane="">
-                <label class="layui-form-label">状态</label>
-                <div class="layui-input-block">
-                    <input type="radio" name="status" value="0" @if(old('status',$user->status) == 0) checked="" @endif title="未激活" lay-verify="required">
-                    <input type="radio" name="status" value="1" @if(old('status',$user->status) == 1) checked="" @endif title="正常" lay-verify="required">
-                    <input type="radio" name="status" value="2" @if(old('status',$user->status) == 2) checked="" @endif title="停用" lay-verify="required">
-                </div>
-            </div>
-
-
-            <div class="layui-form-item">
-                {{--<div class="layui-input-block">--}}
-                <button class="layui-btn" lay-submit="" lay-filter="demo1">提交</button>
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                {{--</div>--}}
-            </div>
-        </form>
+        </div>
     </div>
 @endsection
 
