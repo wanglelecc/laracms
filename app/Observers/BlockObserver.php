@@ -40,6 +40,10 @@ class BlockObserver
     {
         $block->updated_op = Auth::id();
     }
+    
+    public function updated(Block $block){
+        Block::clearCache($block->object_id);
+    }
 
     public function saving(Block $block){
         if(is_array($block->content) || is_object($block->content)){

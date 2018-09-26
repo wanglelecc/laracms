@@ -42,6 +42,10 @@ class ArticleObserver
     {
         $article->updated_op = Auth::id();
     }
+    
+    public function updated(Article $article){
+        Article::clearCache($article->id);
+    }
 
     public function saving(Article $article){
 

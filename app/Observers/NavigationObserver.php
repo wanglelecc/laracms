@@ -69,5 +69,7 @@ class NavigationObserver
             $nav->path = $navigation->path . '-'. $navigation->id;
             $nav->save();
         }
+        
+        Navigation::clearCache($navigation->id, $navigation->category);
     }
 }

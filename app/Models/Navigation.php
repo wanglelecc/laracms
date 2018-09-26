@@ -41,4 +41,22 @@ class Navigation extends Model
         return 'title';
     }
     
+    /**
+     * 清除缓存
+     *
+     * @param $id
+     * @param $category
+     *
+     * @return bool
+     */
+    public static function clearCache($id, $category = 'desktop'){
+        $key = 'navigation_cache_'.$category;
+        \Cache::forget($key);
+    
+        $key = 'navigation_item_cache_'.$id;
+        \Cache::forget($key);
+        
+        return true;
+    }
+    
 }

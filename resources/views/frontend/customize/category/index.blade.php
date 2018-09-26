@@ -1,8 +1,8 @@
 @extends('frontend::layouts.app')
 
 @section('title', $title = $category->name )
-@section('description', '')
-@section('keywords', '')
+@section('description', empty($category->description) ? $category->description : config('system.common.basic.description','') )
+@section('keywords', empty($category->keywords) ? $category->keywords : config('system.common.basic.keywords','') )
 
 @section('breadcrumb')
     <a><cite>栏目</cite></a>

@@ -29,4 +29,19 @@ class Block extends Model
     {
         return 'id';
     }
+    
+    /**
+     * 清除缓存
+     *
+     * @param $object_id
+     *
+     * @return bool
+     */
+    public static function clearCache($object_id){
+        $key = 'block_cache_'.$object_id;
+    
+        \Cache::forget($key);
+    
+        return true;
+    }
 }

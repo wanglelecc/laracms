@@ -92,6 +92,25 @@ class Category extends Model
 
         return $template;
     }
+    
+    /**
+     * 删除缓存
+     *
+     * @param        $id
+     * @param string $type
+     *
+     * @return bool
+     */
+    public static function clearCache($id, $type = 'article'){
+        $id      = intval($id);
+        $type    = strtolower($type);
+    
+        $key = $type.'_category_active_cache_'.$id;
+    
+        \Cache::forget($key);
+    
+        return true;
+    }
 
     /**
      * 前台获取分类详情

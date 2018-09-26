@@ -60,5 +60,7 @@ class CategoryObserver
             $categoryModel->path = $category->path . '-'. $category->id;
             $categoryModel->save();
         }
+    
+        Category::clearCache($category->id, $category->type);
     }
 }

@@ -56,12 +56,25 @@ class Setting extends Model
             empty($value) && $value = '';
             static::updateOrCreate(['owner'=>$owner,'module'=>$module,'section'=>$section,'key'=>$key], ['value'=> is_string($value) ? $value : json_encode($value)]);
         }
-
+        
+        return static::clearCache();
+    }
+    
+    /**
+     * 清除缓存
+     */
+    public static function clearCache(){
+        $key = 'settings_cache';
+        
+        \Cache::forget($key);
+        
         return true;
     }
-
+    
     /**
-     * @param string $owner
+     * 获取所有数据
+     *
+     * @return mixed
      */
     public static function getStore(){
 

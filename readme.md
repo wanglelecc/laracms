@@ -87,5 +87,7 @@ Github 地址 https://github.com/wanglelecc/laracms
 
 ## 捐赠
 如果你觉得本项目给你带来了帮助，可以请作者喝一杯 [ 咖啡 ]
+
 <p><img src="./public/images/pay.jpg"></p>
+
 > 捐赠不代表提供有偿服务，望须知。

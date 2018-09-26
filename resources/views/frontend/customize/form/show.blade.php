@@ -1,8 +1,8 @@
 @extends('frontend::layouts.app')
 
 @section('title', $title = $form['title'])
-@section('description', $form['description'] ?? '')
-@section('keywords', $form['keywords'] ?? '')
+@section('description', $form['description'] ?? config('system.common.basic.description',''))
+@section('keywords', $form['keywords'] ?? config('system.common.basic.keywords',''))
 
 @section('breadcrumb')
     <a><cite>{{$title}}</cite></a>

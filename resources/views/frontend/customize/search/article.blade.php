@@ -3,8 +3,8 @@
 @extends('frontend::layouts.app')
 
 @section('title', $title = empty($query) ? '搜索' : $query . ' - 搜索' )
-@section('description', '')
-@section('keywords', '')
+@section('description', config('system.common.basic.description','') )
+@section('keywords', config('system.common.basic.keywords','') )
 
 @php
 $breadcrumb = false;

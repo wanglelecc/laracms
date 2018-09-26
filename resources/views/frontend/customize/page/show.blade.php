@@ -1,8 +1,8 @@
 @extends('frontend::layouts.app')
 
 @section('title', $title = $page->title)
-@section('description', $page->description)
-@section('keywords', $page->keywords)
+@section('description',  empty($page->description) ? $page->description : config('system.common.basic.description',''))
+@section('keywords', empty($page->keywords) ? $page->keywords : config('system.common.basic.keywords',''))
 
 @section('breadcrumb')
     {{--<a><cite>{{$title}}</cite></a>--}}

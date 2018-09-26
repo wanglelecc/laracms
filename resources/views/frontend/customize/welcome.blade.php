@@ -1,6 +1,8 @@
 @extends('frontend::layouts.app')
 
 @section('title', $title = '首页' )
+@section('description', config('system.common.basic.description',''))
+@section('keywords', config('system.common.basic.index_keywords',''))
 
 @section('breadcrumb')
 @endsection

@@ -213,6 +213,23 @@ class Article extends Model
 
         return $value;
     }
+    
+    /**
+     * 清除缓存
+     *
+     * @param $id
+     *
+     * @return bool
+     */
+    public static function clearCache($id){
+        $id = intval($id);
+    
+        $key = 'article_active_cache_'.$id;
+    
+        \Cache::forget($key);
+        
+        return true;
+    }
 
     /**
      * 前台获取文章详情
