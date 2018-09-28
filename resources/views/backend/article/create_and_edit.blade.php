@@ -83,7 +83,7 @@
                                 <div class="panel">
                                     <div class="panel-body">
                                         <img src="{{ storage_image_url($article->thumb) }}" id="image_image" class="img-rounded" width="660px" height="300px" alt="">
-                                        <input type="hidden" name="image" id="form_thumb" value="{{ old('thumb',$article->thumb) }}" />
+                                        <input type="hidden" name="thumb" id="form_thumb" value="{{ old('thumb',$article->thumb) }}" />
                                         <button id="upload_thumb" type="button" class="btn btn-info uploader-btn-browse"><i class="icon icon-upload"></i> 上传</button>
                                         <button id="select_thumb" type="button" class="btn btn-primary"><i class="icon icon-file-image"></i> 选择</button>
                                         <button id="delete_thumb" type="button" class="btn btn-danger"><i class="icon icon-remove-sign"></i> 删除</button>

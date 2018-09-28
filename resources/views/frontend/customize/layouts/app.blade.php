@@ -8,6 +8,7 @@
         <title>@yield('title', config('system.common.basic.name', 'LaraCMS')) - {{ config('system.common.basic.name', config('app.name', 'LaraCMS')) }}</title>
         <meta name="description" content="@yield('description',config('system.common.basic.description',''))">
         <meta name="Keywords" content="@yield('keywords', config('system.common.basic.keywords',''))">
+        {!! config('system.common.basic.meta','') !!}
         <script>
             window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token()

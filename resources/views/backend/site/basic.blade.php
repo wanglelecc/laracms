@@ -126,15 +126,7 @@
                             ></div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="meta" class="col-md-2 col-sm-2 control-label">Meta 标签</label>
-                            <div class="col-md-5 col-sm-10">
-                            <textarea class="form-control" rows="6" id="meta" name="meta"
-                                      data-fv-trigger="blur"
-                                      minlength="1"
-                            >{{ get_value($site, 'meta') }}</textarea>
-                            </div>
-                        </div>
+
 
                         <div class="form-group">
                             <label for="description" class="col-md-2 col-sm-2 control-label">站点描述</label>
@@ -147,9 +139,19 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="meta" class="col-md-2 col-sm-2 control-label">Meta 标签</label>
+                            <div class="col-md-8 col-sm-10">
+                            <textarea class="form-control codeeditor" mode="html" rows="10" id="meta" name="meta"
+                                      data-fv-trigger="blur"
+                                      minlength="1"
+                            >{{ get_value($site, 'meta') }}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label for="statistics" class="col-md-2 col-sm-2 control-label">统计代码</label>
-                            <div class="col-md-5 col-sm-10">
-                            <textarea class="form-control" rows="6" id="statistics" name="statistics"
+                            <div class="col-md-8 col-sm-10">
+                            <textarea class="form-control codeeditor" mode="javascript" rows="15" id="statistics" name="statistics"
                                       data-fv-trigger="blur"
                                       minlength="1"
                             >{{ get_value($site, 'statistics') }}</textarea>
@@ -183,8 +185,10 @@
 
 @section('styles')
     @include('backend::common._editor_styles')
+    @include('backend::common._code_editor_styles')
 @stop
 
 @section('scripts')
     @include('backend::common._editor_scripts',['folder'=>'company'])
+    @include('backend::common._code_editor_scripts',['folder'=>'company'])
 @stop
