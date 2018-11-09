@@ -199,8 +199,8 @@
                 }
                 ,done: function(res){
                     if(res.success == true){
-                        $("#input-avatar").val(res.file_uri);
-                        $("#image-avatar").attr("src",res.file_path);
+                        $("#input-avatar").val(res.path);
+                        $("#image-avatar").attr("src",res.url);
                         $("#form-avatar").submit();
                     } else {
                         layer.msg(res.msg, {icon: 5});
