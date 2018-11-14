@@ -55,7 +55,7 @@ LaraCMS 最初试图用 Laravel 为自己打造一把锋利建站工具，如今
 ## 使用方式
 
 ```shell
-composer update
+composer install
 php artisan migrate
 php artisan db:seed
 php artisan storage:link
