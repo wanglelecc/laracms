@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Str;
+
 return [
 
     /*
@@ -70,7 +72,7 @@ return [
 
         'redis' => [
             'driver' => 'redis',
-            'connection' => 'default',
+            'connection' => 'cache',
         ],
 
     ],
@@ -86,33 +88,6 @@ return [
     |
     */
 
-    'prefix' => env(
-        'CACHE_PREFIX',
-        str_slug(env('APP_NAME', 'laravel'), '_').'_cache'
-    ),
-
-    /*
-    |--------------------------------------------------------------------------
-    |  自定义内容缓存时间，单位：分钟
-    |--------------------------------------------------------------------------
-    |
-    | When utilizing a RAM based store such as APC or Memcached, there might
-    | be other applications utilizing the same cache. So, we'll specify a
-    | value to get prefixed to all our keys so we can avoid collisions.
-    |
-    */
-    'expired' => [
-
-        'block'         => 10,
-        'navigation'    => 10,
-        'template'      => 10,
-        'settings'      => 10,
-
-        'page'          => 10,
-        'article'       => 10,
-        'category'      => 10,
-        'product'       => 10,
-
-    ],
+    'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_cache'),
 
 ];

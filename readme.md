@@ -5,24 +5,37 @@
 ## QQ群：
 **LaraCMS官方①群**: 172960867
 
-## 最近更新内容：
-- 新增文章多图
-- 新增文章多附件
-- 更换后台UI框架为ZUI(原：Layui)
-- 更换文件上传插件为 webuploader
-- 集成文件秒传，分片上传...等功能
-- 新增万能表单
-- 优化了 view 使用方法
-- 集成阿里云OSS（已测试通过）
-- 集成微软云储存(未测试)
-- 新增管理员维护功能
-- 调整了前端 URL 规则
 
-> 此次更新需要全新安装。
+## 说明
+
+## 目前已完成的功能模块：
+- 用户管理
+- 权限管理
+- 角色管理
+- 站点信息
+- 友情链接
+- 栏目导航
+- 分类管理
+- 文章管理
+- 页面管理
+- 幻灯管理
+- 微信公众号管理
+- 第三方登录
+- 前端 API
+- 文章多图，多附件管理
+- 集成文件秒传，分片上传
+- 自定义表单
+- 分词搜索
+- 万能表单
+
+## LaraCMS 特性：
+- 支持文章多图
+- 支持文章多附件
+- 支持文件秒传，分片上传...等功能
 
 预览：https://www.56br.com/
 
-基于 laravel 5.5 开发，包含了 内容管理 和 API服务两部分。
+基于 laravel 5.5 开发，包含了 内容管理 和 API 服务两部分。
 
 LaraCMS 最初试图用 Laravel 为自己打造一把锋利建站工具，如今已渐渐成熟可用了，还是继续开源出来，提供给有需要的朋友使用，也希望自己能够继续完善。
 
@@ -45,46 +58,30 @@ LaraCMS 最初试图用 Laravel 为自己打造一把锋利建站工具，如今
 - http://img.56br.com/images/laracms-main.jpg
 - http://img.56br.com/images/laracms.jpg
 
-> UI 使用的 LayUI, 前端Logo还未来得及更改，请无视。
 
 ## 环境需求
 
 - PHP 7.1+
 - Mysql 5.7+
 
-## 使用方式
+## 安装
 
 ```shell
-composer install
+composer create-project --prefer-dist wanglelecc/laracms cms -vvv
+```
+
+安装好之后，修改 `.env` 配置数据库
+
+## 执行迁移
+```shell
 php artisan migrate
 php artisan db:seed
-php artisan storage:link
 ```
+
 执行完就可以访问了（要先配置好虚拟主机）。
 http://example.com/administrator
 
 > 注：要先配置好数据库，默认用户: admin@56br.com / 123456
-
-## 说明
-
-目前已完成的功能模块：
-- 用户管理
-- 权限管理
-- 角色管理
-- 站点信息
-- 友情链接
-- 栏目导航(有彩蛋)
-- 分类管理(有彩蛋)
-- 文章管理(有彩蛋)
-- 页面管理
-- 幻灯管理
-- 微信公众号管理
-- 第三方登录
-- 前端 API
-- 文章多图，多附件管理
-- 集成文件秒传，分片上传
-- 自定义表单
-- 分词搜索
 
 Github 地址 https://github.com/wanglelecc/laracms
 

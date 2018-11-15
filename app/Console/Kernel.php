@@ -26,12 +26,9 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-
-
-        // 每天午夜清除一次临时垃圾分片数据
-        $schedule->command('laracms:uploader')->daily();
-
-
+		
+		# 每天午夜清除一次临时垃圾分片数据
+		$schedule->command('laracms:uploader')->daily();
     }
 
     /**

@@ -5,17 +5,12 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Seed the application's database.
      *
      * @return void
      */
     public function run()
     {
-         $this->call(UsersTableSeeder::class);
-		$this->call(WechatMenusTableSeeder::class);
-		$this->call(WechatsTableSeeder::class);
-//		$this->call(BlocksTableSeeder::class);
-//		$this->call(LinksTableSeeder::class);
-//		$this->call(ProjectsTableSeeder::class);
+        // $this->call(UsersTableSeeder::class);
     }
 }

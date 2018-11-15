@@ -1,17 +1,4 @@
 <?php
-/**
- * LaraCMS - CMS based on laravel
- *
- * @category  LaraCMS
- * @package   Laravel
- * @author    Wanglelecc <wanglelecc@gmail.com>
- * @date      2018/06/06 09:08:00
- * @copyright Copyright 2018 LaraCMS
- * @license   https://opensource.org/licenses/MIT
- * @github    https://github.com/wanglelecc/laracms
- * @link      https://www.laracms.cn
- * @version   Release 1.0
- */
 
 namespace App\Providers;
 
@@ -36,12 +23,9 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        parent::boot();
+        //
 
-        Route::bind('safePage',function($value){ return \App\Models\Page::show($value); });
-        Route::bind('safeArticle',function($value){ return \App\Models\Article::show( $value); });
-        Route::bind('articleCategory',function($value){ return \App\Models\Category::show($value, 'article'); });
-        Route::bind('safeWechat',function($value){ return \App\Models\Wechat::where('object_id', $value)->first(); });
+        parent::boot();
     }
 
     /**
