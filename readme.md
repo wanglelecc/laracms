@@ -67,7 +67,7 @@ LaraCMS 最初试图用 Laravel 为自己打造一把锋利建站工具，如今
 ## 安装
 
 ```shell
-composer create-project --prefer-dist wanglelecc/laracms cms -vvv
+composer create-project --prefer-dist wanglelecc/laracms:dev-master cms -vvv
 ```
 
 安装好之后，修改 `.env` 配置数据库
