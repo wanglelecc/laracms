@@ -75,7 +75,6 @@ composer create-project --prefer-dist wanglelecc/laracms:dev-master cms -vvv
 ## 执行迁移
 ```shell
 php artisan migrate
-php artisan db:seed
 ```
 
 执行完就可以访问了（要先配置好虚拟主机）。
