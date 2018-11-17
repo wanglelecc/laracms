@@ -25,6 +25,8 @@
 Route::group([ 'middleware' => ['laracms.frontend'], ], function () {
     # 前台所有URL必须加入 navigation 参数,否则面包屑无法正常使用
 
+    # 前端示例路由
+    Route::get('example', 'ExampleController@index')->name('example');
 
     # 前台需要用户认证路由
     Route::group(['middleware' => ['auth']], function(){

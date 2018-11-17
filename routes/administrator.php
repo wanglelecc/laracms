@@ -38,6 +38,9 @@ Route::group(['domain' => config('administrator.domain'), 'prefix' => config('ad
  * -------------------------------------------------------------------------
  */
 Route::group(['domain' => config('administrator.domain'), 'prefix' => config('administrator.uri'), 'namespace' => 'Administrator', 'middleware' => ['laracms.auth'], ], function () {
-	
 
+    # 后端示例路由
+    Route::get('example', 'ExampleController@index')->name('administrator.example');
+
+    #Append Route
 });
