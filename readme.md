@@ -2,8 +2,17 @@
 
 如果你觉得还不错，请 Star , Fork 给作者鼓励一下。
 
+## LaraCMS
+https://www.laracms.cn/
+
 ## QQ群：
 **LaraCMS官方①群**: 172960867
+
+## 开发手册：
+https://www.kancloud.cn/wanglelecc/laracms/
+
+## 在线预览：
+https://www.56br.com/
 
 
 ## 说明
@@ -33,7 +42,7 @@
 - 支持文章多附件
 - 支持文件秒传，分片上传...等功能
 
-预览：https://www.56br.com/
+
 
 基于 laravel 5.5 开发，包含了 内容管理 和 API 服务两部分。
 
@@ -49,7 +58,6 @@ LaraCMS 最初试图用 Laravel 为自己打造一把锋利建站工具，如今
 有一定基础的 Laravel 开发者，非普通站长。
 
 ### 预览
-
 <p><img src="http://img.56br.com/images/laracms-login.png"></p>
 <p><img src="http://img.56br.com/images/laracms-main.png"></p>
 <p><img src="http://img.56br.com/images/laracms.jpg"></p>
@@ -61,14 +69,33 @@ LaraCMS 最初试图用 Laravel 为自己打造一把锋利建站工具，如今
 
 ## 环境需求
 
-- PHP 7.1+
-- Mysql 5.7+
+* Composer
+* PHP >= 7.1.3
+* OpenSSL PHP 扩展
+* PDO PHP 扩展
+* Mbstring PHP 扩展
+* Tokenizer PHP 扩展
+* XML PHP 扩展
+* Ctype PHP 扩展
+* JSON PHP 扩展
+* Mysql 5.7+
+> 中文分词会占用内存，请将 `php.ini` 的 `memory_limit` 参数调整至 256M
 
 ## 安装
 
 ```shell
 composer create-project --prefer-dist wanglelecc/laracms:dev-master cms -vvv
 ```
+
+正常情况下，安装完成后会自动发布资源文件到项目，如果为执行，请手动执行以下命令：手动发布
+```php
+php artisan key:generate
+php artisan vendor:publish --tag=config
+php artisan vendor:publish --tag=public
+php artisan vendor:publish --tag=laracms-view-errors
+php artisan storage:link
+```
+> 可以去看一下 `public` 目录下的 `storage` 软连接是否已存在，以此来判断。
 
 安装好之后，修改 `.env` 配置数据库
 
