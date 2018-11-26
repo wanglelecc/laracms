@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9c82e0522832e88924039718c5fbd230",
+    "content-hash": "69e7af194c5fb66d02dc73d89045bd02",
     "packages": [
         {
             "name": "aliyuncs/oss-sdk-php",
@@ -198,16 +198,16 @@
         },
         {
             "name": "caouecs/laravel-lang",
-            "version": "3.0.58",
+            "version": "3.0.59",
             "source": {
                 "type": "git",
                 "url": "https://github.com/caouecs/Laravel-lang.git",
-                "reference": "c2f449303b8e0b7367249233866309deae40423f"
+                "reference": "c74446c1253e2a48541cb6cc5d9e2ea008f16634"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/caouecs/Laravel-lang/zipball/c2f449303b8e0b7367249233866309deae40423f",
-                "reference": "c2f449303b8e0b7367249233866309deae40423f",
+                "url": "https://api.github.com/repos/caouecs/Laravel-lang/zipball/c74446c1253e2a48541cb6cc5d9e2ea008f16634",
+                "reference": "c74446c1253e2a48541cb6cc5d9e2ea008f16634",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -243,7 +243,7 @@
                 "laravel",
                 "lpm"
             ],
-            "time": "2018-11-07T10:14:20+00:00"
+            "time": "2018-11-22T19:30:58+00:00"
         },
         {
             "name": "dingo/api",
@@ -1866,16 +1866,16 @@
         },
         {
             "name": "jakub-onderka/php-console-highlighter",
-            "version": "v0.3.2",
+            "version": "v0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JakubOnderka/PHP-Console-Highlighter.git",
-                "reference": "7daa75df45242c8d5b75a22c00a201e7954e4fb5"
+                "reference": "9f7a229a69d52506914b4bc61bfdb199d90c5547"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JakubOnderka/PHP-Console-Highlighter/zipball/7daa75df45242c8d5b75a22c00a201e7954e4fb5",
-                "reference": "7daa75df45242c8d5b75a22c00a201e7954e4fb5",
+                "url": "https://api.github.com/repos/JakubOnderka/PHP-Console-Highlighter/zipball/9f7a229a69d52506914b4bc61bfdb199d90c5547",
+                "reference": "9f7a229a69d52506914b4bc61bfdb199d90c5547",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -1885,20 +1885,21 @@
                 ]
             },
             "require": {
-                "jakub-onderka/php-console-color": "~0.1",
-                "php": ">=5.3.0"
+                "ext-tokenizer": "*",
+                "jakub-onderka/php-console-color": "~0.2",
+                "php": ">=5.4.0"
             },
             "require-dev": {
                 "jakub-onderka/php-code-style": "~1.0",
-                "jakub-onderka/php-parallel-lint": "~0.5",
+                "jakub-onderka/php-parallel-lint": "~1.0",
                 "jakub-onderka/php-var-dump-check": "~0.1",
                 "phpunit/phpunit": "~4.0",
                 "squizlabs/php_codesniffer": "~1.5"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "JakubOnderka\\PhpConsoleHighlighter": "src/"
+                "psr-4": {
+                    "JakubOnderka\\PhpConsoleHighlighter\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1912,20 +1913,21 @@
                     "homepage": "http://www.acci.cz/"
                 }
             ],
-            "time": "2015-04-20T18:58:01+00:00"
+            "description": "Highlight PHP code in terminal",
+            "time": "2018-09-29T18:48:56+00:00"
         },
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.2.73",
+            "version": "v1.2.74",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "3783b88b686dfd8f0c752f829caaf1bcace581ef"
+                "reference": "e5fbc685383a4b8f49183b3a646b193491cc14c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/3783b88b686dfd8f0c752f829caaf1bcace581ef",
-                "reference": "3783b88b686dfd8f0c752f829caaf1bcace581ef",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/e5fbc685383a4b8f49183b3a646b193491cc14c5",
+                "reference": "e5fbc685383a4b8f49183b3a646b193491cc14c5",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -1967,7 +1969,7 @@
                 "crawlerdetect",
                 "php crawler detect"
             ],
-            "time": "2018-10-31T13:15:59+00:00"
+            "time": "2018-11-21T20:56:45+00:00"
         },
         {
             "name": "jenssegers/agent",
@@ -2043,16 +2045,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.7.13",
+            "version": "v5.7.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "3ff3110ac14f2b4876acaff289bb55a1af74f02e"
+                "reference": "ad6c1fe1e455c0f73a431928282704879ccbd856"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/3ff3110ac14f2b4876acaff289bb55a1af74f02e",
-                "reference": "3ff3110ac14f2b4876acaff289bb55a1af74f02e",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/ad6c1fe1e455c0f73a431928282704879ccbd856",
+                "reference": "ad6c1fe1e455c0f73a431928282704879ccbd856",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -2189,7 +2191,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2018-11-07T12:41:02+00:00"
+            "time": "2018-11-21T13:46:08+00:00"
         },
         {
             "name": "laravel/scout",
@@ -2466,16 +2468,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.48",
+            "version": "1.0.49",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "a6ded5b2f6055e2db97b4b859fdfca2b952b78aa"
+                "reference": "a63cc83d8a931b271be45148fa39ba7156782ffd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/a6ded5b2f6055e2db97b4b859fdfca2b952b78aa",
-                "reference": "a6ded5b2f6055e2db97b4b859fdfca2b952b78aa",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/a63cc83d8a931b271be45148fa39ba7156782ffd",
+                "reference": "a63cc83d8a931b271be45148fa39ba7156782ffd",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -2552,7 +2554,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2018-10-15T13:53:10+00:00"
+            "time": "2018-11-23T23:41:29+00:00"
         },
         {
             "name": "league/flysystem-azure-blob-storage",
@@ -3255,16 +3257,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.35.1",
+            "version": "1.36.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "5c05a2be472b22f63291d192410df9f0e0de3b19"
+                "reference": "63da8cdf89d7a5efe43aabc794365f6e7b7b8983"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/5c05a2be472b22f63291d192410df9f0e0de3b19",
-                "reference": "5c05a2be472b22f63291d192410df9f0e0de3b19",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/63da8cdf89d7a5efe43aabc794365f6e7b7b8983",
+                "reference": "63da8cdf89d7a5efe43aabc794365f6e7b7b8983",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -3315,7 +3317,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2018-11-14T21:55:58+00:00"
+            "time": "2018-11-22T18:23:02+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -3778,16 +3780,16 @@
         },
         {
             "name": "overtrue/wechat",
-            "version": "4.1.11",
+            "version": "4.1.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overtrue/wechat.git",
-                "reference": "ba4be8578246c9091d7ad883834c5fa84ce335d6"
+                "reference": "9594265a70d9a2f4df6177d0bd5214016cd75b69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overtrue/wechat/zipball/ba4be8578246c9091d7ad883834c5fa84ce335d6",
-                "reference": "ba4be8578246c9091d7ad883834c5fa84ce335d6",
+                "url": "https://api.github.com/repos/overtrue/wechat/zipball/9594265a70d9a2f4df6177d0bd5214016cd75b69",
+                "reference": "9594265a70d9a2f4df6177d0bd5214016cd75b69",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -3806,9 +3808,9 @@
                 "overtrue/socialite": "~2.0",
                 "php": ">=7.0",
                 "pimple/pimple": "^3.0",
-                "symfony/cache": "^3.3|^4.0",
-                "symfony/http-foundation": "^2.7|^3.0|^4.0",
-                "symfony/psr-http-message-bridge": "^0.3|^1.0"
+                "symfony/cache": "^3.3 || ^4.0",
+                "symfony/http-foundation": "^2.7 || ^3.0 || ^4.0",
+                "symfony/psr-http-message-bridge": "^0.3 || ^1.0"
             },
             "require-dev": {
                 "mikey179/vfsstream": "^1.6",
@@ -3843,7 +3845,7 @@
                 "weixin",
                 "weixin-sdk"
             ],
-            "time": "2018-11-17T06:43:48+00:00"
+            "time": "2018-11-25T06:10:51+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -4337,16 +4339,16 @@
         },
         {
             "name": "psr/log",
-            "version": "1.0.2",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d"
+                "reference": "6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
-                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd",
+                "reference": "6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -4386,7 +4388,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10T12:19:37+00:00"
+            "time": "2018-11-20T15:27:04+00:00"
         },
         {
             "name": "psr/simple-cache",
@@ -4843,16 +4845,16 @@
         },
         {
             "name": "spatie/laravel-permission",
-            "version": "2.25.0",
+            "version": "2.27.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-permission.git",
-                "reference": "6b41d1d1726d432342546f9d3c79144b082812dc"
+                "reference": "8443660fc02a13e9c6b73baa369dc1999afe9025"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/6b41d1d1726d432342546f9d3c79144b082812dc",
-                "reference": "6b41d1d1726d432342546f9d3c79144b082812dc",
+                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/8443660fc02a13e9c6b73baa369dc1999afe9025",
+                "reference": "8443660fc02a13e9c6b73baa369dc1999afe9025",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -4870,7 +4872,8 @@
             },
             "require-dev": {
                 "orchestra/testbench": "~3.4.2|~3.5.0|~3.6.0|~3.7.0",
-                "phpunit/phpunit": "^5.7|6.2|^7.0"
+                "phpunit/phpunit": "^5.7|6.2|^7.0",
+                "predis/predis": "^1.1"
             },
             "type": "library",
             "extra": {
@@ -4909,7 +4912,7 @@
                 "security",
                 "spatie"
             ],
-            "time": "2018-11-07T22:48:36+00:00"
+            "time": "2018-11-21T16:41:38+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -6709,48 +6712,6 @@
             "time": "2018-11-15T06:04:50+00:00"
         },
         {
-            "name": "wanglelecc/laracms-generator",
-            "version": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": "../laracms-generator",
-                "reference": "4c1de18c63c59600bf38c7409a761197e9fe91eb",
-                "shasum": null
-            },
-            "require": {
-                "php": ">=7.1.3"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Wanglelecc\\Laracms\\Generator\\GeneratorsServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Wanglelecc\\Laracms\\Generator\\": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Wanglelecc",
-                    "email": "wanglelecc@gmail.com"
-                }
-            ],
-            "description": "Extend LaraCMS generators scaffold.",
-            "keywords": [
-                "generators",
-                "laracms",
-                "laravel",
-                "scaffold"
-            ]
-        },
-        {
             "name": "webmozart/assert",
             "version": "1.3.0",
             "source": {
@@ -7434,16 +7395,16 @@
         },
         {
             "name": "nunomaduro/collision",
-            "version": "v2.1.0",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/collision.git",
-                "reference": "1149ad9f36f61b121ae61f5f6de820fc77b51e6b"
+                "reference": "b5feb0c0d92978ec7169232ce5d70d6da6b29f63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/1149ad9f36f61b121ae61f5f6de820fc77b51e6b",
-                "reference": "1149ad9f36f61b121ae61f5f6de820fc77b51e6b",
+                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/b5feb0c0d92978ec7169232ce5d70d6da6b29f63",
+                "reference": "b5feb0c0d92978ec7169232ce5d70d6da6b29f63",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -7454,12 +7415,13 @@
             },
             "require": {
                 "filp/whoops": "^2.1.4",
-                "jakub-onderka/php-console-highlighter": "0.3.*",
+                "jakub-onderka/php-console-highlighter": "0.3.*|0.4.*",
                 "php": "^7.1",
                 "symfony/console": "~2.8|~3.3|~4.0"
             },
             "require-dev": {
                 "laravel/framework": "5.7.*",
+                "nunomaduro/larastan": "^0.3.0",
                 "phpstan/phpstan": "^0.10",
                 "phpunit/phpunit": "~7.3"
             },
@@ -7499,7 +7461,7 @@
                 "php",
                 "symfony"
             ],
-            "time": "2018-10-03T20:01:54+00:00"
+            "time": "2018-11-21T21:40:54+00:00"
         },
         {
             "name": "overtrue/laravel-query-logger",
@@ -8290,16 +8252,16 @@
         },
         {
             "name": "sebastian/environment",
-            "version": "3.1.0",
+            "version": "4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "cd0871b3975fb7fc44d11314fd1ee20925fce4f5"
+                "reference": "febd209a219cea7b56ad799b30ebbea34b71eb8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/cd0871b3975fb7fc44d11314fd1ee20925fce4f5",
-                "reference": "cd0871b3975fb7fc44d11314fd1ee20925fce4f5",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/febd209a219cea7b56ad799b30ebbea34b71eb8f",
+                "reference": "febd209a219cea7b56ad799b30ebbea34b71eb8f",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -8309,15 +8271,15 @@
                 ]
             },
             "require": {
-                "php": "^7.0"
+                "php": "^7.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.1"
+                "phpunit/phpunit": "^7.4"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.1.x-dev"
+                    "dev-master": "4.0-dev"
                 }
             },
             "autoload": {
@@ -8342,7 +8304,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2017-07-01T08:51:00+00:00"
+            "time": "2018-11-25T09:31:21+00:00"
         },
         {
             "name": "sebastian/exporter",
@@ -8779,6 +8741,61 @@
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
             "time": "2017-04-07T12:08:54+00:00"
+        },
+        {
+            "name": "wanglelecc/laracms-generator",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wanglelecc/laracms-generator.git",
+                "reference": "3c41f29c494ce86a6f7106caf7552b53f61699c3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wanglelecc/laracms-generator/zipball/3c41f29c494ce86a6f7106caf7552b53f61699c3",
+                "reference": "3c41f29c494ce86a6f7106caf7552b53f61699c3",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=7.1.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Wanglelecc\\Laracms\\Generator\\GeneratorsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Wanglelecc\\Laracms\\Generator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Wanglelecc",
+                    "email": "wanglelecc@gmail.com"
+                }
+            ],
+            "description": "Extend LaraCMS generators scaffold.",
+            "keywords": [
+                "generators",
+                "laracms",
+                "laravel",
+                "scaffold"
+            ],
+            "time": "2018-11-17T16:26:38+00:00"
         }
     ],
     "aliases": [],

@@ -9,8 +9,7 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
-        "wanglelecc/laracms-framework": "dev-master",
-        "wanglelecc/laracms-generator": "dev-master"
+        "wanglelecc/laracms-framework": "dev-master"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -21,7 +20,8 @@
         "phpunit/phpunit": "^7.0",
 		"barryvdh/laravel-debugbar": "^3.1",
 		"orangehill/iseed": "^2.5",
-        "overtrue/laravel-query-logger": "^1.0"
+        "overtrue/laravel-query-logger": "^1.0",
+        "wanglelecc/laracms-generator": "dev-master"
     },
     "autoload": {
         "classmap": [
