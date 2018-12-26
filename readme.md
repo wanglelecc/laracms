@@ -82,34 +82,8 @@ LaraCMS 最初试图用 Laravel 为自己打造一把锋利建站工具，如今
 > 中文分词会占用内存，请将 `php.ini` 的 `memory_limit` 参数调整至 256M
 
 ## 安装
-
-```shell
-composer create-project --prefer-dist wanglelecc/laracms:dev-master cms -vvv
-```
-
-正常情况下，安装完成后会自动发布资源文件到项目，如果为执行，请手动执行以下命令：手动发布
-```php
-php artisan key:generate
-php artisan vendor:publish --tag=config
-php artisan vendor:publish --tag=public
-php artisan vendor:publish --tag=laracms-view-errors
-php artisan storage:link
-```
-> 可以去看一下 `public` 目录下的 `storage` 软连接是否已存在，以此来判断。
-
-安装好之后，修改 `.env` 配置数据库
-
-## 执行迁移
-```shell
-php artisan migrate
-```
-
-执行完就可以访问了（要先配置好虚拟主机）。
-http://example.com/administrator
-
-> 注：要先配置好数据库，默认用户: admin@56br.com / 123456
-
-Github 地址 https://github.com/wanglelecc/laracms
+安装方法请移步
+https://www.kancloud.cn/wanglelecc/laracms/840009
 
 ## 捐赠
 如果你觉得本项目给你带来了帮助，可以请作者喝一杯 [ 咖啡 ]
