@@ -57,15 +57,6 @@ LaraCMS 最初试图用 Laravel 为自己打造一把锋利建站工具，如今
 ### 使用对象
 有一定基础的 Laravel 开发者，非普通站长。
 
-### 预览
-<p><img src="http://img.56br.com/images/laracms-login.png"></p>
-<p><img src="http://img.56br.com/images/laracms-main.png"></p>
-<p><img src="http://img.56br.com/images/laracms.jpg"></p>
-
-- http://img.56br.com/images/laracms-login.jpg
-- http://img.56br.com/images/laracms-main.jpg
-- http://img.56br.com/images/laracms.jpg
-
 
 ## 环境需求
 
