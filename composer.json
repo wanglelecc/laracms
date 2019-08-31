@@ -9,7 +9,9 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
-        "wanglelecc/laracms-framework": "^1.0"
+        "wanglelecc/laracms-framework": "*",
+        "wanglelecc/laracms-shop": "*",
+        "wanglelecc/laravel-redis": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -21,7 +23,7 @@
 		"barryvdh/laravel-debugbar": "^3.1",
 		"orangehill/iseed": "^2.5",
         "overtrue/laravel-query-logger": "^1.0",
-        "wanglelecc/laracms-generator": "^1.0"
+        "wanglelecc/laracms-generator": "*"
     },
     "autoload": {
         "classmap": [
@@ -70,6 +72,21 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "repositories": {
-        
+        "laracms-framework": {
+            "type": "path",
+            "url": "../laracms-framework"
+        },
+        "laracms-generator": {
+            "type": "path",
+            "url": "../laracms-generator"
+        },
+        "laracms-shop": {
+            "type": "path",
+            "url": "../laracms-shop"
+        },
+        "laravel-redis": {
+            "type": "path",
+            "url": "../laravel-redis"
+        }
     }
 }
