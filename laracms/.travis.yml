@@ -1,0 +1,16 @@
+language: php  # 我们代码所需要运行的环境平台
+
+php:  # 需要测试的版本
+- 5.6
+- 7.0
+- 7.1
+- 7.2
+
+dist: trusty   # 系统版本
+sudo: false  # 使用使用 sudo 模式
+
+# 执行前需要运行的命令
+install: travis_retry composer install --no-interaction --prefer-source
+
+# 主要构建命令
+script: vendor/bin/phpunit --verbose

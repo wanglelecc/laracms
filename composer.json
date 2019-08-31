@@ -9,9 +9,7 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
-        "wanglelecc/laracms-framework": "*",
-        "wanglelecc/laracms-shop": "*",
-        "wanglelecc/laravel-redis": "*"
+        "wanglelecc/laracms-framework": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -74,19 +72,7 @@
     "repositories": {
         "laracms-framework": {
             "type": "path",
-            "url": "../laracms-framework"
-        },
-        "laracms-generator": {
-            "type": "path",
-            "url": "../laracms-generator"
-        },
-        "laracms-shop": {
-            "type": "path",
-            "url": "../laracms-shop"
-        },
-        "laravel-redis": {
-            "type": "path",
-            "url": "../laravel-redis"
+            "url": "./laracms"
         }
     }
 }
