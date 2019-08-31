@@ -17,7 +17,7 @@
         "ext-simplexml": "*",
         "laravel/framework": "^5.6",
         "apollopy/flysystem-aliyun-oss": "^1.2",
-        "dingo/api": "2.0.0-alpha1",
+        "dingo/api": "^2.0",
         "doctrine/dbal": "^2.5",
         "fideloper/proxy": "~4.0",
         "fukuball/jieba-php": "^0.33",

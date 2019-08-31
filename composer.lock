@@ -247,16 +247,16 @@
         },
         {
             "name": "dingo/api",
-            "version": "v2.0.0-alpha1",
+            "version": "v2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dingo/api.git",
-                "reference": "8beb74dd307770c909f0474e26a1004099ac78bd"
+                "reference": "e67c722b1a6a6ace0ab27332c3d446e98acacd05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dingo/api/zipball/8beb74dd307770c909f0474e26a1004099ac78bd",
-                "reference": "8beb74dd307770c909f0474e26a1004099ac78bd",
+                "url": "https://api.github.com/repos/dingo/api/zipball/e67c722b1a6a6ace0ab27332c3d446e98acacd05",
+                "reference": "e67c722b1a6a6ace0ab27332c3d446e98acacd05",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -267,24 +267,25 @@
             },
             "require": {
                 "dingo/blueprint": "^0.2",
-                "illuminate/routing": "^5.1",
-                "illuminate/support": "^5.1",
+                "illuminate/routing": "^5.5",
+                "illuminate/support": "^5.5",
                 "league/fractal": "^0.17",
-                "php": "^7.0"
+                "php": "^7.1"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "~2",
-                "illuminate/auth": "^5.1",
-                "illuminate/cache": "^5.1",
-                "illuminate/console": "^5.1",
-                "illuminate/database": "^5.1",
-                "illuminate/events": "^5.1",
-                "illuminate/filesystem": "^5.1",
-                "illuminate/log": "^5.1",
-                "illuminate/pagination": "^5.1",
-                "laravel/lumen-framework": "^5.1",
-                "mockery/mockery": "~0.9",
-                "phpunit/phpunit": "^4.8 || ^5.0",
+                "illuminate/auth": "^5.5",
+                "illuminate/cache": "^5.5",
+                "illuminate/console": "^5.5",
+                "illuminate/database": "^5.5",
+                "illuminate/events": "^5.5",
+                "illuminate/filesystem": "^5.5",
+                "illuminate/log": "^5.5",
+                "illuminate/pagination": "^5.5",
+                "laravel/lumen-framework": "^5.5",
+                "mockery/mockery": "~1.0",
+                "phpdocumentor/reflection-docblock": "3.3.2",
+                "phpunit/phpunit": "^4.8.35 || ^5.4.3 || ^6.5",
                 "squizlabs/php_codesniffer": "~2.0",
                 "tymon/jwt-auth": "1.0.*"
             },
@@ -330,7 +331,7 @@
                 "laravel",
                 "restful"
             ],
-            "time": "2017-09-20T15:57:14+00:00"
+            "time": "2019-06-20T13:49:15+00:00"
         },
         {
             "name": "dingo/blueprint",
@@ -831,16 +832,16 @@
         },
         {
             "name": "doctrine/lexer",
-            "version": "1.0.2",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/lexer.git",
-                "reference": "1febd6c3ef84253d7c815bed85fc622ad207a9f8"
+                "reference": "e17f069ede36f7534b95adec71910ed1b49c74ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/lexer/zipball/1febd6c3ef84253d7c815bed85fc622ad207a9f8",
-                "reference": "1febd6c3ef84253d7c815bed85fc622ad207a9f8",
+                "url": "https://api.github.com/repos/doctrine/lexer/zipball/e17f069ede36f7534b95adec71910ed1b49c74ea",
+                "reference": "e17f069ede36f7534b95adec71910ed1b49c74ea",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -850,15 +851,17 @@
                 ]
             },
             "require": {
-                "php": ">=5.3.2"
+                "php": "^7.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.5"
+                "doctrine/coding-standard": "^6.0",
+                "phpstan/phpstan": "^0.11.8",
+                "phpunit/phpunit": "^8.2"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -872,12 +875,12 @@
             ],
             "authors": [
                 {
-                    "name": "Roman Borschel",
-                    "email": "roman@code-factory.org"
-                },
-                {
                     "name": "Guilherme Blanco",
                     "email": "guilhermeblanco@gmail.com"
+                },
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
                 },
                 {
                     "name": "Johannes Schmitt",
@@ -893,7 +896,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2019-06-08T11:03:04+00:00"
+            "time": "2019-07-30T19:33:28+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -7377,12 +7380,12 @@
             "dist": {
                 "type": "path",
                 "url": "./laracms",
-                "reference": "5279180c1c212866fd3ef53fef25dfd666d989e7"
+                "reference": "a3e58d115a040002290bc404310cb265900e4281"
             },
             "require": {
                 "anchnet/aliyun-openapi-php-sdk": "dev-master",
                 "apollopy/flysystem-aliyun-oss": "^1.2",
-                "dingo/api": "2.0.0-alpha1",
+                "dingo/api": "^2.0",
                 "doctrine/dbal": "^2.5",
                 "ext-fileinfo": "*",
                 "ext-openssl": "*",
