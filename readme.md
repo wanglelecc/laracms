@@ -2,6 +2,9 @@
 
 如果你觉得还不错，请 Star , Fork 给作者鼓励一下。
 
+## Github
+https://github.com/wanglelecc/laracms
+
 ## LaraCMS
 https://www.laracms.cn/
 
