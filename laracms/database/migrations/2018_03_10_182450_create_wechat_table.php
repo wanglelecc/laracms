@@ -121,9 +121,9 @@ class CreateWechatTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('watch');
-        Schema::dropIfExists('wechat_menu');
-        Schema::dropIfExists('wechat_message');
         Schema::dropIfExists('wechat_response');
+        Schema::dropIfExists('wechat_message');
+        Schema::dropIfExists('wechat_menu');
+        Schema::dropIfExists('wechat');
     }
 }

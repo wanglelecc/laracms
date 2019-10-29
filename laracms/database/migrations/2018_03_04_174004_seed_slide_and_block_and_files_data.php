@@ -57,8 +57,8 @@ class SeedSlideAndBlockAndFilesData extends Migration
      */
     public function down()
     {
-        File::delete();
-        Slide::delete();
-        Block::delete();
+        File::query()->delete();
+        Slide::query()->delete();
+        Block::query()->delete();
     }
 }
