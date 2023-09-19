@@ -1,21 +1,15 @@
 ## LaraCMS 后台管理系统 
 
-如果你觉得还不错，请 Star , Fork 给作者鼓励一下。
+### 本项目已停止维护！！！
 
 ## Github
 https://github.com/wanglelecc/laracms
-
-## LaraCMS
-https://www.laracms.cn/
 
 ## QQ群：
 **LaraCMS官方①群**: 172960867
 
 ## 开发手册：
 https://www.kancloud.cn/wanglelecc/laracms/
-
-## 在线预览：
-https://www.56br.com/
 
 
 ## 说明
@@ -78,10 +72,3 @@ LaraCMS 最初试图用 Laravel 为自己打造一把锋利建站工具，如今
 ## 安装
 安装方法请移步
 https://www.kancloud.cn/wanglelecc/laracms/840009
-
-## 捐赠
-如果你觉得本项目给你带来了帮助，可以请作者喝一杯 [ 咖啡 ]
-
-<p><img src="./public/images/pay.jpg"></p>
-
-> 捐赠不代表提供有偿服务，望须知。
